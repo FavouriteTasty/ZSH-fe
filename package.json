@@ -10,9 +10,12 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@heroui/system": "^2.4.17",
+    "@heroui/theme": "^2.4.17",
     "@tailwindcss/postcss": "^4.0.7",
     "@tailwindcss/vite": "^4.0.16",
     "axios": "^1.7.9",
+    "framer-motion": "^12.18.1",
     "immer": "^10.1.1",
     "postcss": "^8.5.2",
     "postcss-loader": "^8.1.1",
