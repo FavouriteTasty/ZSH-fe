@@ -1,11 +1,11 @@
-import { heroui } from "@heroui/theme";
+import { heroui } from "@heroui/reacts";
 
 export default {
     purge: ["./index.html", "./src/**/*.{vue,js,ts,jsx,tsx}"],
     content: [
         "./index.html",
         "./src/**/*.{js,ts,jsx,tsx}",
-        // "./node_modules/@heroui/theme/dist/components/button.js",
+        "./node_modules/@heroui/theme/dist/**/*.{js,ts,jsx,tsx}",
     ],
     theme: {
         extend: {},
