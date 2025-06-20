@@ -1,0 +1,8 @@
+{
+    "login": {
+        "title": "Log in",
+        "username": "Username",
+        "password": "Password",
+        "submit": "Submit"
+    }
+}
