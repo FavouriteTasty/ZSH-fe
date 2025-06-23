@@ -22,7 +22,7 @@ export const Header: FC = () => {
         <Navbar>
             <NavbarBrand className="gap-2">
                 <Image src="/logo.png" width={28} />
-                <div className="font-semibold text-inherit">FDZS</div>
+                <div className="font-semibold text-inherit">{t("title")}</div>
             </NavbarBrand>
             <NavbarContent justify="end">
                 <NavbarItem>

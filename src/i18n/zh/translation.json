@@ -1,8 +1,11 @@
 {
+    "title": "胃转流支架随访数据库",
     "login": {
         "title": "登陆",
         "username": "用户名",
+        "usernameError": "请输入有效的用户名",
         "password": "密码",
+        "passwordError": "请输入有效的密码",
         "submit": "登陆"
     },
     "logout": "登出",
