@@ -30,7 +30,7 @@ export const Login: FC = () => {
 
     return (
         <motion.div
-            className="flex-1 flex items-center justify-center"
+            className="h-[calc(100vh-64px)] flex items-center justify-center"
             key="login"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}

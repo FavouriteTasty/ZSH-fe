@@ -5,7 +5,7 @@ import { Header } from "@/components/header";
 
 export const Layout: FC = () => {
     return (
-        <div className="h-screen w-screen flex flex-col">
+        <div className="h-screen w-screen">
             <Header />
             <Outlet />
         </div>
