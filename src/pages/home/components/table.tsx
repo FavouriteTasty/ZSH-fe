@@ -684,7 +684,7 @@ export const HomeTable: FC = () => {
             bottomContent={bottomContent}
             bottomContentPlacement="outside"
             classNames={{
-                wrapper: "max-h-[382px]",
+                wrapper: "max-h-[100%]",
             }}
             selectedKeys={selectedKeys}
             selectionMode="multiple"

@@ -6,7 +6,7 @@ import { HomeTable } from "./components/table";
 export const Home: FC = () => {
     return (
         <motion.div
-            className="w-screen h-screen"
+            className="flex-1 p-4 overflow-auto"
             key="home"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
