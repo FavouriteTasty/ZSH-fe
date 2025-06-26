@@ -56,6 +56,7 @@ export const Login: FC = () => {
                     onChange={(e) => {
                         setPassword(e.target.value);
                     }}
+                    type="password"
                 />
                 <Button
                     className="w-full bg-black text-white font-medium mb-[200px]"

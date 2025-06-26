@@ -12,11 +12,17 @@ import {
 } from "@heroui/react";
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router";
 
 import { InternationalIcon } from "@/assets";
 
 export const Header: FC = () => {
     const { t, i18n } = useTranslation();
+    const navigate = useNavigate();
+
+    const handleLogout = () => {
+        navigate("/login");
+    };
 
     return (
         <Navbar classNames={{ wrapper: "max-w-none" }}>
@@ -55,7 +61,11 @@ export const Header: FC = () => {
                     </Dropdown>
                 </NavbarItem>
                 <NavbarItem>
-                    <Button color="primary" variant="flat">
+                    <Button
+                        color="primary"
+                        variant="flat"
+                        onPress={handleLogout}
+                    >
                         {t("logout")}
                     </Button>
                 </NavbarItem>

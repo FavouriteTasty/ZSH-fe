@@ -17,7 +17,6 @@ import {
 } from "@heroui/react";
 import { ChangeEvent, useCallback, useMemo, useState, type FC } from "react";
 import { useTranslation } from "react-i18next";
-import { useNavigate } from "react-router";
 
 import { useTableRenderer } from "./hooks/useTableRender";
 
@@ -40,7 +39,6 @@ const INITIAL_VISIBLE_COLUMNS = [
 ];
 
 export const HomeTable: FC = () => {
-    const navigate = useNavigate();
     const [filterValue, setFilterValue] = useState("");
     const [visibleColumns, setVisibleColumns] = useState<Selection>(
         new Set(INITIAL_VISIBLE_COLUMNS),
@@ -212,7 +210,7 @@ export const HomeTable: FC = () => {
                             color="primary"
                             endContent={<PlusIcon />}
                             onPress={() => {
-                                navigate("/add");
+                                window.open("/add", "_blank");
                             }}
                         >
                             {t("addNew")}
