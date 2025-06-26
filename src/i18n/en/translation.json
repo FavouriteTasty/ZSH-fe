@@ -13,6 +13,12 @@
     "male": "male",
     "female": "female",
     "columns": "Columns",
+    "addNew": "Add New",
+    "rowsPerPage": "Rows per page:",
+    "totalPatients": "Total {{count}} patients",
+    "tableSearchPlaceholder": "Search by name...",
+    "previous": "Previous",
+    "next": "Next",
     "tableColumn": {
         "ID": "ID",
         "NAME": "NAME",

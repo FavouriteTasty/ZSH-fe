@@ -33,7 +33,7 @@ export const useTableRenderer = (t: TFunction, language: string) => {
                         </User>
                     );
                 case "birth":
-                    return date2string(cellValue as Date);
+                    return date2string(user.birth);
                 case "sex":
                     return (
                         <Chip
@@ -42,7 +42,7 @@ export const useTableRenderer = (t: TFunction, language: string) => {
                             size="sm"
                             variant="flat"
                         >
-                            {t("male")}
+                            {t(user.sex)}
                         </Chip>
                     );
                 case "pastHistory":

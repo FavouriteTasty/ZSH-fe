@@ -19,11 +19,12 @@ export const Header: FC = () => {
     const { t, i18n } = useTranslation();
 
     return (
-        <Navbar>
+        <Navbar classNames={{ wrapper: "max-w-none" }}>
             <NavbarBrand className="gap-2">
                 <Image src="/logo.png" width={28} />
                 <div className="font-semibold text-inherit">{t("title")}</div>
             </NavbarBrand>
+            <NavbarContent justify="center"></NavbarContent>
             <NavbarContent justify="end">
                 <NavbarItem>
                     <Dropdown>

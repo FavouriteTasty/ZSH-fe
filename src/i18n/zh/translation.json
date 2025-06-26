@@ -13,6 +13,12 @@
     "male": "男性",
     "female": "女性",
     "columns": "显示列",
+    "addNew": "新增",
+    "rowsPerPage": "每页行数:",
+    "totalPatients": "共 {{count}} 位患者",
+    "tableSearchPlaceholder": "按名称搜索...",
+    "previous": "上一页",
+    "next": "下一页",
     "tableColumn": {
         "ID": "ID",
         "NAME": "姓名",

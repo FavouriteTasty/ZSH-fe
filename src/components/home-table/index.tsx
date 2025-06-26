@@ -27,9 +27,16 @@ import { capitalize } from "@/utils/string";
 
 const columns = userColumns;
 
-const users = createMockUsers(30);
+const patients = createMockUsers(30);
 
-const INITIAL_VISIBLE_COLUMNS = ["name", "role", "status", "actions"];
+const INITIAL_VISIBLE_COLUMNS = [
+    "name",
+    "age",
+    "sex",
+    "birth",
+    "job",
+    "actions",
+];
 
 export const HomeTable: FC = () => {
     const [filterValue, setFilterValue] = useState("");
@@ -57,7 +64,7 @@ export const HomeTable: FC = () => {
     }, [visibleColumns]);
 
     const filteredItems = useMemo(() => {
-        let filteredUsers = [...users];
+        let filteredUsers = [...patients];
 
         if (hasSearchFilter) {
             filteredUsers = filteredUsers.filter((user) =>
@@ -66,7 +73,7 @@ export const HomeTable: FC = () => {
         }
 
         return filteredUsers;
-    }, [users, filterValue]);
+    }, [patients, filterValue]);
 
     const pages = Math.ceil(filteredItems.length / rowsPerPage) || 1;
 
@@ -128,7 +135,7 @@ export const HomeTable: FC = () => {
                     <Input
                         isClearable
                         className="w-full sm:max-w-[44%]"
-                        placeholder="Search by name..."
+                        placeholder={t("tableSearchPlaceholder")}
                         startContent={<SearchIcon />}
                         value={filterValue}
                         onClear={() => onClear()}
@@ -196,13 +203,13 @@ export const HomeTable: FC = () => {
                             </DropdownMenu>
                         </Dropdown>
                         <Button color="primary" endContent={<PlusIcon />}>
-                            Add New
+                            {t("addNew")}
                         </Button>
                     </div>
                 </div>
                 <div className="flex justify-between items-center">
                     <span className="text-default-400 text-small">
-                        Total {users.length} users
+                        {t("totalPatients", { count: patients.length })}
                     </span>
                     <label className="flex items-center text-default-400 text-small">
                         Rows per page:
@@ -223,7 +230,7 @@ export const HomeTable: FC = () => {
         visibleColumns,
         onSearchChange,
         onRowsPerPageChange,
-        users.length,
+        patients.length,
         hasSearchFilter,
         i18n.language,
     ]);
@@ -231,6 +238,7 @@ export const HomeTable: FC = () => {
     const bottomContent = useMemo(() => {
         return (
             <div className="py-2 px-2 flex justify-between items-center">
+                <div className="w-[25%]" />
                 <Pagination
                     isCompact
                     showControls
@@ -247,7 +255,7 @@ export const HomeTable: FC = () => {
                         variant="flat"
                         onPress={onPreviousPage}
                     >
-                        Previous
+                        {t("previous")}
                     </Button>
                     <Button
                         isDisabled={pages === 1}
@@ -255,7 +263,7 @@ export const HomeTable: FC = () => {
                         variant="flat"
                         onPress={onNextPage}
                     >
-                        Next
+                        {t("next")}
                     </Button>
                 </div>
             </div>
