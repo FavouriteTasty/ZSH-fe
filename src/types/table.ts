@@ -86,5 +86,3 @@ export const userColumns = generateColumns<TableKeys>(
     ["id", "name", "age", "birth"],
     ["avatar"],
 );
-
-export const profileColumns = generateColumns<UserProfile>(UserProfileKeys);
