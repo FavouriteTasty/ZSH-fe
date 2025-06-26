@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { FC } from "react";
 
-import { HomeTable } from "./components/table";
+import { HomeTable } from "@/components/home-table";
 
 export const Home: FC = () => {
     return (

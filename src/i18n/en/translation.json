@@ -9,6 +9,39 @@
         "submit": "Submit"
     },
     "logout": "Log Out",
-    "language": "Language"
+    "language": "Language",
+    "male": "male",
+    "female": "female",
+    "columns": "Columns",
+    "tableColumn": {
+        "ID": "ID",
+        "NAME": "NAME",
+        "SEX": "SEX",
+        "ETHNICITY": "ETHNICITY",
+        "AGE": "AGE",
+        "BIRTH": "BIRTH",
+        "COUNTRY": "COUNTRY",
+        "JOB": "JOB",
+        "MARITALSTATUS": "MARITAL STATUS",
+        "NATIVEPLACE": "NATIVE PLACE",
+        "ADDRESS": "ADDRESS",
+        "PHONE": "PHONE",
+        "CONTACT": "CONTACT",
+        "RELATION": "RELATION",
+        "CONTACTPHONE": "CONTACT PHONE",
+        "AVATAR": "AVATAR",
+        "PASTHISTORY": "PAST HISTORY",
+        "SURGERYHISTORY": "SURGERY HISTORY",
+        "ALLERGICHISTORY": "ALLERGIC HISTORY",
+        "VACCINATIONHISTORY": "VACCINATION HISTORY",
+        "IMPORTANTDRUGHISTORY": "DRUG HISTORY",
+        "BLOODTRANSFUSIONHISTORY": "BLOOD TRANSFUSION HISTORY",
+        "SMOKINGHISTORY": "SMOKING HISTORY",
+        "DRINKINGHISTORY": "DRINKING HISTORY",
+        "MENSTRUALHISTORY": "MENSTRUAL HISTORY",
+        "MARITALHISTORY": "MARITAL HISTORY",
+        "FAMILYHISTORY": "FAMILY HISTORY",
 
+        "ACTIONS": "ACTIONS"
+    }
 }
