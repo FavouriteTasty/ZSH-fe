@@ -54,6 +54,7 @@ export const useTableRenderer = (t: TFunction, language: string) => {
                 case "smokingHistory":
                 case "drinkingHistory":
                 case "menstrualHistory":
+                case "maritalHistory":
                 case "familyHistory":
                     return (cellValue as unknown as Array<History>).length;
                 case "actions":

@@ -19,6 +19,7 @@
     "tableSearchPlaceholder": "Search by name...",
     "previous": "Previous",
     "next": "Next",
+    "noPatientsFound": "No patients found",
     "tableColumn": {
         "ID": "ID",
         "NAME": "NAME",

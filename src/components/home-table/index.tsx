@@ -43,7 +43,7 @@ export const HomeTable: FC = () => {
     const [visibleColumns, setVisibleColumns] = useState<Selection>(
         new Set(INITIAL_VISIBLE_COLUMNS),
     );
-    const [rowsPerPage, setRowsPerPage] = useState(5);
+    const [rowsPerPage, setRowsPerPage] = useState(7);
     const [sortDescriptor, setSortDescriptor] = useState<SortDescriptor>({
         column: "age",
         direction: "ascending",
@@ -189,11 +189,15 @@ export const HomeTable: FC = () => {
                                 selectedKeys={visibleColumns}
                                 selectionMode="multiple"
                                 onSelectionChange={setVisibleColumns}
+                                // className="flex-wrap"
+                                classNames={{
+                                    list: "flex flex-row flex-wrap gap-2 max-w-[60vw] overflow-scroll max-h-[57vh]",
+                                }}
                             >
                                 {columns.map((column) => (
                                     <DropdownItem
                                         key={`${column.uid}`}
-                                        className="capitalize"
+                                        className="capitalize flex-[1_0_calc(25%-8px)] min-w-[calc(25%-16px)] max-w-[calc(25%-16px)]"
                                     >
                                         {capitalize(
                                             t(`tableColumn.${column.name}`),
@@ -217,7 +221,7 @@ export const HomeTable: FC = () => {
                             className="bg-transparent outline-none text-default-400 text-small"
                             onChange={onRowsPerPageChange}
                         >
-                            <option value="5">5</option>
+                            <option value="7">7</option>
                             <option value="10">10</option>
                             <option value="15">15</option>
                         </select>
@@ -296,7 +300,7 @@ export const HomeTable: FC = () => {
                     </TableColumn>
                 )}
             </TableHeader>
-            <TableBody emptyContent={"No users found"} items={sortedItems}>
+            <TableBody emptyContent={t("noPatientsFound")} items={sortedItems}>
                 {(item) => (
                     <TableRow key={item.id}>
                         {(columnKey) => (
