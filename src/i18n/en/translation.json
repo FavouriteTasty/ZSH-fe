@@ -20,6 +20,12 @@
     "previous": "Previous",
     "next": "Next",
     "noPatientsFound": "No patients found",
+    "profile": "Profile",
+    "history": "History",
+    "pleaseEnterValid": "Please enter a valid ",
+    "pleaseEnter": "Please enter ",
+    "pleaseSelect": "Please select ",
+    "submit": "Submit",
     "tableColumn": {
         "ID": "ID",
         "NAME": "NAME",

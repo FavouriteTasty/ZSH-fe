@@ -1,5 +1,6 @@
 import { Navigate, Route, Routes } from "react-router";
 
+import { AddPage } from "./pages/add";
 import { Home } from "./pages/home";
 import { Layout } from "./pages/layout";
 import { Login } from "./pages/login";
@@ -14,6 +15,7 @@ function App() {
                 <Route index element={<Navigate to="/login" replace />} />
                 <Route path="login" element={<Login />} />
                 <Route path="home" element={<Home />} />
+                <Route path="add" element={<AddPage />} />
             </Route>
         </Routes>
     );
