@@ -20,6 +20,9 @@ export default defineConfig({
                         if (id.includes("zustand")) {
                             return "zustand";
                         }
+                        if (id.includes("heroui")) {
+                            return "heroui";
+                        }
                         if (id.includes("react")) {
                             return "react";
                         }

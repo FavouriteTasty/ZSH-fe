@@ -5,12 +5,15 @@ import { useTranslation } from "react-i18next";
 import { twMerge } from "tailwind-merge";
 
 import { CompleteIcon } from "@/assets";
+import { AddHistory } from "@/components/add-history";
 import { AddProfile } from "@/components/add-profile";
+
+export type Tab = "profile" | "history" | "hospitalization";
 
 export const AddPage: FC = () => {
     const { t } = useTranslation();
-    const [finishedTab, setFinishedTab] = useState<string[]>([]);
-    const [selected, setSelected] = useState("profile");
+    const [finishedTab, setFinishedTab] = useState<Tab[]>([]);
+    const [selected, setSelected] = useState<Tab>("history");
 
     return (
         <motion.div
@@ -25,7 +28,7 @@ export const AddPage: FC = () => {
                 placement="start"
                 selectedKey={selected}
                 onSelectionChange={(key) => {
-                    setSelected(key.toString());
+                    setSelected(key.toString() as Tab);
                 }}
                 classNames={{ panel: "flex-1 " }}
             >
@@ -81,8 +84,39 @@ export const AddPage: FC = () => {
                 >
                     <Card>
                         <CardBody>
-                            <div>history</div>
+                            <AddHistory
+                                setFinishedTab={() => {
+                                    if (!finishedTab.includes("history")) {
+                                        setFinishedTab((prev) => [
+                                            ...prev,
+                                            "history",
+                                        ]);
+                                    }
+                                    setSelected("hospitalization");
+                                }}
+                            />
                         </CardBody>
+                    </Card>
+                </Tab>
+                <Tab
+                    key="hospitalization"
+                    title={
+                        <div
+                            className={twMerge(
+                                "flex items-center gap-1",
+                                finishedTab.includes("hospitalization") &&
+                                    "text-green-600",
+                            )}
+                        >
+                            {t("hospitalization")}
+                            {finishedTab.includes("hospitalization") && (
+                                <CompleteIcon />
+                            )}
+                        </div>
+                    }
+                >
+                    <Card>
+                        <CardBody>Hospitalization</CardBody>
                     </Card>
                 </Tab>
             </Tabs>

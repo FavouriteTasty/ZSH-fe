@@ -22,10 +22,13 @@
     "noPatientsFound": "No patients found",
     "profile": "Profile",
     "history": "History",
+    "hospitalization": "Hospitalization",
     "pleaseEnterValid": "Please enter a valid ",
     "pleaseEnter": "Please enter ",
     "pleaseSelect": "Please select ",
     "submit": "Submit",
+    "date": "Date",
+    "description": "Description",
     "tableColumn": {
         "ID": "ID",
         "NAME": "NAME",

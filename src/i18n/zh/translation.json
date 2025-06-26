@@ -22,10 +22,13 @@
     "noPatientsFound": "未找到患者",
     "profile": "个人资料",
     "history": "既往史",
+    "hospitalization": "入院情况",
     "pleaseEnterValid": "请输入有效的",
     "pleaseEnter": "请输入",
     "pleaseSelect": "请选择",
     "submit": "提交",
+    "date": "日期",
+    "description": "描述",
     "tableColumn": {
         "ID": "ID",
         "NAME": "姓名",
