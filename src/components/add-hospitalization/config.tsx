@@ -25,7 +25,6 @@ export const AddHospitalizationConfig: (
     { type: "number", objectKey: "chestCircumference", endContent: "cm" },
     { type: "number", objectKey: "abdominalCircumference", endContent: "cm" },
     { type: "number", objectKey: "hips", endContent: "cm" },
-    { type: "number", objectKey: "waist", endContent: "cm" },
     { type: "number", objectKey: "bigArm", endContent: "cm" },
     { type: "number", objectKey: "forearm", endContent: "cm" },
     { translateKey: "tableColumn.bloodRoutine" },

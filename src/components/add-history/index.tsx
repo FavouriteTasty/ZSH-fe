@@ -1,4 +1,5 @@
 import { Button, Card, CardBody, Tab, Tabs } from "@heroui/react";
+import { motion } from "framer-motion";
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
 
@@ -27,7 +28,13 @@ export const AddHistory: FC<AddHistoryProps> = (props) => {
     };
 
     return (
-        <div className="flex flex-col gap-2 p-2">
+        <motion.div
+            className="flex flex-col gap-2 p-2"
+            key="add-history"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+        >
             <Tabs
                 aria-label="Options"
                 placement="start"
@@ -56,6 +63,6 @@ export const AddHistory: FC<AddHistoryProps> = (props) => {
                     {t("submit")}
                 </Button>
             </div>
-        </div>
+        </motion.div>
     );
 };

@@ -86,7 +86,7 @@ export const FormItem: FC<FormItemProps> = (props) => {
             {pairs.map((pair) => {
                 return (
                     <SelectItem key={pair.key}>
-                        {capitalize(pair.value)}
+                        {capitalize(t(pair.value))}
                     </SelectItem>
                 );
             })}

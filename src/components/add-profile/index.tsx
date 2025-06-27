@@ -5,6 +5,8 @@ import { useTranslation } from "react-i18next";
 
 import { FormItem } from "../form-item";
 import { AvatarUploader } from "./components/upload-avatar";
+import { AddProfileConfig } from "./config";
+import { DividerWithTile } from "../divider";
 
 interface AddProfileProps {
     setFinishedTab: () => void;
@@ -33,27 +35,24 @@ export const AddProfile: FC<AddProfileProps> = ({ setFinishedTab }) => {
                 onSubmit={onSubmit}
             >
                 <AvatarUploader />
-                <FormItem type="text" objectKey="name" />
-                <FormItem
-                    type="select"
-                    objectKey="sex"
-                    pairs={[
-                        { key: "male", value: t("male") },
-                        { key: "female", value: t("female") },
-                    ]}
-                />
-                <FormItem type="text" objectKey="ethnicity" />
-                <FormItem type="number" objectKey="age" />
-                <FormItem type="date" objectKey="birth" />
-                <FormItem type="text" objectKey="country" />
-                <FormItem type="text" objectKey="job" />
-                <FormItem type="text" objectKey="maritalStatus" />
-                <FormItem type="text" objectKey="nativePlace" />
-                <FormItem type="text" objectKey="address" />
-                <FormItem type="text" objectKey="phone" />
-                <FormItem type="text" objectKey="contact" />
-                <FormItem type="text" objectKey="relation" />
-                <FormItem type="text" objectKey="contactPhone" />
+
+                {AddProfileConfig.map((item, index) => {
+                    if ("translateKey" in item) {
+                        return (
+                            <DividerWithTile
+                                key={`add-hospitalization-${index}`}
+                                translateKey={item.translateKey}
+                            />
+                        );
+                    } else {
+                        return (
+                            <FormItem
+                                key={`add-hospitalization-${index}`}
+                                {...item}
+                            />
+                        );
+                    }
+                })}
                 <div className="w-full flex justify-end">
                     <Button type="submit" variant="flat" color="primary">
                         {t("submit")}
