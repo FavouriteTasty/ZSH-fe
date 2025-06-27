@@ -33,17 +33,17 @@ export const AddHistory: FC<AddHistoryProps> = (props) => {
                 placement="start"
                 classNames={{ panel: "w-full" }}
             >
-                {scheme("PASTHISTORY")}
-                {scheme("SURGERYHISTORY")}
-                {scheme("ALLERGICHISTORY")}
-                {scheme("VACCINATIONHISTORY")}
-                {scheme("IMPORTANTDRUGHISTORY")}
-                {scheme("BLOODTRANSFUSIONHISTORY")}
-                {scheme("SMOKINGHISTORY")}
-                {scheme("DRINKINGHISTORY")}
-                {scheme("MENSTRUALHISTORY")}
-                {scheme("MARITALHISTORY")}
-                {scheme("FAMILYHISTORY")}
+                {scheme("pastHistory")}
+                {scheme("surgeryHistory")}
+                {scheme("allergicHistory")}
+                {scheme("vaccinationHistory")}
+                {scheme("importantDrugHistory")}
+                {scheme("bloodTransfusionHistory")}
+                {scheme("smokingHistory")}
+                {scheme("drinkingHistory")}
+                {scheme("menstrualHistory")}
+                {scheme("maritalHistory")}
+                {scheme("familyHistory")}
             </Tabs>
             <div className="flex justify-end">
                 <Button

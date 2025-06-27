@@ -6,14 +6,15 @@ import { twMerge } from "tailwind-merge";
 
 import { CompleteIcon } from "@/assets";
 import { AddHistory } from "@/components/add-history";
+import { AddHospitalization } from "@/components/add-hospitalization";
 import { AddProfile } from "@/components/add-profile";
 
-export type Tab = "profile" | "history" | "hospitalization";
+export type Tab = "profile" | "history" | "hospitalization" | "stentPlacement";
 
 export const AddPage: FC = () => {
     const { t } = useTranslation();
     const [finishedTab, setFinishedTab] = useState<Tab[]>([]);
-    const [selected, setSelected] = useState<Tab>("history");
+    const [selected, setSelected] = useState<Tab>("hospitalization");
 
     return (
         <motion.div
@@ -86,10 +87,12 @@ export const AddPage: FC = () => {
                         <CardBody>
                             <AddHistory
                                 setFinishedTab={() => {
-                                    if (!finishedTab.includes("history")) {
+                                    if (
+                                        !finishedTab.includes("hospitalization")
+                                    ) {
                                         setFinishedTab((prev) => [
                                             ...prev,
-                                            "history",
+                                            "hospitalization",
                                         ]);
                                     }
                                     setSelected("hospitalization");
@@ -116,7 +119,40 @@ export const AddPage: FC = () => {
                     }
                 >
                     <Card>
-                        <CardBody>Hospitalization</CardBody>
+                        <CardBody>
+                            <AddHospitalization
+                                setFinishedTab={() => {
+                                    if (!finishedTab.includes("history")) {
+                                        setFinishedTab((prev) => [
+                                            ...prev,
+                                            "history",
+                                        ]);
+                                    }
+                                    setSelected("hospitalization");
+                                }}
+                            />
+                        </CardBody>
+                    </Card>
+                </Tab>
+                <Tab
+                    key="stentPlacement"
+                    title={
+                        <div
+                            className={twMerge(
+                                "flex items-center gap-1",
+                                finishedTab.includes("stentPlacement") &&
+                                    "text-green-600",
+                            )}
+                        >
+                            {t("stentPlacement")}
+                            {finishedTab.includes("stentPlacement") && (
+                                <CompleteIcon />
+                            )}
+                        </div>
+                    }
+                >
+                    <Card>
+                        <CardBody>stentPlacement</CardBody>
                     </Card>
                 </Tab>
             </Tabs>

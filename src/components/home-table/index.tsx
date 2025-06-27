@@ -200,7 +200,7 @@ export const HomeTable: FC = () => {
                                         className="capitalize flex-[1_0_calc(25%-8px)] min-w-[calc(25%-16px)] max-w-[calc(25%-16px)]"
                                     >
                                         {capitalize(
-                                            t(`tableColumn.${column.name}`),
+                                            t(`tableColumn.${column.uid}`),
                                         )}
                                     </DropdownItem>
                                 ))}
@@ -222,7 +222,7 @@ export const HomeTable: FC = () => {
                         {t("totalPatients", { count: patients.length })}
                     </span>
                     <label className="flex items-center text-default-400 text-small">
-                        Rows per page:
+                        {t("rowsPerPage")}
                         <select
                             className="bg-transparent outline-none text-default-400 text-small"
                             onChange={onRowsPerPageChange}
@@ -302,7 +302,7 @@ export const HomeTable: FC = () => {
                         align={column.uid === "actions" ? "center" : "start"}
                         allowsSorting={column.sortable}
                     >
-                        {t(`tableColumn.${column.name}`)}
+                        {capitalize(t(`tableColumn.${column.uid}`))}
                     </TableColumn>
                 )}
             </TableHeader>

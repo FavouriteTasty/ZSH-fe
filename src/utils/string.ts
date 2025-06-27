@@ -1,5 +1,8 @@
-export function capitalize(s: string) {
-    return s ? s.charAt(0).toUpperCase() + s.slice(1).toLowerCase() : "";
+export function capitalize(s: string, isLowerCase: boolean = true) {
+    return s
+        ? s.charAt(0).toUpperCase() +
+              (isLowerCase ? s.slice(1).toLowerCase() : s.slice(1))
+        : "";
 }
 
 export function date2string(inputDate: Date) {

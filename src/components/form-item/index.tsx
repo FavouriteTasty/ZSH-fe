@@ -5,19 +5,20 @@ import {
     Select,
     SelectItem,
 } from "@heroui/react";
-import { FC } from "react";
+import { FC, ReactNode } from "react";
 import { useTranslation } from "react-i18next";
 
-import { capitalize, capitalizeUpper } from "@/utils/string";
+import { capitalize } from "@/utils/string";
 
-interface FormItemProps {
+export interface FormItemProps {
     type: "text" | "select" | "number" | "date";
     objectKey: string;
     pairs?: { key: string; value: string }[];
+    endContent?: ReactNode;
 }
 
 export const FormItem: FC<FormItemProps> = (props) => {
-    const { type, objectKey, pairs } = props;
+    const { type, objectKey, pairs, endContent } = props;
     const { t } = useTranslation();
 
     if (type === "text") {
@@ -26,18 +27,13 @@ export const FormItem: FC<FormItemProps> = (props) => {
                 className="w-[45%] max-w-[384px]"
                 isRequired
                 errorMessage={
-                    t("pleaseEnterValid") +
-                    t(`tableColumn.${objectKey.toUpperCase()}`).toLowerCase()
+                    t("pleaseEnterValid") + t(`tableColumn.${objectKey}`)
                 }
-                label={capitalizeUpper(
-                    t(`tableColumn.${objectKey.toUpperCase()}`),
-                )}
+                label={capitalize(t(`tableColumn.${objectKey}`), false)}
                 labelPlacement="outside"
-                name={objectKey.toLowerCase()}
-                placeholder={
-                    t("pleaseEnter") +
-                    t(`tableColumn.${objectKey.toUpperCase()}`).toLowerCase()
-                }
+                name={objectKey}
+                placeholder={t("pleaseEnter") + t(`tableColumn.${objectKey}`)}
+                endContent={endContent}
                 type={type}
             />
         );
@@ -50,18 +46,13 @@ export const FormItem: FC<FormItemProps> = (props) => {
                 isWheelDisabled
                 isRequired
                 errorMessage={
-                    t("pleaseEnterValid") +
-                    t(`tableColumn.${objectKey.toUpperCase()}`).toLowerCase()
+                    t("pleaseEnterValid") + t(`tableColumn.${objectKey}`)
                 }
-                label={capitalizeUpper(
-                    t(`tableColumn.${objectKey.toUpperCase()}`),
-                )}
+                label={capitalize(t(`tableColumn.${objectKey}`), false)}
                 labelPlacement="outside"
-                name={objectKey.toLowerCase()}
-                placeholder={
-                    t("pleaseEnter") +
-                    t(`tableColumn.${objectKey.toUpperCase()}`).toLowerCase()
-                }
+                name={objectKey}
+                placeholder={t("pleaseEnter") + t(`tableColumn.${objectKey}`)}
+                endContent={endContent}
             />
         );
     }
@@ -72,14 +63,11 @@ export const FormItem: FC<FormItemProps> = (props) => {
                 className="w-[45%] max-w-[384px]"
                 isRequired
                 errorMessage={
-                    t("pleaseEnterValid") +
-                    t(`tableColumn.${objectKey.toUpperCase()}`).toLowerCase()
+                    t("pleaseEnterValid") + t(`tableColumn.${objectKey}`)
                 }
-                label={capitalizeUpper(
-                    t(`tableColumn.${objectKey.toUpperCase()}`),
-                )}
+                label={capitalize(t(`tableColumn.${objectKey}`), false)}
                 labelPlacement="outside"
-                name={objectKey.toLowerCase()}
+                name={objectKey}
             />
         );
     }
@@ -90,13 +78,10 @@ export const FormItem: FC<FormItemProps> = (props) => {
         <Select
             className="w-[45%] max-w-[384px]"
             isRequired
-            label={capitalizeUpper(t(`tableColumn.${objectKey.toUpperCase()}`))}
+            label={capitalize(t(`tableColumn.${objectKey}`), false)}
             labelPlacement="outside"
-            name={objectKey.toLowerCase()}
-            placeholder={
-                t("pleaseSelect") +
-                t(`tableColumn.${objectKey.toUpperCase()}`).toLowerCase()
-            }
+            name={objectKey}
+            placeholder={t("pleaseSelect") + t(`tableColumn.${objectKey}`)}
         >
             {pairs.map((pair) => {
                 return (

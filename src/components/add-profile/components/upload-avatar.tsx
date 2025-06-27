@@ -5,7 +5,11 @@ import { useTranslation } from "react-i18next";
 import { CameraIcon } from "@/assets";
 import { capitalizeUpper } from "@/utils/string";
 
-export const AvatarUploader: FC = () => {
+export interface AvatarUploaderProps {
+    translateKey?: string;
+}
+
+export const AvatarUploader: FC<AvatarUploaderProps> = ({ translateKey }) => {
     const { t } = useTranslation();
     const [base64String, setBase64String] = useState<string | null>(null);
     const inputRef = useRef<HTMLInputElement>(null);
@@ -31,7 +35,7 @@ export const AvatarUploader: FC = () => {
     return (
         <div className="w-full flex items-center">
             <div className="mr-4 text-sm">
-                {capitalizeUpper(t("tableColumn.AVATAR"))}
+                {capitalizeUpper(t(translateKey ?? "tableColumn.avatar"))}
                 <span className="ml-0.5 text-red-500">*</span>
             </div>
             <Avatar
