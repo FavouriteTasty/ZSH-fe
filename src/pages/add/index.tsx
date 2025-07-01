@@ -8,13 +8,14 @@ import { CompleteIcon } from "@/assets";
 import { AddHistory } from "@/components/add-history";
 import { AddHospitalization } from "@/components/add-hospitalization";
 import { AddProfile } from "@/components/add-profile";
+import { AddStentPlacement } from "@/components/add-stent-placement";
 
 export type Tab = "profile" | "history" | "hospitalization" | "stentPlacement";
 
 export const AddPage: FC = () => {
     const { t } = useTranslation();
     const [finishedTab, setFinishedTab] = useState<Tab[]>([]);
-    const [selected, setSelected] = useState<Tab>("hospitalization");
+    const [selected, setSelected] = useState<Tab>("stentPlacement");
 
     return (
         <motion.div
@@ -152,7 +153,21 @@ export const AddPage: FC = () => {
                     }
                 >
                     <Card>
-                        <CardBody>stentPlacement</CardBody>
+                        <CardBody>
+                            <AddStentPlacement
+                                setFinishedTab={() => {
+                                    if (
+                                        !finishedTab.includes("stentPlacement")
+                                    ) {
+                                        setFinishedTab((prev) => [
+                                            ...prev,
+                                            "stentPlacement",
+                                        ]);
+                                    }
+                                    setSelected("hospitalization");
+                                }}
+                            />
+                        </CardBody>
                     </Card>
                 </Tab>
             </Tabs>

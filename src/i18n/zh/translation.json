@@ -136,6 +136,18 @@
         "patientFrontPhoto": "患者正面照片",
         "patientSidePhoto": "患者侧面照片",
 
+        "operationTime": "手术时间",
+        "stentManufacturers": "支架厂商",
+        "dateOfSurgery": "手术日期",
+        "complication": "并发症",
+        "surgeon": "手术医生",
+        "surgeryLocation": "手术地点",
+        "descriptionOfSurgery": "手术描述",
+        "intraoperativePictures": "术中图片",
+        "fastingDuration": "禁食时长",
+        "discomfortComplaint": "不适主诉",
+        "dischargeTime": "出院时间",
+
         "actions": "操作"
     }
 }

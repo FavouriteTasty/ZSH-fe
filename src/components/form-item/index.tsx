@@ -4,14 +4,17 @@ import {
     NumberInput,
     Select,
     SelectItem,
+    Textarea,
 } from "@heroui/react";
 import { FC, ReactNode } from "react";
 import { useTranslation } from "react-i18next";
 
+import { AvatarUploader } from "../add-profile/components/upload-avatar";
+
 import { capitalize } from "@/utils/string";
 
 export interface FormItemProps {
-    type: "text" | "select" | "number" | "date";
+    type: "text" | "select" | "number" | "date" | "avatar" | "textarea";
     objectKey: string;
     pairs?: { key: string; value: string }[];
     endContent?: ReactNode;
@@ -68,6 +71,27 @@ export const FormItem: FC<FormItemProps> = (props) => {
                 label={capitalize(t(`tableColumn.${objectKey}`), false)}
                 labelPlacement="outside"
                 name={objectKey}
+            />
+        );
+    }
+
+    if (type === "avatar") {
+        return <AvatarUploader translateKey={`tableColumn.${objectKey}`} />;
+    }
+
+    if (type === "textarea") {
+        return (
+            <Textarea
+                className="w-[45%] max-w-[384px]"
+                isRequired
+                errorMessage={
+                    t("pleaseEnterValid") + t(`tableColumn.${objectKey}`)
+                }
+                label={capitalize(t(`tableColumn.${objectKey}`), false)}
+                labelPlacement="outside"
+                name={objectKey}
+                placeholder={t("pleaseEnter") + t(`tableColumn.${objectKey}`)}
+                endContent={endContent}
             />
         );
     }

@@ -137,6 +137,17 @@
         "patientFrontPhoto": "patient front photo",
         "patientSidePhoto": "patient side photo",
         
+        "operationTime": "operation time",
+        "stentManufacturers": "stent manufacturers",
+        "dateOfSurgery": "date of surgery",
+        "complication": "complication",
+        "surgeon": "surgeon",
+        "surgeryLocation": "surgery location",
+        "descriptionOfSurgery": "description of surgery",
+        "intraoperativePictures": "intraoperative pictures",
+        "fastingDuration": "fasting duration",
+        "discomfortComplaint": "discomfort complaint",
+        "dischargeTime": "discharge time",
 
         "actions": "actions"
     }
