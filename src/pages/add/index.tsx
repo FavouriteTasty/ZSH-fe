@@ -10,18 +10,20 @@ import { AddHospitalization } from "@/components/add-hospitalization";
 import { AddPreoperative } from "@/components/add-preoperative";
 import { AddProfile } from "@/components/add-profile";
 import { AddStentPlacement } from "@/components/add-stent-placement";
+import { AddStentRemoval } from "@/components/add-stent-remove";
 
 export type TabType =
     | "profile"
     | "history"
     | "hospitalization"
     | "stentPlacement"
-    | "preoperativeExaminationForStentRemoval";
+    | "preoperativeExaminationForStentRemoval"
+    | "stentRemoval";
 
 export const AddPage: FC = () => {
     const { t } = useTranslation();
     const [finishedTab, setFinishedTab] = useState<TabType[]>([]);
-    const [selected, setSelected] = useState<TabType>("stentPlacement");
+    const [selected, setSelected] = useState<TabType>("stentRemoval");
 
     return (
         <motion.div
@@ -210,7 +212,40 @@ export const AddPage: FC = () => {
                                             "preoperativeExaminationForStentRemoval",
                                         ]);
                                     }
-                                    setSelected("hospitalization");
+                                    setSelected("stentRemoval");
+                                }}
+                            />
+                        </CardBody>
+                    </Card>
+                </Tab>
+                <Tab
+                    key="stentRemoval"
+                    title={
+                        <div
+                            className={twMerge(
+                                "flex items-center gap-1",
+                                finishedTab.includes("stentRemoval") &&
+                                    "text-green-600",
+                            )}
+                        >
+                            {t("stentRemoval")}
+                            {finishedTab.includes("stentRemoval") && (
+                                <CompleteIcon />
+                            )}
+                        </div>
+                    }
+                >
+                    <Card>
+                        <CardBody>
+                            <AddStentRemoval
+                                setFinishedTab={() => {
+                                    if (!finishedTab.includes("stentRemoval")) {
+                                        setFinishedTab((prev) => [
+                                            ...prev,
+                                            "stentRemoval",
+                                        ]);
+                                    }
+                                    setSelected("stentRemoval");
                                 }}
                             />
                         </CardBody>
