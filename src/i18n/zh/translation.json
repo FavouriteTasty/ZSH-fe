@@ -26,6 +26,7 @@
     "stentPlacement": "支架置入",
     "preoperativeExaminationForStentRemoval": "支架取出术前检查",
     "stentRemoval": "支架取出",
+    "followup": "随访",
     "pleaseEnterValid": "请输入有效的",
     "pleaseEnter": "请输入",
     "pleaseSelect": "请选择",
@@ -149,12 +150,14 @@
         "fastingDuration": "禁食时长",
         "discomfortComplaint": "不适主诉",
         "dischargeTime": "出院时间",
-        
+
         "sweetsIntake": "甜食摄入",
         "emotionalEatingFrequency": "情绪化饮食次数",
         "foodServings": "食物分量",
         "physicalActivityStatus": "体育活动状况",
         "foodComposition": "食物组成",
+
+        "improvementOfPreviousDiseases": "既往疾病改善情况",
 
         "actions": "操作"
     }

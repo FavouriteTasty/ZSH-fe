@@ -5,6 +5,7 @@ import { useTranslation } from "react-i18next";
 import { twMerge } from "tailwind-merge";
 
 import { CompleteIcon } from "@/assets";
+import { AddFollowUp } from "@/components/add-followup";
 import { AddHistory } from "@/components/add-history";
 import { AddHospitalization } from "@/components/add-hospitalization";
 import { AddPreoperative } from "@/components/add-preoperative";
@@ -18,12 +19,13 @@ export type TabType =
     | "hospitalization"
     | "stentPlacement"
     | "preoperativeExaminationForStentRemoval"
-    | "stentRemoval";
+    | "stentRemoval"
+    | "followup";
 
 export const AddPage: FC = () => {
     const { t } = useTranslation();
     const [finishedTab, setFinishedTab] = useState<TabType[]>([]);
-    const [selected, setSelected] = useState<TabType>("stentRemoval");
+    const [selected, setSelected] = useState<TabType>("followup");
 
     return (
         <motion.div
@@ -246,6 +248,39 @@ export const AddPage: FC = () => {
                                         ]);
                                     }
                                     setSelected("stentRemoval");
+                                }}
+                            />
+                        </CardBody>
+                    </Card>
+                </Tab>
+                <Tab
+                    key="followup"
+                    title={
+                        <div
+                            className={twMerge(
+                                "flex items-center gap-1",
+                                finishedTab.includes("followup") &&
+                                    "text-green-600",
+                            )}
+                        >
+                            {t("followup")}
+                            {finishedTab.includes("followup") && (
+                                <CompleteIcon />
+                            )}
+                        </div>
+                    }
+                >
+                    <Card>
+                        <CardBody>
+                            <AddFollowUp
+                                setFinishedTab={() => {
+                                    if (!finishedTab.includes("followup")) {
+                                        setFinishedTab((prev) => [
+                                            ...prev,
+                                            "followup",
+                                        ]);
+                                    }
+                                    setSelected("followup");
                                 }}
                             />
                         </CardBody>

@@ -26,6 +26,7 @@
     "stentPlacement": "Stent placement",
     "preoperativeExaminationForStentRemoval": "Preoperative examination for stent removal",
     "stentRemoval": "Stent removal",
+    "followup": "Follow up",
     "pleaseEnterValid": "Please enter a valid ",
     "pleaseEnter": "Please enter ",
     "pleaseSelect": "Please select ",
@@ -150,11 +151,14 @@
         "fastingDuration": "fasting duration",
         "discomfortComplaint": "discomfort complaint",
         "dischargeTime": "discharge time",
+        
         "sweetsIntake": "sweets intake",
         "emotionalEatingFrequency": "emotional eating frequency",
         "foodServings": "food servings",
         "physicalActivityStatus": "physical activity status",
         "foodComposition": "food composition",
+
+        "improvementOfPreviousDiseases": "improvement of previous diseases",
 
         "actions": "actions"
     }
