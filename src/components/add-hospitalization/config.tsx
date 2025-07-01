@@ -27,7 +27,7 @@ export const AddHospitalizationConfig: (
     { type: "number", objectKey: "bloodPressure", endContent: "mmHg" },
     { type: "number", objectKey: "height", endContent: "cm" },
     { type: "number", objectKey: "weight", endContent: "kg" },
-    { type: "number", objectKey: "bmi", endContent: UnitBMI },
+    // { type: "number", objectKey: "bmi", endContent: UnitBMI },
     { type: "number", objectKey: "chestCircumference", endContent: "cm" },
     { type: "number", objectKey: "abdominalCircumference", endContent: "cm" },
     { type: "number", objectKey: "hips", endContent: "cm" },
