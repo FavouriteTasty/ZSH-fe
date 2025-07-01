@@ -11,7 +11,7 @@ export const AddStentPlacementConfig: (FormItemProps | DividerWithTileProps)[] =
         { type: "text", objectKey: "surgeryLocation" },
         { type: "textarea", objectKey: "descriptionOfSurgery" },
         { type: "avatar", objectKey: "intraoperativePictures" },
-        { type: "date", objectKey: "fastingDuration" },
+        { type: "number", objectKey: "fastingDuration" },
         { type: "text", objectKey: "discomfortComplaint" },
         { type: "date", objectKey: "dischargeTime" },
     ];
