@@ -7,6 +7,12 @@ export const Unit109L = (
     </span>
 );
 
+export const UnitBMI = (
+    <span>
+        kg/m<sup>2</sup>
+    </span>
+);
+
 export const UnitGL = <span>g/L</span>;
 
 export const AddHospitalizationConfig: (
@@ -17,11 +23,11 @@ export const AddHospitalizationConfig: (
     { type: "date", objectKey: "admissionTime" },
     { type: "number", objectKey: "bodyTemperature", endContent: "℃" },
     { type: "number", objectKey: "heartRate", endContent: "bpm" },
-    { type: "number", objectKey: "breathe" },
+    { type: "number", objectKey: "breathe", endContent: "bpm" },
     { type: "number", objectKey: "bloodPressure", endContent: "mmHg" },
     { type: "number", objectKey: "height", endContent: "cm" },
     { type: "number", objectKey: "weight", endContent: "kg" },
-    { type: "number", objectKey: "bmi" },
+    { type: "number", objectKey: "bmi", endContent: UnitBMI },
     { type: "number", objectKey: "chestCircumference", endContent: "cm" },
     { type: "number", objectKey: "abdominalCircumference", endContent: "cm" },
     { type: "number", objectKey: "hips", endContent: "cm" },
@@ -227,32 +233,32 @@ export const AddHospitalizationConfig: (
     {
         type: "number",
         objectKey: "water",
-        endContent: UnitGL,
+        endContent: "%",
     },
     {
         type: "number",
         objectKey: "protein",
-        endContent: UnitGL,
+        endContent: "%",
     },
     {
         type: "number",
         objectKey: "inorganicSalt",
-        endContent: UnitGL,
+        endContent: "%",
     },
     {
         type: "number",
         objectKey: "bodyFat",
-        endContent: UnitGL,
+        endContent: "%",
     },
     {
         type: "number",
         objectKey: "skeletalMuscle",
-        endContent: UnitGL,
+        endContent: "kg/%",
     },
     {
         type: "number",
         objectKey: "leanBodyMass",
-        endContent: UnitGL,
+        endContent: "kg",
     },
     { translateKey: "tableColumn.5E5Q5LScale" },
     {
