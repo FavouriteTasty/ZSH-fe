@@ -7,15 +7,21 @@ import { twMerge } from "tailwind-merge";
 import { CompleteIcon } from "@/assets";
 import { AddHistory } from "@/components/add-history";
 import { AddHospitalization } from "@/components/add-hospitalization";
+import { AddPreoperative } from "@/components/add-preoperative";
 import { AddProfile } from "@/components/add-profile";
 import { AddStentPlacement } from "@/components/add-stent-placement";
 
-export type Tab = "profile" | "history" | "hospitalization" | "stentPlacement";
+export type TabType =
+    | "profile"
+    | "history"
+    | "hospitalization"
+    | "stentPlacement"
+    | "preoperativeExaminationForStentRemoval";
 
 export const AddPage: FC = () => {
     const { t } = useTranslation();
-    const [finishedTab, setFinishedTab] = useState<Tab[]>([]);
-    const [selected, setSelected] = useState<Tab>("stentPlacement");
+    const [finishedTab, setFinishedTab] = useState<TabType[]>([]);
+    const [selected, setSelected] = useState<TabType>("stentPlacement");
 
     return (
         <motion.div
@@ -30,7 +36,7 @@ export const AddPage: FC = () => {
                 placement="start"
                 selectedKey={selected}
                 onSelectionChange={(key) => {
-                    setSelected(key.toString() as Tab);
+                    setSelected(key.toString() as TabType);
                 }}
                 classNames={{ panel: "flex-1 " }}
             >
@@ -162,6 +168,46 @@ export const AddPage: FC = () => {
                                         setFinishedTab((prev) => [
                                             ...prev,
                                             "stentPlacement",
+                                        ]);
+                                    }
+                                    setSelected(
+                                        "preoperativeExaminationForStentRemoval",
+                                    );
+                                }}
+                            />
+                        </CardBody>
+                    </Card>
+                </Tab>
+                <Tab
+                    key="preoperativeExaminationForStentRemoval"
+                    title={
+                        <div
+                            className={twMerge(
+                                "flex items-center gap-1",
+                                finishedTab.includes(
+                                    "preoperativeExaminationForStentRemoval",
+                                ) && "text-green-600",
+                            )}
+                        >
+                            {t("preoperativeExaminationForStentRemoval")}
+                            {finishedTab.includes(
+                                "preoperativeExaminationForStentRemoval",
+                            ) && <CompleteIcon />}
+                        </div>
+                    }
+                >
+                    <Card>
+                        <CardBody>
+                            <AddPreoperative
+                                setFinishedTab={() => {
+                                    if (
+                                        !finishedTab.includes(
+                                            "preoperativeExaminationForStentRemoval",
+                                        )
+                                    ) {
+                                        setFinishedTab((prev) => [
+                                            ...prev,
+                                            "preoperativeExaminationForStentRemoval",
                                         ]);
                                     }
                                     setSelected("hospitalization");
