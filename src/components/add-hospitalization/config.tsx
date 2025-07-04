@@ -256,27 +256,27 @@ export const AddHospitalizationConfig: (
     {
         type: "number",
         objectKey: "water",
-        endContent: "%",
+        endContent: "kg",
     },
     {
         type: "number",
         objectKey: "protein",
-        endContent: "%",
+        endContent: "kg",
     },
     {
         type: "number",
         objectKey: "inorganicSalt",
-        endContent: "%",
+        endContent: "kg",
     },
     {
         type: "number",
         objectKey: "bodyFat",
-        endContent: "%",
+        endContent: "kg",
     },
     {
         type: "number",
         objectKey: "skeletalMuscle",
-        endContent: "kg/%",
+        endContent: "kg",
     },
     {
         type: "number",
