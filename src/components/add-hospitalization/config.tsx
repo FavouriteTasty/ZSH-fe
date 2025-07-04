@@ -1,6 +1,11 @@
 import { DividerWithTileProps } from "../divider";
 import { FormItemProps } from "../form-item";
 
+export const Unit1012L = (
+    <span>
+        10<sup>12</sup>/L
+    </span>
+);
 export const Unit109L = (
     <span>
         10<sup>9</sup>/L
@@ -13,7 +18,20 @@ export const UnitBMI = (
     </span>
 );
 
+export const UnitUL = <span>U/L</span>;
+export const UnitIUL = <span>IU/L</span>;
+export const UnitMuIUL = <span>μIU/L</span>;
+export const UnitMuIUML = <span>μIU/mL</span>;
+export const UnitIUML = <span>IU/mL</span>;
+
 export const UnitGL = <span>g/L</span>;
+export const UnitMuGL = <span>μg/L</span>;
+export const UnitPGML = <span>pg/mL</span>;
+
+export const UnitMuMolL = <span>mmol/L</span>;
+export const UnitMilliMolL = <span>mmol/L</span>;
+export const UnitNanoMolL = <span>nmol/L</span>;
+export const UnitPMolL = <span>pmol/L</span>;
 
 export const AddHospitalizationConfig: (
     | FormItemProps
@@ -37,7 +55,7 @@ export const AddHospitalizationConfig: (
     {
         type: "number",
         objectKey: "redBloodCellCount",
-        endContent: Unit109L,
+        endContent: Unit1012L,
     },
     {
         type: "number",
@@ -58,22 +76,22 @@ export const AddHospitalizationConfig: (
     {
         type: "number",
         objectKey: "alt",
-        endContent: UnitGL,
+        endContent: UnitUL,
     },
     {
         type: "number",
         objectKey: "ast",
-        endContent: UnitGL,
+        endContent: UnitUL,
     },
     {
         type: "number",
         objectKey: "tb",
-        endContent: UnitGL,
+        endContent: UnitMuMolL,
     },
     {
         type: "number",
         objectKey: "cb",
-        endContent: UnitGL,
+        endContent: UnitMuMolL,
     },
     {
         type: "number",
@@ -93,126 +111,131 @@ export const AddHospitalizationConfig: (
     {
         type: "number",
         objectKey: "urea",
-        endContent: UnitGL,
+        endContent: UnitMilliMolL,
     },
     {
         type: "number",
         objectKey: "creatinine",
-        endContent: UnitGL,
+        endContent: UnitMilliMolL,
     },
     { translateKey: "tableColumn.electrolyte" },
     {
         type: "number",
         objectKey: "na",
-        endContent: UnitGL,
+        endContent: UnitMilliMolL,
     },
     {
         type: "number",
         objectKey: "k",
-        endContent: UnitGL,
+        endContent: UnitMilliMolL,
     },
     {
         type: "number",
         objectKey: "cl",
-        endContent: UnitGL,
+        endContent: UnitMilliMolL,
     },
     { translateKey: "tableColumn.sugarMetabolism" },
     {
         type: "number",
         objectKey: "fastingBloodGlucose",
-        endContent: UnitGL,
+        endContent: UnitMilliMolL,
     },
     {
         type: "number",
         objectKey: "postprandialBloodSugar",
-        endContent: UnitGL,
+        endContent: UnitMilliMolL,
     },
     {
         type: "number",
         objectKey: "glycatedHemoglobin",
-        endContent: UnitGL,
+        endContent: "%",
     },
     { translateKey: "tableColumn.hormone" },
     {
         type: "number",
         objectKey: "tsh",
-        endContent: UnitGL,
+        endContent: UnitMuIUL,
     },
     {
         type: "number",
         objectKey: "tpo",
-        endContent: UnitGL,
+        endContent: UnitIUML,
     },
     {
         type: "number",
-        objectKey: "tt3",
-        endContent: UnitGL,
+        objectKey: "ft3",
+        endContent: UnitNanoMolL,
     },
     {
         type: "number",
-        objectKey: "tt4",
-        endContent: UnitGL,
+        objectKey: "ft4",
+        endContent: UnitNanoMolL,
     },
     {
         type: "number",
         objectKey: "fsh",
-        endContent: UnitGL,
+        endContent: UnitIUL,
     },
     {
         type: "number",
         objectKey: "lh",
-        endContent: UnitGL,
+        endContent: UnitIUL,
     },
     {
         type: "number",
         objectKey: "e2",
-        endContent: UnitGL,
+        endContent: UnitPMolL,
     },
     {
         type: "number",
         objectKey: "p",
-        endContent: UnitGL,
+        endContent: UnitNanoMolL,
+    },
+    {
+        type: "number",
+        objectKey: "t",
+        endContent: UnitNanoMolL,
     },
     {
         type: "number",
         objectKey: "insulin",
-        endContent: UnitGL,
+        endContent: UnitMuIUML,
     },
     {
         type: "number",
         objectKey: "thymosin",
-        endContent: UnitGL,
+        endContent: UnitMuGL,
     },
     {
         type: "number",
         objectKey: "pyy",
-        endContent: UnitGL,
+        endContent: UnitPGML,
     },
     {
         type: "number",
         objectKey: "glp1",
-        endContent: UnitGL,
+        endContent: UnitPMolL,
     },
     { translateKey: "tableColumn.bloodLipids" },
     {
         type: "number",
         objectKey: "totalCholesterol",
-        endContent: UnitGL,
+        endContent: UnitMilliMolL,
     },
     {
         type: "number",
         objectKey: "triglycerides",
-        endContent: UnitGL,
+        endContent: UnitMilliMolL,
     },
     {
         type: "number",
         objectKey: "ldl",
-        endContent: UnitGL,
+        endContent: UnitMilliMolL,
     },
     {
         type: "number",
         objectKey: "hdl",
-        endContent: UnitGL,
+        endContent: UnitMilliMolL,
     },
     {
         type: "number",

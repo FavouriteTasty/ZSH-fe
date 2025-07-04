@@ -18,17 +18,17 @@ export interface FormItemProps {
     objectKey: string;
     pairs?: { key: string; value: string }[];
     endContent?: ReactNode;
+    isRequired?: boolean;
 }
 
 export const FormItem: FC<FormItemProps> = (props) => {
-    const { type, objectKey, pairs, endContent } = props;
+    const { type, objectKey, pairs, endContent, isRequired = true } = props;
     const { t } = useTranslation();
-
     if (type === "text") {
         return (
             <Input
                 className="w-[45%] max-w-[384px]"
-                isRequired
+                isRequired={isRequired}
                 errorMessage={
                     t("pleaseEnterValid") + t(`tableColumn.${objectKey}`)
                 }
@@ -47,7 +47,7 @@ export const FormItem: FC<FormItemProps> = (props) => {
             <NumberInput
                 className="w-[45%] max-w-[384px]"
                 isWheelDisabled
-                isRequired
+                isRequired={isRequired}
                 errorMessage={
                     t("pleaseEnterValid") + t(`tableColumn.${objectKey}`)
                 }
@@ -64,7 +64,7 @@ export const FormItem: FC<FormItemProps> = (props) => {
         return (
             <DatePicker
                 className="w-[45%] max-w-[384px]"
-                isRequired
+                isRequired={isRequired}
                 errorMessage={
                     t("pleaseEnterValid") + t(`tableColumn.${objectKey}`)
                 }
@@ -83,7 +83,7 @@ export const FormItem: FC<FormItemProps> = (props) => {
         return (
             <Textarea
                 className="w-[45%] max-w-[384px]"
-                isRequired
+                isRequired={isRequired}
                 errorMessage={
                     t("pleaseEnterValid") + t(`tableColumn.${objectKey}`)
                 }
@@ -101,7 +101,7 @@ export const FormItem: FC<FormItemProps> = (props) => {
     return (
         <Select
             className="w-[45%] max-w-[384px]"
-            isRequired
+            isRequired={isRequired}
             label={capitalize(t(`tableColumn.${objectKey}`), false)}
             labelPlacement="outside"
             name={objectKey}
