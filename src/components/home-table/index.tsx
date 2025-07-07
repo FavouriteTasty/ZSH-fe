@@ -21,8 +21,9 @@ import { useTranslation } from "react-i18next";
 import { useTableRenderer } from "./hooks/useTableRender";
 
 import { ChevronDownIcon, PlusIcon, SearchIcon } from "@/assets";
+import { userColumns } from "@/types/keys";
 import { createMockUsers } from "@/types/mock";
-import { userColumns, User as DataType } from "@/types/table";
+import { User as DataType } from "@/types/table";
 import { capitalize } from "@/utils/string";
 
 const columns = userColumns;

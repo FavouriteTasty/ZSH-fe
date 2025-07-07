@@ -1,5 +1,3 @@
-import { generateColumns } from "@/utils/table";
-
 export interface History {
     description: string;
     date: Date;
@@ -24,25 +22,6 @@ export type UserProfile = {
     avatar: string;
 };
 
-export const UserProfileKeys: (keyof UserProfile)[] = [
-    "id",
-    "name",
-    "sex",
-    "ethnicity",
-    "age",
-    "birth",
-    "country",
-    "job",
-    "maritalStatus",
-    "nativePlace",
-    "address",
-    "phone",
-    "contact",
-    "relation",
-    "contactPhone",
-    "avatar",
-] as const;
-
 export type MedicalHistory = {
     pastHistory: History[];
     surgeryHistory: History[];
@@ -57,19 +36,145 @@ export type MedicalHistory = {
     familyHistory: History[];
 };
 
-export const MedicalHistoryKeys: (keyof MedicalHistory)[] = [
-    "pastHistory",
-    "surgeryHistory",
-    "allergicHistory",
-    "vaccinationHistory",
-    "importantDrugHistory",
-    "bloodTransfusionHistory",
-    "smokingHistory",
-    "drinkingHistory",
-    "menstrualHistory",
-    "maritalHistory",
-    "familyHistory",
-] as const;
+export type HospitalizationBasic = {
+    admissionTime: Date;
+    bodyTemperature: number;
+    heartRate: number;
+    breathe: number;
+    bloodPressure: string;
+    height: number;
+    weight: number;
+    bmi: number;
+    chestCircumference: number;
+    abdominalCircumference: number;
+    hips: number;
+    bigArm: number;
+    forearm: number;
+};
+
+export type HospitalizationBloodRoutine = {
+    redBloodCellCount: number;
+    leukocyteCount: number;
+    platelets: number;
+    hemoglobin: number;
+};
+
+export type HospitalizationLiverFunction = {
+    alt: number;
+    ast: number;
+    tb: number;
+    cb: number;
+    totalProtein: number;
+    albumin: number;
+    globulin: number;
+    urea: number;
+    creatinine: number;
+};
+
+export type HospitalizationElectrolyte = {
+    na: number;
+    k: number;
+    cl: number;
+};
+
+export type HospitalizationSugarMetabolism = {
+    fastingBloodGlucose: number;
+    postprandialBloodSugar: number;
+    glycatedHemoglobin: number;
+};
+
+export type HospitalizationHormone = {
+    tsh: number;
+    tpo: number;
+    ft3: number;
+    ft4: number;
+    fsh: number;
+    lh: number;
+    e2: number;
+    p: number;
+    t: number;
+    insulin: number;
+    thymosin: number;
+    pyy: number;
+    glp1: number;
+};
+
+export type HospitalizationBloodLipids = {
+    totalCholesterol: number;
+    hdl: number;
+    ldl: number;
+    triglycerides: number;
+    apoe: number;
+    apob: number;
+    lipoproteinAlpha: number;
+};
+
+export type HospitalizationBodyComposition = {
+    water: number;
+    protein: number;
+    inorganicSalt: number;
+    bodyFat: number;
+    skeletalMuscle: number;
+    leanBodyMass: number;
+};
+
+export type Hospitalization5E5Q5LScale = {
+    actionAbility: number;
+    selfCare: number;
+    dailyActivity: number;
+    pain: number;
+    anxiety: number;
+    healthStatus: number;
+    eqVas: number;
+};
+
+export type HospitalizationOther = {
+    patientFrontPhoto: string;
+    patientSidePhoto: string;
+};
+
+export type Hospitalization = HospitalizationBasic &
+    HospitalizationBloodRoutine &
+    HospitalizationLiverFunction &
+    HospitalizationElectrolyte &
+    HospitalizationSugarMetabolism &
+    HospitalizationHormone &
+    HospitalizationBloodLipids &
+    HospitalizationBodyComposition &
+    HospitalizationOther;
+
+export type StentPlacement = {
+    operationTime: string;
+    stentManufacturers: string;
+    dateOfSurgery: string;
+    complication: string;
+    surgeon: string;
+    surgeryLocation: string;
+    descriptionOfSurgery: string;
+    intraoperativePictures: string;
+    fastingDuration: number;
+    discomfortComplaint: string;
+    dischargeTime: string;
+};
+
+export type PreoperativeExaminationForStentRemovalExtra = {
+    sweetsIntake: string;
+    emotionalEatingFrequency: number;
+    foodServings: number;
+    physicalActivityStatus: string;
+    foodComposition: string;
+};
+
+export type PreoperativeExaminationForStentRemoval = Hospitalization &
+    PreoperativeExaminationForStentRemovalExtra;
+
+export type StentRemoval = Omit<StentPlacement, "stentManufacturers">;
+
+export type FollowupExtra = {
+    improvementOfPreviousDiseases: string;
+};
+
+export type Followup = FollowupExtra & Hospitalization;
 
 export type User = UserProfile & MedicalHistory;
 
@@ -77,12 +182,4 @@ export type TableActions = {
     actions: never;
 };
 
-export const tableActionsKeys: (keyof TableActions)[] = ["actions"] as const;
-
 export type TableKeys = User & TableActions;
-
-export const userColumns = generateColumns<TableKeys>(
-    [...UserProfileKeys, ...MedicalHistoryKeys, ...tableActionsKeys],
-    ["id", "name", "age", "birth"],
-    ["avatar"],
-);
