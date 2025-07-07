@@ -19,10 +19,18 @@ export interface FormItemProps {
     pairs?: { key: string; value: string }[];
     endContent?: ReactNode;
     isRequired?: boolean;
+    defaultValue?: string;
 }
 
 export const FormItem: FC<FormItemProps> = (props) => {
-    const { type, objectKey, pairs, endContent, isRequired = true } = props;
+    const {
+        type,
+        objectKey,
+        pairs,
+        endContent,
+        isRequired = true,
+        defaultValue,
+    } = props;
     const { t } = useTranslation();
     if (type === "text") {
         return (
@@ -37,6 +45,9 @@ export const FormItem: FC<FormItemProps> = (props) => {
                 name={objectKey}
                 placeholder={t("pleaseEnter") + t(`tableColumn.${objectKey}`)}
                 endContent={endContent}
+                defaultValue={
+                    defaultValue !== undefined ? t(defaultValue) : undefined
+                }
                 type={type}
             />
         );
@@ -84,6 +95,9 @@ export const FormItem: FC<FormItemProps> = (props) => {
             <Textarea
                 className="w-[45%] max-w-[384px]"
                 isRequired={isRequired}
+                defaultValue={
+                    defaultValue !== undefined ? t(defaultValue) : undefined
+                }
                 errorMessage={
                     t("pleaseEnterValid") + t(`tableColumn.${objectKey}`)
                 }
