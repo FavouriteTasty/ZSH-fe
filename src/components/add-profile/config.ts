@@ -5,7 +5,7 @@ export const AddProfileConfig: (FormItemProps | DividerWithTileProps)[] = [
     { type: "text", objectKey: "name" },
     {
         type: "select",
-        objectKey: "name",
+        objectKey: "sex",
         pairs: [
             { key: "male", value: "male" },
             { key: "female", value: "female" },
