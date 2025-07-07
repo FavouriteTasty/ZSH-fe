@@ -1,6 +1,6 @@
 export interface History {
     description: string;
-    date: Date;
+    date: string;
 }
 
 export type UserProfile = {
@@ -9,7 +9,7 @@ export type UserProfile = {
     sex: "male" | "female";
     ethnicity: string;
     age: number;
-    birth: Date;
+    birth: string;
     country: string;
     job: string;
     maritalStatus: string;

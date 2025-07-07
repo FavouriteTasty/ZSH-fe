@@ -5,7 +5,7 @@ import { User, History } from "./table";
 export function createMockHistory(): History {
     return {
         description: faker.lorem.paragraph(),
-        date: faker.date.past(),
+        date: faker.date.past().toISOString().split("T")[0],
     };
 }
 
@@ -16,7 +16,7 @@ export function createMockUser(): User {
         sex: faker.person.sexType(),
         ethnicity: faker.person.jobArea(),
         age: faker.number.int({ min: 18, max: 60 }),
-        birth: faker.date.past(),
+        birth: faker.date.past().toISOString().split("T")[0],
         country: faker.location.country(),
         job: faker.person.jobTitle(),
         maritalStatus: faker.string.uuid(),

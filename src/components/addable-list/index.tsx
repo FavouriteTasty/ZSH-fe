@@ -4,12 +4,14 @@ import { useTranslation } from "react-i18next";
 
 import { AddIcon, DeleteIcon } from "@/assets";
 import { History } from "@/types/table";
-import { calendarDate2Date, date2calenderDate } from "@/utils/date";
+import { string2calenderDate } from "@/utils/date";
 import { capitalizeUpper } from "@/utils/string";
 
 interface AddableListProps {
     title: string;
 }
+
+const defaultDate = "2030-01-01";
 
 export const AddableList: FC<AddableListProps> = (props) => {
     const { title } = props;
@@ -17,7 +19,7 @@ export const AddableList: FC<AddableListProps> = (props) => {
     const [histories, setHistories] = useState<History[]>([
         {
             description: "test",
-            date: new Date(),
+            date: defaultDate,
         },
     ]);
 
@@ -54,7 +56,7 @@ export const AddableList: FC<AddableListProps> = (props) => {
                                     }}
                                 />
                                 <DatePicker
-                                    value={date2calenderDate(history.date)}
+                                    value={string2calenderDate(history.date)}
                                     label={t("date")}
                                     onChange={(value) => {
                                         if (value !== null) {
@@ -63,9 +65,7 @@ export const AddableList: FC<AddableListProps> = (props) => {
                                                     i === index
                                                         ? {
                                                               ...item,
-                                                              date: calendarDate2Date(
-                                                                  value,
-                                                              ),
+                                                              date: value.toString(),
                                                           }
                                                         : item,
                                                 ),
@@ -102,7 +102,7 @@ export const AddableList: FC<AddableListProps> = (props) => {
                             ...prev,
                             {
                                 description: "",
-                                date: new Date(),
+                                date: defaultDate,
                             },
                         ]);
                     }}

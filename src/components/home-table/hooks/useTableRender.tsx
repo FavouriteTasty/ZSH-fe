@@ -14,7 +14,6 @@ import { Key, useMemo } from "react";
 import { VerticalDotsIcon } from "@/assets";
 import { User as DataType } from "@/types/table";
 import { sexColorMap } from "@/types/table-style";
-import { date2string } from "@/utils/string";
 
 export const useTableRenderer = (t: TFunction, language: string) => {
     const renderCell = useMemo(() => {
@@ -26,14 +25,14 @@ export const useTableRenderer = (t: TFunction, language: string) => {
                     return (
                         <User
                             avatarProps={{ radius: "lg", src: user.avatar }}
-                            description={date2string(user.birth)}
+                            description={user.birth}
                             name={cellValue as string}
                         >
                             {user.contactPhone}
                         </User>
                     );
                 case "birth":
-                    return date2string(user.birth);
+                    return user.birth;
                 case "sex":
                     return (
                         <Chip

@@ -1,5 +1,9 @@
 import { CalendarDate } from "@internationalized/date";
 
+export function string2calenderDate(dateString: string) {
+    return date2calenderDate(new Date(dateString));
+}
+
 export function date2calenderDate(date: Date) {
     return new CalendarDate(
         date.getFullYear(),
