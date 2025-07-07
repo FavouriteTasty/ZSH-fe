@@ -9,12 +9,13 @@ import { capitalizeUpper } from "@/utils/string";
 
 interface AddableListProps {
     title: string;
+    isRequered: boolean;
 }
 
-const defaultDate = "2030-01-01";
+const defaultDate = "2099-01-01";
 
 export const AddableList: FC<AddableListProps> = (props) => {
-    const { title } = props;
+    const { title, isRequered } = props;
     const { t } = useTranslation();
     const [histories, setHistories] = useState<History[]>([
         {
@@ -27,7 +28,7 @@ export const AddableList: FC<AddableListProps> = (props) => {
         <div>
             <div className="text-sm mb-2">
                 {capitalizeUpper(title)}
-                <span className="ml-0.5 text-red-600">*</span>
+                {isRequered && <span className="ml-0.5 text-red-600">*</span>}
             </div>
             <div className="flex flex-wrap gap-2 items-center">
                 {histories.map((history, index) => (
@@ -41,6 +42,7 @@ export const AddableList: FC<AddableListProps> = (props) => {
                                 <Input
                                     value={history.description}
                                     label={t("description")}
+                                    isRequired
                                     onChange={(e) => {
                                         setHistories((prev) =>
                                             prev.map((item, i) =>
@@ -56,7 +58,11 @@ export const AddableList: FC<AddableListProps> = (props) => {
                                     }}
                                 />
                                 <DatePicker
-                                    value={string2calenderDate(history.date)}
+                                    value={
+                                        history.date === defaultDate
+                                            ? undefined
+                                            : string2calenderDate(history.date)
+                                    }
                                     label={t("date")}
                                     onChange={(value) => {
                                         if (value !== null) {
