@@ -15,7 +15,8 @@ import { AddProfile } from "@/components/add-profile";
 import { AddStentPlacement } from "@/components/add-stent-placement";
 import { AddStentRemoval } from "@/components/add-stent-remove";
 import { $UI } from "@/store/ui";
-import { UserProfile } from "@/types/table";
+import { MedicalHistory, UserProfile } from "@/types/table";
+import { isEmptyMedicalHistory } from "@/utils/table";
 
 export type TabType =
     | "profile"
@@ -24,7 +25,8 @@ export type TabType =
     | "stentPlacement"
     | "preoperativeExaminationForStentRemoval"
     | "stentRemoval"
-    | "followup";
+    | "followup"
+    | `followup-${number}`;
 
 export const AddPage: FC = () => {
     const { t } = useTranslation();
@@ -34,17 +36,34 @@ export const AddPage: FC = () => {
     const [defaultUserProfile, setDefaultUserProfile] = useState<
         UserProfile | undefined
     >(undefined);
+    const [defaultMedicalHistory, setDefaultMedicalHistory] = useState<
+        MedicalHistory | undefined
+    >(undefined);
+
+    const handleProfile = async () => {
+        if (id !== undefined && id !== "") {
+            const profile = await api.profile.get(id);
+            if (!finishedTab.includes("profile")) {
+                setFinishedTab((prev) => [...prev, "profile"]);
+            }
+            setDefaultUserProfile(profile);
+        }
+    };
+
+    const handleHistory = async () => {
+        if (id !== undefined && id !== "") {
+            const history = await api.history.get(id);
+            if (!isEmptyMedicalHistory(history)) {
+                setFinishedTab((prev) => [...prev, "history"]);
+            }
+            setDefaultMedicalHistory(history);
+        }
+    };
 
     const handleUrlId = async () => {
         try {
-            if (id !== undefined && id !== "") {
-                const profile = await api.profile.get(id);
-                console.log(profile);
-                if (!finishedTab.includes("profile")) {
-                    setFinishedTab((prev) => [...prev, "profile"]);
-                }
-                setDefaultUserProfile(profile);
-            }
+            handleProfile();
+            handleHistory();
         } catch (error) {
             console.error(error);
             $UI.update("alertShow", (draft) => {
@@ -104,6 +123,14 @@ export const AddPage: FC = () => {
                                         ]);
                                     }
                                     setSelected("history");
+                                    $UI.update("alertShow", (draft) => {
+                                        draft.alertShow = true;
+                                        draft.alertColor = "success";
+                                        draft.alertTitle = t("submitSuccess", {
+                                            form: t("profile"),
+                                        });
+                                    });
+                                    handleProfile();
                                 }}
                                 defaultValue={defaultUserProfile}
                             />
@@ -131,16 +158,23 @@ export const AddPage: FC = () => {
                         <CardBody>
                             <AddHistory
                                 setFinishedTab={() => {
-                                    if (
-                                        !finishedTab.includes("hospitalization")
-                                    ) {
+                                    if (!finishedTab.includes("history")) {
                                         setFinishedTab((prev) => [
                                             ...prev,
-                                            "hospitalization",
+                                            "history",
                                         ]);
                                     }
                                     setSelected("hospitalization");
+                                    $UI.update("alertShow", (draft) => {
+                                        draft.alertShow = true;
+                                        draft.alertColor = "success";
+                                        draft.alertTitle = t("submitSuccess", {
+                                            form: t("history"),
+                                        });
+                                    });
+                                    handleHistory();
                                 }}
+                                defaultValue={defaultMedicalHistory}
                             />
                         </CardBody>
                     </Card>

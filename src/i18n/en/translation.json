@@ -38,6 +38,8 @@
     "date": "Date",
     "description": "Description",
     "patientNotFound": "The patient with ID {{id}} does not exist",
+    "submitSuccess": "{{form}} submitted successfully",
+    "pleaseFillProfile": "Please fill in the profile first",
     "tableColumn": {
         "id": "id",
         "name": "name",

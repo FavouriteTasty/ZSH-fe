@@ -19,7 +19,6 @@ export const AddStentRemoval: FC<AddStentRemovalProps> = ({
     const onSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const data = Object.fromEntries(new FormData(e.currentTarget));
-        console.log(data);
         setFinishedTab?.();
     };
 

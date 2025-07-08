@@ -38,7 +38,6 @@ export const AddProfile: FC<AddProfileProps> = ({
             },
             {} as Record<string, unknown>,
         );
-        console.log(transformedData);
         await api.profile.upsert(transformedData as unknown as UserProfile);
         setFinishedTab?.();
     };

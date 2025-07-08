@@ -1,5 +1,5 @@
 import { Button, Card, CardBody, DatePicker, Input } from "@heroui/react";
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import { AddIcon, DeleteIcon } from "@/assets";
@@ -10,19 +10,20 @@ import { capitalizeUpper } from "@/utils/string";
 interface AddableListProps {
     title: string;
     isRequered?: boolean;
+    onChange?: (histories: History[]) => void;
+    defaultValue?: History[];
 }
 
 const defaultDate = "2099-01-01";
 
 export const AddableList: FC<AddableListProps> = (props) => {
-    const { title, isRequered = false } = props;
+    const { title, isRequered = false, onChange, defaultValue } = props;
     const { t } = useTranslation();
-    const [histories, setHistories] = useState<History[]>([
-        {
-            description: "test",
-            date: defaultDate,
-        },
-    ]);
+    const [histories, setHistories] = useState<History[]>(defaultValue ?? []);
+
+    useEffect(() => {
+        onChange?.(histories);
+    }, [histories]);
 
     return (
         <div>

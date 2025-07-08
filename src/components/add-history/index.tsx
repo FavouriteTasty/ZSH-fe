@@ -1,26 +1,69 @@
 import { Button, Card, CardBody, Tab, Tabs } from "@heroui/react";
 import { motion } from "framer-motion";
-import { FC } from "react";
+import { FC, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { useParams } from "react-router";
 
 import { AddableList } from "../addable-list";
 
+import { api } from "@/api";
+import { $UI } from "@/store/ui";
+import { History, MedicalHistory } from "@/types/table";
 import { capitalizeUpper } from "@/utils/string";
 
 interface AddHistoryProps {
     setFinishedTab?: () => void;
+    defaultValue?: MedicalHistory;
 }
 
 export const AddHistory: FC<AddHistoryProps> = (props) => {
-    const { setFinishedTab } = props;
+    const { setFinishedTab, defaultValue } = props;
     const { t } = useTranslation();
+    const { id } = useParams();
+    const [medicalHistory, setMedicalHistory] = useState<MedicalHistory>(
+        defaultValue ?? {
+            pastHistory: [],
+            surgeryHistory: [],
+            allergicHistory: [],
+            vaccinationHistory: [],
+            importantDrugHistory: [],
+            bloodTransfusionHistory: [],
+            smokingHistory: [],
+            drinkingHistory: [],
+            menstrualHistory: [],
+            maritalHistory: [],
+            familyHistory: [],
+        },
+    );
 
-    const scheme = (key: string) => {
+    const onSubmit = async () => {
+        if (id === undefined) {
+            $UI.update("alert", (draft) => {
+                draft.alertColor = "danger";
+                draft.alertShow = true;
+                draft.alertTitle = t("pleaseFillProfile");
+            });
+            return;
+        }
+        await api.history.upsert(medicalHistory, id);
+        setFinishedTab?.();
+    };
+
+    const scheme = (key: keyof MedicalHistory, defaultValue: History[]) => {
         return (
             <Tab key={key} title={capitalizeUpper(t("tableColumn." + key))}>
                 <Card>
                     <CardBody>
-                        <AddableList title={t("tableColumn." + key)} />
+                        <AddableList
+                            title={t("tableColumn." + key)}
+                            onChange={(histories) =>
+                                setMedicalHistory((prev) => ({
+                                    ...prev,
+                                    [key]: histories,
+                                }))
+                            }
+                            defaultValue={defaultValue}
+                        />
                     </CardBody>
                 </Card>
             </Tab>
@@ -40,24 +83,33 @@ export const AddHistory: FC<AddHistoryProps> = (props) => {
                 placement="start"
                 classNames={{ panel: "w-full" }}
             >
-                {scheme("pastHistory")}
-                {scheme("surgeryHistory")}
-                {scheme("allergicHistory")}
-                {scheme("vaccinationHistory")}
-                {scheme("importantDrugHistory")}
-                {scheme("bloodTransfusionHistory")}
-                {scheme("smokingHistory")}
-                {scheme("drinkingHistory")}
-                {scheme("menstrualHistory")}
-                {scheme("maritalHistory")}
-                {scheme("familyHistory")}
+                {scheme("pastHistory", medicalHistory.pastHistory)}
+                {scheme("surgeryHistory", medicalHistory.surgeryHistory)}
+                {scheme("allergicHistory", medicalHistory.allergicHistory)}
+                {scheme(
+                    "vaccinationHistory",
+                    medicalHistory.vaccinationHistory,
+                )}
+                {scheme(
+                    "importantDrugHistory",
+                    medicalHistory.importantDrugHistory,
+                )}
+                {scheme(
+                    "bloodTransfusionHistory",
+                    medicalHistory.bloodTransfusionHistory,
+                )}
+                {scheme("smokingHistory", medicalHistory.smokingHistory)}
+                {scheme("drinkingHistory", medicalHistory.drinkingHistory)}
+                {scheme("menstrualHistory", medicalHistory.menstrualHistory)}
+                {scheme("maritalHistory", medicalHistory.maritalHistory)}
+                {scheme("familyHistory", medicalHistory.familyHistory)}
             </Tabs>
             <div className="flex justify-end">
                 <Button
                     variant="flat"
                     color="primary"
                     onPress={() => {
-                        setFinishedTab?.();
+                        onSubmit();
                     }}
                 >
                     {t("submit")}

@@ -1,3 +1,5 @@
+import { MedicalHistory } from "@/types/table";
+
 export type ColumnName<T extends string> = `${Uppercase<T>}`;
 
 export const generateColumns = <T extends Record<string, unknown>>(
@@ -12,4 +14,20 @@ export const generateColumns = <T extends Record<string, unknown>>(
             uid: key,
             sortable: sortableKeys?.includes(key) || false,
         }));
+};
+
+export const isEmptyMedicalHistory = (mh: MedicalHistory) => {
+    return (
+        mh.pastHistory.length === 0 &&
+        mh.surgeryHistory.length === 0 &&
+        mh.allergicHistory.length === 0 &&
+        mh.vaccinationHistory.length === 0 &&
+        mh.importantDrugHistory.length === 0 &&
+        mh.bloodTransfusionHistory.length === 0 &&
+        mh.smokingHistory.length === 0 &&
+        mh.drinkingHistory.length === 0 &&
+        mh.menstrualHistory.length === 0 &&
+        mh.maritalHistory.length === 0 &&
+        mh.familyHistory.length === 0
+    );
 };

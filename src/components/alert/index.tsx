@@ -20,7 +20,7 @@ export const GlobalAlert: FC = () => {
     }, [show]);
 
     return (
-        <motion.div className="fixed flex items-center justify-center w-screen top-[5%] z-[9999] select-none">
+        <motion.div className="fixed flex items-center justify-center w-screen top-[5%] z-[9999] select-none pointer-events-none">
             <AnimatePresence>
                 {show && (
                     <motion.div
