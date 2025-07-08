@@ -8,6 +8,10 @@ import { AvatarUploader } from "./components/upload-avatar";
 import { AddProfileConfig } from "./config";
 import { DividerWithTile } from "../divider";
 
+import { api } from "@/api";
+import { UserProfileNumberKeys } from "@/types/keys";
+import { UserProfile } from "@/types/table";
+
 interface AddProfileProps {
     setFinishedTab: () => void;
 }
@@ -15,10 +19,23 @@ interface AddProfileProps {
 export const AddProfile: FC<AddProfileProps> = ({ setFinishedTab }) => {
     const { t } = useTranslation();
 
-    const onSubmit = (e: FormEvent<HTMLFormElement>) => {
+    const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const data = Object.fromEntries(new FormData(e.currentTarget));
-        console.log(data);
+        const transformedData = Object.keys(data).reduce(
+            (acc, key) => {
+                const value = data[key];
+                if (UserProfileNumberKeys.includes(key)) {
+                    acc[key] = Number(value);
+                } else {
+                    acc[key] = value;
+                }
+                return acc;
+            },
+            {} as Record<string, unknown>,
+        );
+        console.log(transformedData);
+        await api.profile.upsert(transformedData as unknown as UserProfile);
         setFinishedTab?.();
     };
 

@@ -7,9 +7,13 @@ import { capitalizeUpper } from "@/utils/string";
 
 export interface AvatarUploaderProps {
     translateKey?: string;
+    isRequired?: boolean;
 }
 
-export const AvatarUploader: FC<AvatarUploaderProps> = ({ translateKey }) => {
+export const AvatarUploader: FC<AvatarUploaderProps> = ({
+    translateKey,
+    isRequired = false,
+}) => {
     const { t } = useTranslation();
     const [base64String, setBase64String] = useState<string | null>(null);
     const inputRef = useRef<HTMLInputElement>(null);
@@ -36,7 +40,7 @@ export const AvatarUploader: FC<AvatarUploaderProps> = ({ translateKey }) => {
         <div className="w-full flex items-center">
             <div className="mr-4 text-sm">
                 {capitalizeUpper(t(translateKey ?? "tableColumn.avatar"))}
-                <span className="ml-0.5 text-red-500">*</span>
+                {isRequired && <span className="ml-0.5 text-red-500">*</span>}
             </div>
             <Avatar
                 className="h-24 w-24 cursor-pointer"

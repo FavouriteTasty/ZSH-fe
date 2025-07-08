@@ -2,6 +2,7 @@ import { DividerWithTileProps } from "../divider";
 import { FormItemProps } from "../form-item";
 
 export const AddProfileConfig: (FormItemProps | DividerWithTileProps)[] = [
+    { type: "text", objectKey: "id" },
     { type: "text", objectKey: "name" },
     {
         type: "select",

@@ -40,6 +40,8 @@ export const UserProfileKeys: (keyof UserProfile)[] = [
     "avatar",
 ] as const;
 
+export const UserProfileNumberKeys: string[] = ["age"];
+
 export const MedicalHistoryKeys: (keyof MedicalHistory)[] = [
     "pastHistory",
     "surgeryHistory",

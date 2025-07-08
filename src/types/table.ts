@@ -4,7 +4,7 @@ export interface History {
 }
 
 export type UserProfile = {
-    id: number;
+    id: string;
     name: string;
     sex: "male" | "female";
     ethnicity: string;
