@@ -11,6 +11,7 @@ import { useTranslation } from "react-i18next";
 
 import { AvatarUploader } from "../add-profile/components/upload-avatar";
 
+import { string2calenderDate } from "@/utils/date";
 import { capitalize } from "@/utils/string";
 
 export interface FormItemProps {
@@ -19,7 +20,7 @@ export interface FormItemProps {
     pairs?: { key: string; value: string }[];
     endContent?: ReactNode;
     isRequired?: boolean;
-    defaultValue?: string;
+    defaultValue?: string | number;
 }
 
 export const FormItem: FC<FormItemProps> = (props) => {
@@ -45,9 +46,7 @@ export const FormItem: FC<FormItemProps> = (props) => {
                 name={objectKey}
                 placeholder={t("pleaseEnter") + t(`tableColumn.${objectKey}`)}
                 endContent={endContent}
-                defaultValue={
-                    defaultValue !== undefined ? t(defaultValue) : undefined
-                }
+                defaultValue={defaultValue as string}
                 type={type}
             />
         );
@@ -67,6 +66,7 @@ export const FormItem: FC<FormItemProps> = (props) => {
                 name={objectKey}
                 placeholder={t("pleaseEnter") + t(`tableColumn.${objectKey}`)}
                 endContent={endContent}
+                defaultValue={defaultValue as number}
             />
         );
     }
@@ -81,6 +81,11 @@ export const FormItem: FC<FormItemProps> = (props) => {
                 }
                 label={capitalize(t(`tableColumn.${objectKey}`), false)}
                 labelPlacement="outside"
+                defaultValue={
+                    defaultValue === undefined
+                        ? undefined
+                        : string2calenderDate(defaultValue as string)
+                }
                 name={objectKey}
             />
         );
@@ -95,9 +100,7 @@ export const FormItem: FC<FormItemProps> = (props) => {
             <Textarea
                 className="w-[45%] max-w-[384px]"
                 isRequired={isRequired}
-                defaultValue={
-                    defaultValue !== undefined ? t(defaultValue) : undefined
-                }
+                defaultValue={defaultValue as string}
                 errorMessage={
                     t("pleaseEnterValid") + t(`tableColumn.${objectKey}`)
                 }
@@ -120,6 +123,11 @@ export const FormItem: FC<FormItemProps> = (props) => {
             labelPlacement="outside"
             name={objectKey}
             placeholder={t("pleaseSelect") + t(`tableColumn.${objectKey}`)}
+            defaultSelectedKeys={
+                defaultValue === undefined
+                    ? undefined
+                    : [defaultValue as string]
+            }
         >
             {pairs.map((pair) => {
                 return (

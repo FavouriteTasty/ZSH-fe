@@ -37,6 +37,7 @@
     "submit": "Submit",
     "date": "Date",
     "description": "Description",
+    "patientNotFound": "The patient with ID {{id}} does not exist",
     "tableColumn": {
         "id": "id",
         "name": "name",

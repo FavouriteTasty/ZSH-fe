@@ -14,9 +14,13 @@ import { UserProfile } from "@/types/table";
 
 interface AddProfileProps {
     setFinishedTab: () => void;
+    defaultValue?: UserProfile;
 }
 
-export const AddProfile: FC<AddProfileProps> = ({ setFinishedTab }) => {
+export const AddProfile: FC<AddProfileProps> = ({
+    setFinishedTab,
+    defaultValue,
+}) => {
     const { t } = useTranslation();
 
     const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
@@ -66,6 +70,11 @@ export const AddProfile: FC<AddProfileProps> = ({ setFinishedTab }) => {
                             <FormItem
                                 key={`add-hospitalization-${index}`}
                                 {...item}
+                                defaultValue={
+                                    defaultValue?.[
+                                        item.objectKey as keyof UserProfile
+                                    ]
+                                }
                             />
                         );
                     }

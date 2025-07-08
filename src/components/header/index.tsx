@@ -25,7 +25,7 @@ export const Header: FC = () => {
     };
 
     return (
-        <Navbar classNames={{ wrapper: "max-w-none" }}>
+        <Navbar classNames={{ wrapper: "max-w-none select-none" }}>
             <NavbarBrand className="gap-2">
                 <Image src="/logo.png" width={28} />
                 <div className="font-semibold text-inherit">{t("title")}</div>

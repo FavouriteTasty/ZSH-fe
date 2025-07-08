@@ -1,9 +1,11 @@
 import { Card, CardBody, Tab, Tabs } from "@heroui/react";
 import { motion } from "framer-motion";
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { useParams } from "react-router";
 import { twMerge } from "tailwind-merge";
 
+import { api } from "@/api";
 import { CompleteIcon } from "@/assets";
 import { AddFollowUp } from "@/components/add-followup";
 import { AddHistory } from "@/components/add-history";
@@ -12,6 +14,8 @@ import { AddPreoperative } from "@/components/add-preoperative";
 import { AddProfile } from "@/components/add-profile";
 import { AddStentPlacement } from "@/components/add-stent-placement";
 import { AddStentRemoval } from "@/components/add-stent-remove";
+import { $UI } from "@/store/ui";
+import { UserProfile } from "@/types/table";
 
 export type TabType =
     | "profile"
@@ -26,6 +30,34 @@ export const AddPage: FC = () => {
     const { t } = useTranslation();
     const [finishedTab, setFinishedTab] = useState<TabType[]>([]);
     const [selected, setSelected] = useState<TabType>("followup");
+    const { id } = useParams();
+    const [defaultUserProfile, setDefaultUserProfile] = useState<
+        UserProfile | undefined
+    >(undefined);
+
+    const handleUrlId = async () => {
+        try {
+            if (id !== undefined && id !== "") {
+                const profile = await api.profile.get(id);
+                console.log(profile);
+                if (!finishedTab.includes("profile")) {
+                    setFinishedTab((prev) => [...prev, "profile"]);
+                }
+                setDefaultUserProfile(profile);
+            }
+        } catch (error) {
+            console.error(error);
+            $UI.update("alertShow", (draft) => {
+                draft.alertShow = true;
+                draft.alertColor = "danger";
+                draft.alertTitle = t("patientNotFound", { id });
+            });
+        }
+    };
+
+    useEffect(() => {
+        handleUrlId();
+    }, [id]);
 
     return (
         <motion.div
@@ -73,6 +105,7 @@ export const AddPage: FC = () => {
                                     }
                                     setSelected("history");
                                 }}
+                                defaultValue={defaultUserProfile}
                             />
                         </CardBody>
                     </Card>

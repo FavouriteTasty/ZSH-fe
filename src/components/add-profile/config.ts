@@ -12,10 +12,10 @@ export const AddProfileConfig: (FormItemProps | DividerWithTileProps)[] = [
             { key: "female", value: "female" },
         ],
     },
-    { type: "text", objectKey: "ethnicity", defaultValue: "han" },
+    { type: "text", objectKey: "ethnicity", defaultValue: "汉族" },
     { type: "number", objectKey: "age" },
     { type: "date", objectKey: "birth" },
-    { type: "text", objectKey: "country", defaultValue: "china" },
+    { type: "text", objectKey: "country", defaultValue: "中国" },
     { type: "text", objectKey: "job" },
     {
         type: "select",

@@ -37,6 +37,7 @@
     "submit": "提交",
     "date": "日期",
     "description": "描述",
+    "patientNotFound": "身份证 {{id}} 患者不存在",
     "tableColumn": {
         "id": "身份证",
         "name": "姓名",
