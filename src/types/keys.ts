@@ -273,6 +273,8 @@ export const FollowupKeys = [
     ...FollowUpExtraKeys,
 ] as const;
 
+export const FollowupNumberKeys: string[] = [...HospitalizationNumberKeys];
+
 export const tableActionsKeys: (keyof TableActions)[] = ["actions"] as const;
 
 export const userColumns = generateColumns<TableKeys>(

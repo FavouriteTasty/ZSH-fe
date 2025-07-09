@@ -7,6 +7,7 @@ import {
     StentPlacement,
     StentRemoval,
     UserProfile,
+    Followup,
 } from "@/types/table";
 
 const profile = {
@@ -50,6 +51,13 @@ const stentRemoval = {
         instance.get(`/stentRemoval/get/${id}`),
 };
 
+const followup = {
+    upsert: (data: Followup, id: string) =>
+        instance.post("/followup/upsert", { data, id }),
+    get: (id: string): Promise<Followup[]> =>
+        instance.get(`/followup/get/${id}`),
+};
+
 export const api = {
     profile,
     history,
@@ -57,4 +65,5 @@ export const api = {
     stentPlacement,
     preoperative,
     stentRemoval,
+    followup,
 };

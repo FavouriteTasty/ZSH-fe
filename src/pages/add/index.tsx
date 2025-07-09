@@ -15,6 +15,7 @@ import { AddProfile } from "@/components/add-profile";
 import { AddStentPlacement } from "@/components/add-stent-placement";
 import { AddStentRemoval } from "@/components/add-stent-remove";
 import {
+    Followup,
     Hospitalization,
     MedicalHistory,
     PreoperativeExaminationForStentRemoval,
@@ -33,7 +34,7 @@ export type TabType =
     | "preoperativeExaminationForStentRemoval"
     | "stentRemoval"
     | "followup"
-    | `followup-${number}`;
+    | string;
 
 export const AddPage: FC = () => {
     const { t } = useTranslation();
@@ -58,6 +59,7 @@ export const AddPage: FC = () => {
     const [defaultPreoperative, setDefaultPreoperative] = useState<
         PreoperativeExaminationForStentRemoval | undefined
     >(undefined);
+    const [followups, setFollowups] = useState<Followup[]>([]);
 
     const navigate = useNavigate();
 
@@ -134,6 +136,20 @@ export const AddPage: FC = () => {
         }
     };
 
+    const handleFollowup = async () => {
+        if (id !== undefined && id !== "") {
+            const followups = await api.followup.get(id);
+            followups.forEach((followup) => {
+                const followupId = `followup-${followup.admissionTime}`;
+                if (!finishedTab.includes(followupId)) {
+                    setFinishedTab((prev) => [...prev, followupId]);
+                }
+            });
+            console.log(followups);
+            setFollowups(followups);
+        }
+    };
+
     const handleUrlId = async () => {
         try {
             await handleProfile();
@@ -142,6 +158,7 @@ export const AddPage: FC = () => {
             handleStentPlacement();
             handleStentRemoval();
             handlePreoperative();
+            handleFollowup();
         } catch (error) {
             console.error(error);
             navigate("/add");
@@ -421,6 +438,43 @@ export const AddPage: FC = () => {
                         </CardBody>
                     </Card>
                 </Tab>
+                {followups.map((followup) => (
+                    <Tab
+                        key={`followup-${followup.admissionTime}`}
+                        title={
+                            <div
+                                className={twMerge(
+                                    "flex items-center gap-1",
+                                    finishedTab.includes(
+                                        `followup-${followup.admissionTime}`,
+                                    ) && "text-green-600",
+                                )}
+                            >
+                                {`${t("followup")}-${followup.admissionTime}`}
+                                {finishedTab.includes(
+                                    `followup-${followup.admissionTime}`,
+                                ) && <CompleteIcon />}
+                            </div>
+                        }
+                    >
+                        <Card>
+                            <CardBody>
+                                <AddFollowUp
+                                    setFinishedTab={() => {
+                                        setSelected("followup");
+                                        logger.success(
+                                            t("submitSuccess", {
+                                                form: t("followup"),
+                                            }),
+                                        );
+                                        handleFollowup();
+                                    }}
+                                    defaultValue={followup}
+                                />
+                            </CardBody>
+                        </Card>
+                    </Tab>
+                ))}
                 <Tab
                     key="followup"
                     title={
@@ -442,18 +496,13 @@ export const AddPage: FC = () => {
                         <CardBody>
                             <AddFollowUp
                                 setFinishedTab={() => {
-                                    if (!finishedTab.includes("followup")) {
-                                        setFinishedTab((prev) => [
-                                            ...prev,
-                                            "followup",
-                                        ]);
-                                    }
                                     setSelected("followup");
                                     logger.success(
                                         t("submitSuccess", {
                                             form: t("followup"),
                                         }),
                                     );
+                                    handleFollowup();
                                 }}
                             />
                         </CardBody>

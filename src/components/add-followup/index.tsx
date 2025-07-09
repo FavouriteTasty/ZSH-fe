@@ -2,6 +2,7 @@ import { Button, Form } from "@heroui/react";
 import { motion } from "framer-motion";
 import { FC, FormEvent } from "react";
 import { useTranslation } from "react-i18next";
+import { useParams } from "react-router";
 
 import { AddHospitalizationConfig } from "../add-hospitalization/config";
 import { AvatarUploader } from "../add-profile/components/upload-avatar";
@@ -9,17 +10,33 @@ import { DividerWithTile } from "../divider";
 import { FormItem } from "../form-item";
 import { AddFollowUpConfig } from "./config";
 
+import { api } from "@/api";
+import { FollowupNumberKeys } from "@/types/keys";
+import { Followup } from "@/types/table";
+import { logger } from "@/utils/alert";
+import { transformData } from "@/utils/table";
+
 interface AddFollowUpProps {
     setFinishedTab?: () => void;
+    defaultValue?: Followup;
 }
 
-export const AddFollowUp: FC<AddFollowUpProps> = ({ setFinishedTab }) => {
+export const AddFollowUp: FC<AddFollowUpProps> = ({
+    setFinishedTab,
+    defaultValue,
+}) => {
     const { t } = useTranslation();
+    const { id } = useParams();
 
-    const onSubmit = (e: FormEvent<HTMLFormElement>) => {
+    const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const data = Object.fromEntries(new FormData(e.currentTarget));
-        console.log(data);
+        const transformedData = transformData(data, FollowupNumberKeys);
+        if (id === undefined) {
+            logger.danger(t("pleaseFillProfile"));
+            return;
+        }
+        await api.followup.upsert(transformedData as Followup, id);
         setFinishedTab?.();
     };
 
@@ -48,6 +65,11 @@ export const AddFollowUp: FC<AddFollowUpProps> = ({ setFinishedTab }) => {
                             <FormItem
                                 key={`add-hospitalization-${index}`}
                                 {...item}
+                                defaultValue={
+                                    defaultValue?.[
+                                        item.objectKey as keyof Followup
+                                    ] ?? item.defaultValue
+                                }
                             />
                         );
                     }
@@ -69,6 +91,11 @@ export const AddFollowUp: FC<AddFollowUpProps> = ({ setFinishedTab }) => {
                             <FormItem
                                 key={`add-hospitalization-${index}`}
                                 {...item}
+                                defaultValue={
+                                    defaultValue?.[
+                                        item.objectKey as keyof Followup
+                                    ] ?? item.defaultValue
+                                }
                             />
                         );
                     }
