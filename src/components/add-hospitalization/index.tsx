@@ -70,7 +70,7 @@ export const AddHospitalization: FC<AddHospitalizationProps> = ({
                                 defaultValue={
                                     defaultValue?.[
                                         item.objectKey as keyof Hospitalization
-                                    ]
+                                    ] ?? item.defaultValue
                                 }
                             />
                         );

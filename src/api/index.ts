@@ -3,6 +3,7 @@ import instance from "./axios";
 import {
     Hospitalization,
     MedicalHistory,
+    PreoperativeExaminationForStentRemoval,
     StentPlacement,
     StentRemoval,
     UserProfile,
@@ -35,6 +36,13 @@ const stentPlacement = {
         instance.get(`/stentPlacement/get/${id}`),
 };
 
+const preoperative = {
+    upsert: (data: PreoperativeExaminationForStentRemoval, id: string) =>
+        instance.post("/preoperative/upsert", { data, id }),
+    get: (id: string): Promise<PreoperativeExaminationForStentRemoval | null> =>
+        instance.get(`/preoperative/get/${id}`),
+};
+
 const stentRemoval = {
     upsert: (data: StentRemoval, id: string) =>
         instance.post("/stentRemoval/upsert", { data, id }),
@@ -47,5 +55,6 @@ export const api = {
     history,
     hospitalization,
     stentPlacement,
+    preoperative,
     stentRemoval,
 };

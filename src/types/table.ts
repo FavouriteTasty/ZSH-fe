@@ -159,8 +159,8 @@ export type StentPlacement = {
 
 export type PreoperativeExaminationForStentRemovalExtra = {
     sweetsIntake: string;
-    emotionalEatingFrequency: number;
-    foodServings: number;
+    emotionalEatingFrequency: string;
+    foodServings: string;
     physicalActivityStatus: string;
     foodComposition: string;
 };

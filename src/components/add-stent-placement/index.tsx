@@ -66,7 +66,7 @@ export const AddStentPlacement: FC<AddStentPlacementProps> = ({
                                 defaultValue={
                                     defaultValue?.[
                                         item.objectKey as keyof StentPlacement
-                                    ]
+                                    ] ?? item.defaultValue
                                 }
                             />
                         );

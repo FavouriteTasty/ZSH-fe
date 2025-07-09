@@ -70,7 +70,7 @@ export const AddStentRemoval: FC<AddStentRemovalProps> = ({
                                 defaultValue={
                                     defaultValue?.[
                                         item.objectKey as keyof StentRemoval
-                                    ]
+                                    ] ?? item.defaultValue
                                 }
                             />
                         );

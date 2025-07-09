@@ -17,6 +17,7 @@ import { AddStentRemoval } from "@/components/add-stent-remove";
 import {
     Hospitalization,
     MedicalHistory,
+    PreoperativeExaminationForStentRemoval,
     StentPlacement,
     StentRemoval,
     UserProfile,
@@ -54,6 +55,10 @@ export const AddPage: FC = () => {
     const [defaultStentRemoval, setDefaultStentRemoval] = useState<
         StentRemoval | undefined
     >(undefined);
+    const [defaultPreoperative, setDefaultPreoperative] = useState<
+        PreoperativeExaminationForStentRemoval | undefined
+    >(undefined);
+
     const navigate = useNavigate();
 
     const handleProfile = async () => {
@@ -103,6 +108,22 @@ export const AddPage: FC = () => {
         }
     };
 
+    const handlePreoperative = async () => {
+        if (id !== undefined && id !== "") {
+            const pre = await api.preoperative.get(id);
+            if (
+                pre !== null &&
+                !finishedTab.includes("preoperativeExaminationForStentRemoval")
+            ) {
+                setFinishedTab((prev) => [
+                    ...prev,
+                    "preoperativeExaminationForStentRemoval",
+                ]);
+                setDefaultPreoperative(pre);
+            }
+        }
+    };
+
     const handleStentRemoval = async () => {
         if (id !== undefined && id !== "") {
             const removal = await api.stentRemoval.get(id);
@@ -120,6 +141,7 @@ export const AddPage: FC = () => {
             handleHospitalization();
             handleStentPlacement();
             handleStentRemoval();
+            handlePreoperative();
         } catch (error) {
             console.error(error);
             navigate("/add");
@@ -352,7 +374,9 @@ export const AddPage: FC = () => {
                                             ),
                                         }),
                                     );
+                                    handlePreoperative();
                                 }}
+                                defaultValue={defaultPreoperative}
                             />
                         </CardBody>
                     </Card>

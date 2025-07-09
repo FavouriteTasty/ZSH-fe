@@ -245,6 +245,10 @@ export const PreoperativeExaminationForStentRemovalKeys = [
     ...PreoperativeExaminationForStentRemovalExtraKeys,
 ] as const;
 
+export const PreoperativeExaminationForStentRemovalNumberKeys: string[] = [
+    ...HospitalizationNumberKeys,
+];
+
 export const StentRemovalKeys: (keyof StentRemoval)[] = [
     "operationTime",
     "dateOfSurgery",
