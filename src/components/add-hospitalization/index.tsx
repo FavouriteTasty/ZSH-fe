@@ -10,9 +10,9 @@ import { AddHospitalizationConfig } from "./config";
 import { AvatarUploader } from "../add-profile/components/upload-avatar";
 
 import { api } from "@/api";
-import { $UI } from "@/store/ui";
 import { HospitalizationNumberKeys } from "@/types/keys";
 import { Hospitalization } from "@/types/table";
+import { logger } from "@/utils/alert";
 import { transformData } from "@/utils/table";
 
 interface AddHospitalizationProps {
@@ -32,11 +32,7 @@ export const AddHospitalization: FC<AddHospitalizationProps> = ({
         const data = Object.fromEntries(new FormData(e.currentTarget));
         const transformedData = transformData(data, HospitalizationNumberKeys);
         if (id === undefined) {
-            $UI.update("alert", (draft) => {
-                draft.alertColor = "danger";
-                draft.alertShow = true;
-                draft.alertTitle = t("pleaseFillProfile");
-            });
+            logger.danger(t("pleaseFillProfile"));
             return;
         }
         await api.hospitalization.upsert(

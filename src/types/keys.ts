@@ -229,6 +229,8 @@ export const StentPlacementKeys: (keyof StentPlacement)[] = [
     "dischargeTime",
 ] as const;
 
+export const StentPlacementNumberKeys: string[] = ["fastingDuration"];
+
 export const PreoperativeExaminationForStentRemovalExtraKeys: (keyof PreoperativeExaminationForStentRemovalExtra)[] =
     [
         "sweetsIntake",

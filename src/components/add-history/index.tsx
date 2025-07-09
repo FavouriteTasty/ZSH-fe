@@ -7,8 +7,8 @@ import { useParams } from "react-router";
 import { AddableList } from "../addable-list";
 
 import { api } from "@/api";
-import { $UI } from "@/store/ui";
 import { History, MedicalHistory } from "@/types/table";
+import { logger } from "@/utils/alert";
 import { capitalizeUpper } from "@/utils/string";
 
 interface AddHistoryProps {
@@ -38,11 +38,7 @@ export const AddHistory: FC<AddHistoryProps> = (props) => {
 
     const onSubmit = async () => {
         if (id === undefined) {
-            $UI.update("alert", (draft) => {
-                draft.alertColor = "danger";
-                draft.alertShow = true;
-                draft.alertTitle = t("pleaseFillProfile");
-            });
+            logger.danger(t("pleaseFillProfile"));
             return;
         }
         await api.history.upsert(medicalHistory, id);

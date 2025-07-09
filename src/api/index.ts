@@ -1,6 +1,11 @@
 import instance from "./axios";
 
-import { Hospitalization, MedicalHistory, UserProfile } from "@/types/table";
+import {
+    Hospitalization,
+    MedicalHistory,
+    StentPlacement,
+    UserProfile,
+} from "@/types/table";
 
 const profile = {
     upsert: (data: UserProfile) => instance.post("/profile/upsert", { data }),
@@ -22,4 +27,11 @@ const hospitalization = {
         instance.get(`/hospitalization/get/${id}`),
 };
 
-export const api = { profile, history, hospitalization };
+const stentPlacement = {
+    upsert: (data: StentPlacement, id: string) =>
+        instance.post("/stentPlacement/upsert", { data, id }),
+    get: (id: string): Promise<StentPlacement | null> =>
+        instance.get(`/stentPlacement/get/${id}`),
+};
+
+export const api = { profile, history, hospitalization, stentPlacement };

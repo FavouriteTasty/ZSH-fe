@@ -11,7 +11,7 @@ export function createMockHistory(): History {
 
 export function createMockUser(): User {
     return {
-        id: faker.number.int(),
+        id: faker.string.uuid(),
         name: faker.person.fullName(),
         sex: faker.person.sexType(),
         ethnicity: faker.person.jobArea(),

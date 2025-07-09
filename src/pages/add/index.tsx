@@ -14,8 +14,13 @@ import { AddPreoperative } from "@/components/add-preoperative";
 import { AddProfile } from "@/components/add-profile";
 import { AddStentPlacement } from "@/components/add-stent-placement";
 import { AddStentRemoval } from "@/components/add-stent-remove";
-import { $UI } from "@/store/ui";
-import { Hospitalization, MedicalHistory, UserProfile } from "@/types/table";
+import {
+    Hospitalization,
+    MedicalHistory,
+    StentPlacement,
+    UserProfile,
+} from "@/types/table";
+import { logger } from "@/utils/alert";
 import { isEmptyMedicalHistory } from "@/utils/table";
 
 export type TabType =
@@ -41,6 +46,9 @@ export const AddPage: FC = () => {
     >(undefined);
     const [defaultHospitalization, setDefaultHospitalization] = useState<
         Hospitalization | undefined
+    >(undefined);
+    const [defaultStentPlacement, setDefaultStentPlacement] = useState<
+        StentPlacement | undefined
     >(undefined);
 
     const handleProfile = async () => {
@@ -79,18 +87,25 @@ export const AddPage: FC = () => {
         }
     };
 
+    const handleStentPlacement = async () => {
+        if (id !== undefined && id !== "") {
+            const placement = await api.stentPlacement.get(id);
+            if (placement !== null && !finishedTab.includes("stentPlacement")) {
+                setFinishedTab((prev) => [...prev, "stentPlacement"]);
+                setDefaultStentPlacement(placement);
+            }
+        }
+    };
+
     const handleUrlId = async () => {
         try {
             await handleProfile();
             handleHistory();
             handleHospitalization();
+            handleStentPlacement();
         } catch (error) {
             console.error(error);
-            $UI.update("alertShow", (draft) => {
-                draft.alertShow = true;
-                draft.alertColor = "danger";
-                draft.alertTitle = t("patientNotFound", { id });
-            });
+            logger.danger(t("patientNotFound", { id }));
         }
     };
 
@@ -143,13 +158,11 @@ export const AddPage: FC = () => {
                                         ]);
                                     }
                                     setSelected("history");
-                                    $UI.update("alertShow", (draft) => {
-                                        draft.alertShow = true;
-                                        draft.alertColor = "success";
-                                        draft.alertTitle = t("submitSuccess", {
+                                    logger.success(
+                                        t("submitSuccess", {
                                             form: t("profile"),
-                                        });
-                                    });
+                                        }),
+                                    );
                                     handleProfile();
                                 }}
                                 defaultValue={defaultUserProfile}
@@ -185,13 +198,11 @@ export const AddPage: FC = () => {
                                         ]);
                                     }
                                     setSelected("hospitalization");
-                                    $UI.update("alertShow", (draft) => {
-                                        draft.alertShow = true;
-                                        draft.alertColor = "success";
-                                        draft.alertTitle = t("submitSuccess", {
+                                    logger.success(
+                                        t("submitSuccess", {
                                             form: t("history"),
-                                        });
-                                    });
+                                        }),
+                                    );
                                     handleHistory();
                                 }}
                                 defaultValue={defaultMedicalHistory}
@@ -227,6 +238,12 @@ export const AddPage: FC = () => {
                                         ]);
                                     }
                                     setSelected("hospitalization");
+                                    logger.success(
+                                        t("submitSuccess", {
+                                            form: t("history"),
+                                        }),
+                                    );
+                                    handleHistory();
                                 }}
                                 defaultValue={defaultHospitalization}
                             />
@@ -265,7 +282,14 @@ export const AddPage: FC = () => {
                                     setSelected(
                                         "preoperativeExaminationForStentRemoval",
                                     );
+                                    logger.success(
+                                        t("submitSuccess", {
+                                            form: t("stentPlacement"),
+                                        }),
+                                    );
+                                    handleStentPlacement();
                                 }}
+                                defaultValue={defaultStentPlacement}
                             />
                         </CardBody>
                     </Card>
@@ -303,6 +327,13 @@ export const AddPage: FC = () => {
                                         ]);
                                     }
                                     setSelected("stentRemoval");
+                                    logger.success(
+                                        t("submitSuccess", {
+                                            form: t(
+                                                "preoperativeExaminationForStentRemoval",
+                                            ),
+                                        }),
+                                    );
                                 }}
                             />
                         </CardBody>
@@ -335,7 +366,12 @@ export const AddPage: FC = () => {
                                             "stentRemoval",
                                         ]);
                                     }
-                                    setSelected("stentRemoval");
+                                    setSelected("followup");
+                                    logger.success(
+                                        t("submitSuccess", {
+                                            form: t("stentRemoval"),
+                                        }),
+                                    );
                                 }}
                             />
                         </CardBody>
@@ -369,6 +405,11 @@ export const AddPage: FC = () => {
                                         ]);
                                     }
                                     setSelected("followup");
+                                    logger.success(
+                                        t("submitSuccess", {
+                                            form: t("followup"),
+                                        }),
+                                    );
                                 }}
                             />
                         </CardBody>

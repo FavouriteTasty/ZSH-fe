@@ -2,24 +2,40 @@ import { Button, Form } from "@heroui/react";
 import { motion } from "framer-motion";
 import { FC, FormEvent } from "react";
 import { useTranslation } from "react-i18next";
+import { useParams } from "react-router";
 
 import { AddStentPlacementConfig } from "./config";
 import { DividerWithTile } from "../divider";
 import { FormItem } from "../form-item";
 
+import { api } from "@/api";
+import { StentPlacementNumberKeys } from "@/types/keys";
+import { StentPlacement } from "@/types/table";
+import { logger } from "@/utils/alert";
+import { transformData } from "@/utils/table";
+
 interface AddStentPlacementProps {
     setFinishedTab?: () => void;
+    defaultValue?: StentPlacement;
 }
 
 export const AddStentPlacement: FC<AddStentPlacementProps> = ({
     setFinishedTab,
+    defaultValue,
 }) => {
     const { t } = useTranslation();
+    const { id } = useParams();
 
-    const onSubmit = (e: FormEvent<HTMLFormElement>) => {
+    const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        if (id === undefined) {
+            logger.danger(t("pleaseFillProfile"));
+            return;
+        }
         const data = Object.fromEntries(new FormData(e.currentTarget));
-        console.log(data);
+        const transformedData = transformData(data, StentPlacementNumberKeys);
+        console.log(transformedData);
+        await api.stentPlacement.upsert(transformedData as StentPlacement, id);
         setFinishedTab?.();
     };
 
@@ -48,6 +64,11 @@ export const AddStentPlacement: FC<AddStentPlacementProps> = ({
                             <FormItem
                                 key={`add-hospitalization-${index}`}
                                 {...item}
+                                defaultValue={
+                                    defaultValue?.[
+                                        item.objectKey as keyof StentPlacement
+                                    ]
+                                }
                             />
                         );
                     }
