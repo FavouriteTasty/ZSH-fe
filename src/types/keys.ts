@@ -72,8 +72,26 @@ export const HospitalizationBasicKeys: (keyof HospitalizationBasic)[] = [
     "forearm",
 ] as const;
 
+export const HospitalizationBasicNumberKeys: string[] = [
+    "bodyTemperature",
+    "heartRate",
+    "breathe",
+    "bloodPressure",
+    "height",
+    "weight",
+    "bmi",
+    "chestCircumference",
+    "abdominalCircumference",
+    "hips",
+    "bigArm",
+    "forearm",
+];
+
 export const HospitalizationBloodRoutineKeys: (keyof HospitalizationBloodRoutine)[] =
     ["redBloodCellCount", "leukocyteCount", "platelets", "hemoglobin"] as const;
+
+export const HospitalizationBloodRoutineNumberKeys: string[] =
+    HospitalizationBloodRoutineKeys;
 
 export const HospitalizationLiverFunctionKeys: (keyof HospitalizationLiverFunction)[] =
     [
@@ -88,8 +106,14 @@ export const HospitalizationLiverFunctionKeys: (keyof HospitalizationLiverFuncti
         "creatinine",
     ] as const;
 
+export const HospitalizationLiverFunctionNumberKeys: string[] =
+    HospitalizationLiverFunctionKeys;
+
 export const HospitalizationElectrolyteKeys: (keyof HospitalizationElectrolyte)[] =
     ["na", "k", "cl"] as const;
+
+export const HospitalizationElectrolyteNumberKeys: string[] =
+    HospitalizationElectrolyteKeys;
 
 export const HospitalizationSugarMetabolismKeys: (keyof HospitalizationSugarMetabolism)[] =
     [
@@ -97,6 +121,9 @@ export const HospitalizationSugarMetabolismKeys: (keyof HospitalizationSugarMeta
         "postprandialBloodSugar",
         "glycatedHemoglobin",
     ] as const;
+
+export const HospitalizationSugarMetabolismNumberKeys: string[] =
+    HospitalizationSugarMetabolismKeys;
 
 export const HospitalizationHormoneKeys: (keyof HospitalizationHormone)[] = [
     "tsh",
@@ -114,6 +141,9 @@ export const HospitalizationHormoneKeys: (keyof HospitalizationHormone)[] = [
     "glp1",
 ] as const;
 
+export const HospitalizationHormoneNumberKeys: string[] =
+    HospitalizationHormoneKeys;
+
 export const HospitalizationBloodLipidsKeys: (keyof HospitalizationBloodLipids)[] =
     [
         "totalCholesterol",
@@ -125,6 +155,9 @@ export const HospitalizationBloodLipidsKeys: (keyof HospitalizationBloodLipids)[
         "lipoproteinAlpha",
     ] as const;
 
+export const HospitalizationBloodLipidsNumberKeys: string[] =
+    HospitalizationBloodLipidsKeys;
+
 export const HospitalizationBodyCompositionKeys: (keyof HospitalizationBodyComposition)[] =
     [
         "water",
@@ -134,6 +167,9 @@ export const HospitalizationBodyCompositionKeys: (keyof HospitalizationBodyCompo
         "skeletalMuscle",
         "leanBodyMass",
     ] as const;
+
+export const HospitalizationBodyCompositionNumberKeys: string[] =
+    HospitalizationBodyCompositionKeys;
 
 export const Hospitalization5E5Q5LScaleKeys: (keyof Hospitalization5E5Q5LScale)[] =
     [
@@ -145,6 +181,9 @@ export const Hospitalization5E5Q5LScaleKeys: (keyof Hospitalization5E5Q5LScale)[
         "healthStatus",
         "eqVas",
     ] as const;
+
+export const Hospitalization5E5Q5LScaleNumberKeys: string[] =
+    Hospitalization5E5Q5LScaleKeys;
 
 export const HospitalizationOtherKeys: (keyof HospitalizationOther)[] = [
     "patientFrontPhoto",
@@ -160,8 +199,21 @@ export const HospitalizationKeys = [
     ...HospitalizationHormoneKeys,
     ...HospitalizationBloodLipidsKeys,
     ...HospitalizationBodyCompositionKeys,
+    ...Hospitalization5E5Q5LScaleKeys,
     ...HospitalizationOtherKeys,
 ] as const;
+
+export const HospitalizationNumberKeys: string[] = [
+    ...HospitalizationBasicNumberKeys,
+    ...HospitalizationBloodRoutineNumberKeys,
+    ...HospitalizationLiverFunctionNumberKeys,
+    ...HospitalizationElectrolyteNumberKeys,
+    ...HospitalizationSugarMetabolismNumberKeys,
+    ...HospitalizationHormoneNumberKeys,
+    ...HospitalizationBloodLipidsNumberKeys,
+    ...HospitalizationBodyCompositionNumberKeys,
+    ...Hospitalization5E5Q5LScaleNumberKeys,
+];
 
 export const StentPlacementKeys: (keyof StentPlacement)[] = [
     "operationTime",

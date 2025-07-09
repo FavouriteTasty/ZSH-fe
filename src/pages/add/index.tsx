@@ -15,7 +15,7 @@ import { AddProfile } from "@/components/add-profile";
 import { AddStentPlacement } from "@/components/add-stent-placement";
 import { AddStentRemoval } from "@/components/add-stent-remove";
 import { $UI } from "@/store/ui";
-import { MedicalHistory, UserProfile } from "@/types/table";
+import { Hospitalization, MedicalHistory, UserProfile } from "@/types/table";
 import { isEmptyMedicalHistory } from "@/utils/table";
 
 export type TabType =
@@ -39,6 +39,9 @@ export const AddPage: FC = () => {
     const [defaultMedicalHistory, setDefaultMedicalHistory] = useState<
         MedicalHistory | undefined
     >(undefined);
+    const [defaultHospitalization, setDefaultHospitalization] = useState<
+        Hospitalization | undefined
+    >(undefined);
 
     const handleProfile = async () => {
         if (id !== undefined && id !== "") {
@@ -53,17 +56,34 @@ export const AddPage: FC = () => {
     const handleHistory = async () => {
         if (id !== undefined && id !== "") {
             const history = await api.history.get(id);
-            if (!isEmptyMedicalHistory(history)) {
+            if (
+                !isEmptyMedicalHistory(history) &&
+                !finishedTab.includes("history")
+            ) {
                 setFinishedTab((prev) => [...prev, "history"]);
             }
             setDefaultMedicalHistory(history);
         }
     };
 
+    const handleHospitalization = async () => {
+        if (id !== undefined && id !== "") {
+            const hospitalization = await api.hospitalization.get(id);
+            if (
+                hospitalization !== null &&
+                !finishedTab.includes("hospitalization")
+            ) {
+                setFinishedTab((prev) => [...prev, "hospitalization"]);
+                setDefaultHospitalization(hospitalization);
+            }
+        }
+    };
+
     const handleUrlId = async () => {
         try {
-            handleProfile();
+            await handleProfile();
             handleHistory();
+            handleHospitalization();
         } catch (error) {
             console.error(error);
             $UI.update("alertShow", (draft) => {
@@ -208,6 +228,7 @@ export const AddPage: FC = () => {
                                     }
                                     setSelected("hospitalization");
                                 }}
+                                defaultValue={defaultHospitalization}
                             />
                         </CardBody>
                     </Card>

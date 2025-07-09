@@ -285,31 +285,31 @@ export const AddHospitalizationConfig: (
     },
     { translateKey: "tableColumn.5E5Q5LScale" },
     {
-        type: "text",
+        type: "number",
         objectKey: "actionAbility",
     },
     {
-        type: "text",
+        type: "number",
         objectKey: "selfCare",
     },
     {
-        type: "text",
+        type: "number",
         objectKey: "dailyActivity",
     },
     {
-        type: "text",
+        type: "number",
         objectKey: "pain",
     },
     {
-        type: "text",
+        type: "number",
         objectKey: "anxiety",
     },
     {
-        type: "text",
+        type: "number",
         objectKey: "healthStatus",
     },
     {
-        type: "text",
+        type: "number",
         objectKey: "eqVas",
     },
 ];

@@ -31,3 +31,20 @@ export const isEmptyMedicalHistory = (mh: MedicalHistory) => {
         mh.familyHistory.length === 0
     );
 };
+
+export const transformData = (
+    data: Record<string, unknown>,
+    numberKeys: string[],
+): Record<string, unknown> => {
+    return Object.keys(data).reduce(
+        (acc, key) => {
+            if (numberKeys.includes(key)) {
+                acc[key] = Number(data[key]);
+            } else {
+                acc[key] = data[key];
+            }
+            return acc;
+        },
+        {} as Record<string, unknown>,
+    );
+};

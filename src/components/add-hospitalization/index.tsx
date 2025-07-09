@@ -2,25 +2,47 @@ import { Button, Form } from "@heroui/react";
 import { motion } from "framer-motion";
 import { FC, FormEvent } from "react";
 import { useTranslation } from "react-i18next";
+import { useParams } from "react-router";
 
 import { DividerWithTile } from "../divider";
 import { FormItem } from "../form-item";
 import { AddHospitalizationConfig } from "./config";
 import { AvatarUploader } from "../add-profile/components/upload-avatar";
 
+import { api } from "@/api";
+import { $UI } from "@/store/ui";
+import { HospitalizationNumberKeys } from "@/types/keys";
+import { Hospitalization } from "@/types/table";
+import { transformData } from "@/utils/table";
+
 interface AddHospitalizationProps {
     setFinishedTab?: () => void;
+    defaultValue?: Hospitalization;
 }
 
 export const AddHospitalization: FC<AddHospitalizationProps> = ({
     setFinishedTab,
+    defaultValue,
 }) => {
     const { t } = useTranslation();
+    const { id } = useParams();
 
-    const onSubmit = (e: FormEvent<HTMLFormElement>) => {
+    const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const data = Object.fromEntries(new FormData(e.currentTarget));
-        console.log(data);
+        const transformedData = transformData(data, HospitalizationNumberKeys);
+        if (id === undefined) {
+            $UI.update("alert", (draft) => {
+                draft.alertColor = "danger";
+                draft.alertShow = true;
+                draft.alertTitle = t("pleaseFillProfile");
+            });
+            return;
+        }
+        await api.hospitalization.upsert(
+            transformedData as Hospitalization,
+            id,
+        );
         setFinishedTab?.();
     };
 
@@ -49,6 +71,11 @@ export const AddHospitalization: FC<AddHospitalizationProps> = ({
                             <FormItem
                                 key={`add-hospitalization-${index}`}
                                 {...item}
+                                defaultValue={
+                                    defaultValue?.[
+                                        item.objectKey as keyof Hospitalization
+                                    ]
+                                }
                             />
                         );
                     }

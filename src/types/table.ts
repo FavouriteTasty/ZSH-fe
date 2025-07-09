@@ -37,11 +37,11 @@ export type MedicalHistory = {
 };
 
 export type HospitalizationBasic = {
-    admissionTime: Date;
+    admissionTime: string;
     bodyTemperature: number;
     heartRate: number;
     breathe: number;
-    bloodPressure: string;
+    bloodPressure: number;
     height: number;
     weight: number;
     bmi: number;
