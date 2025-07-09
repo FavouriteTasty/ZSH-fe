@@ -258,6 +258,8 @@ export const StentRemovalKeys: (keyof StentRemoval)[] = [
     "dischargeTime",
 ] as const;
 
+export const StentRemovalNumberKeys: string[] = StentPlacementNumberKeys;
+
 export const FollowUpExtraKeys: (keyof FollowupExtra)[] = [
     "improvementOfPreviousDiseases",
 ] as const;

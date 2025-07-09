@@ -34,7 +34,6 @@ export const AddStentPlacement: FC<AddStentPlacementProps> = ({
         }
         const data = Object.fromEntries(new FormData(e.currentTarget));
         const transformedData = transformData(data, StentPlacementNumberKeys);
-        console.log(transformedData);
         await api.stentPlacement.upsert(transformedData as StentPlacement, id);
         setFinishedTab?.();
     };

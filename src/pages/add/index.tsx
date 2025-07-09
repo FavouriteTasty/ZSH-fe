@@ -2,7 +2,7 @@ import { Card, CardBody, Tab, Tabs } from "@heroui/react";
 import { motion } from "framer-motion";
 import { FC, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { twMerge } from "tailwind-merge";
 
 import { api } from "@/api";
@@ -18,6 +18,7 @@ import {
     Hospitalization,
     MedicalHistory,
     StentPlacement,
+    StentRemoval,
     UserProfile,
 } from "@/types/table";
 import { logger } from "@/utils/alert";
@@ -50,6 +51,10 @@ export const AddPage: FC = () => {
     const [defaultStentPlacement, setDefaultStentPlacement] = useState<
         StentPlacement | undefined
     >(undefined);
+    const [defaultStentRemoval, setDefaultStentRemoval] = useState<
+        StentRemoval | undefined
+    >(undefined);
+    const navigate = useNavigate();
 
     const handleProfile = async () => {
         if (id !== undefined && id !== "") {
@@ -58,6 +63,7 @@ export const AddPage: FC = () => {
                 setFinishedTab((prev) => [...prev, "profile"]);
             }
             setDefaultUserProfile(profile);
+            navigate(`/add/${profile.id}`);
         }
     };
 
@@ -97,14 +103,26 @@ export const AddPage: FC = () => {
         }
     };
 
+    const handleStentRemoval = async () => {
+        if (id !== undefined && id !== "") {
+            const removal = await api.stentRemoval.get(id);
+            if (removal !== null && !finishedTab.includes("stentRemoval")) {
+                setFinishedTab((prev) => [...prev, "stentRemoval"]);
+                setDefaultStentRemoval(removal);
+            }
+        }
+    };
+
     const handleUrlId = async () => {
         try {
             await handleProfile();
             handleHistory();
             handleHospitalization();
             handleStentPlacement();
+            handleStentRemoval();
         } catch (error) {
             console.error(error);
+            navigate("/add");
             logger.danger(t("patientNotFound", { id }));
         }
     };
@@ -372,7 +390,9 @@ export const AddPage: FC = () => {
                                             form: t("stentRemoval"),
                                         }),
                                     );
+                                    handleStentRemoval();
                                 }}
+                                defaultValue={defaultStentRemoval}
                             />
                         </CardBody>
                     </Card>

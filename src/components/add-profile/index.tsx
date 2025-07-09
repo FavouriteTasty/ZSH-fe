@@ -2,6 +2,7 @@ import { Button, Form } from "@heroui/react";
 import { motion } from "framer-motion";
 import { FC, FormEvent } from "react";
 import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router";
 
 import { FormItem } from "../form-item";
 import { AvatarUploader } from "./components/upload-avatar";
@@ -23,12 +24,14 @@ export const AddProfile: FC<AddProfileProps> = ({
     defaultValue,
 }) => {
     const { t } = useTranslation();
+    const navigate = useNavigate();
 
     const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const data = Object.fromEntries(new FormData(e.currentTarget));
         const transformedData = transformData(data, UserProfileNumberKeys);
         await api.profile.upsert(transformedData as unknown as UserProfile);
+        navigate(`/add/${transformedData.id}`);
         setFinishedTab?.();
     };
 
@@ -62,7 +65,7 @@ export const AddProfile: FC<AddProfileProps> = ({
                                 defaultValue={
                                     defaultValue?.[
                                         item.objectKey as keyof UserProfile
-                                    ]
+                                    ] ?? item.defaultValue
                                 }
                             />
                         );

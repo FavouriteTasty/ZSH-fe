@@ -2,24 +2,39 @@ import { Button, Form } from "@heroui/react";
 import { motion } from "framer-motion";
 import { FC, FormEvent } from "react";
 import { useTranslation } from "react-i18next";
+import { useParams } from "react-router";
 
 import { AddStentPlacementConfig } from "../add-stent-placement/config";
 import { DividerWithTile } from "../divider";
 import { FormItem } from "../form-item";
 
+import { api } from "@/api";
+import { StentRemovalNumberKeys } from "@/types/keys";
+import { StentRemoval } from "@/types/table";
+import { logger } from "@/utils/alert";
+import { transformData } from "@/utils/table";
+
 interface AddStentRemovalProps {
     setFinishedTab?: () => void;
+    defaultValue?: StentRemoval;
 }
 
 export const AddStentRemoval: FC<AddStentRemovalProps> = ({
     setFinishedTab,
+    defaultValue,
 }) => {
     const { t } = useTranslation();
+    const { id } = useParams();
 
-    const onSubmit = (e: FormEvent<HTMLFormElement>) => {
+    const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        if (id === undefined) {
+            logger.danger(t("pleaseFillProfile"));
+            return;
+        }
         const data = Object.fromEntries(new FormData(e.currentTarget));
-        console.log(data);
+        const transformedData = transformData(data, StentRemovalNumberKeys);
+        await api.stentRemoval.upsert(transformedData as StentRemoval, id);
         setFinishedTab?.();
     };
 
@@ -52,6 +67,11 @@ export const AddStentRemoval: FC<AddStentRemovalProps> = ({
                             <FormItem
                                 key={`add-hospitalization-${index}`}
                                 {...item}
+                                defaultValue={
+                                    defaultValue?.[
+                                        item.objectKey as keyof StentRemoval
+                                    ]
+                                }
                             />
                         );
                     }
