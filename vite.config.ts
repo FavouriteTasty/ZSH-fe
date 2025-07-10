@@ -12,30 +12,66 @@ export default defineConfig({
         tailwindcss(),
         svgr(),
         visualizer({
-            open: false,
+            open: true,
             gzipSize: true,
             brotliSize: true,
         }),
     ],
+
     resolve: {
         alias: {
             "@": path.resolve(__dirname, "./src"),
         },
     },
     build: {
+        minify: "terser",
+        terserOptions: {
+            compress: {
+                drop_console: true,
+                drop_debugger: true,
+                pure_funcs: ["console.log"],
+            },
+        },
         rollupOptions: {
             output: {
-                manualChunks(id) {
+                manualChunks: (id) => {
+                    if (
+                        id.includes("node_modules/react/index.js") ||
+                        id.includes("node_modules/react/jsx-runtime")
+                    ) {
+                        return "react-core";
+                    }
+                    if (id.includes("node_modules/react-dom/")) {
+                        return "react-dom";
+                    }
+                    if (
+                        id.includes("react-i18next") ||
+                        id.includes("i18next")
+                    ) {
+                        return "i18n";
+                    }
+                    if (
+                        id.includes("react-textarea-autosize") ||
+                        (id.includes("react-") &&
+                            id.includes("node_modules") &&
+                            !id.includes("react-dom") &&
+                            !id.includes("react-i18next"))
+                    ) {
+                        return "react-extensions";
+                    }
+                    if (
+                        id.includes("@react-aria") ||
+                        id.includes("@react-stately")
+                    ) {
+                        return "react-aria";
+                    }
+                    if (id.includes("@heroui") || id.includes("heroui")) {
+                        return "heroui";
+                    }
+                    if (id.includes("zustand")) {
+                        return "zustand";
+                    }
                     if (id.includes("node_modules")) {
-                        if (id.includes("zustand")) {
-                            return "zustand";
-                        }
-                        if (id.includes("heroui")) {
-                            return "heroui";
-                        }
-                        if (id.includes("react")) {
-                            return "react";
-                        }
                         return "vendor";
                     }
                 },

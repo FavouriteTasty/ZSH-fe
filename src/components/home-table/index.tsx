@@ -22,13 +22,12 @@ import { useTableRenderer } from "./hooks/useTableRender";
 
 import { ChevronDownIcon, PlusIcon, SearchIcon } from "@/assets";
 import { userColumns } from "@/types/keys";
-import { createMockUsers } from "@/types/mock";
-import { User as DataType } from "@/types/table";
+import { User as DataType, User } from "@/types/table";
 import { capitalize } from "@/utils/string";
 
 const columns = userColumns;
 
-const patients = createMockUsers(30);
+const patients: User[] = [];
 
 const INITIAL_VISIBLE_COLUMNS = [
     "name",
