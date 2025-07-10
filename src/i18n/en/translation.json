@@ -35,6 +35,7 @@
     "pleaseEnter": "Please enter ",
     "pleaseSelect": "Please select ",
     "submit": "Submit",
+    "reset": "Reset",
     "date": "Date",
     "description": "Description",
     "patientNotFound": "The patient with ID {{id}} does not exist",

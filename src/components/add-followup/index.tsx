@@ -101,7 +101,12 @@ export const AddFollowUp: FC<AddFollowUpProps> = ({
                     }
                 })}
 
-                <div className="w-full flex justify-end">
+                <div className="w-full flex justify-end gap-4">
+                    {(defaultValue === undefined || defaultValue === null) && (
+                        <Button type="reset" variant="bordered">
+                            {t("reset")}
+                        </Button>
+                    )}
                     <Button type="submit" variant="flat" color="primary">
                         {t("submit")}
                     </Button>
