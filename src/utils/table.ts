@@ -41,8 +41,10 @@ export const transformData = (
 ): Record<string, unknown> => {
     return Object.keys(data).reduce(
         (acc, key) => {
-            if (numberKeys.includes(key)) {
+            if (numberKeys.includes(key) && data[key] !== "") {
                 acc[key] = Number(data[key]);
+            } else if (data[key] === "") {
+                acc[key] = null;
             } else {
                 acc[key] = data[key];
             }

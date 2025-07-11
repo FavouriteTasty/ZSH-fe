@@ -30,6 +30,10 @@ const hospitalization = {
         instance.post("/hospitalization/upsert", { data, id }),
     get: (id: string): Promise<Hospitalization | null> =>
         instance.get(`/hospitalization/get/${id}`),
+    draftGet: (id: string): Promise<Hospitalization | null> =>
+        instance.get(`/hospitalization/draftGet/${id}`),
+    draftUpsert: (data: Hospitalization, id: string): Promise<void> =>
+        instance.post("/hospitalization/draftUpsert", { data, id }),
 };
 
 const stentPlacement = {

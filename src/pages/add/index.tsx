@@ -97,6 +97,12 @@ export const AddPage: FC = () => {
                 setFinishedTab((prev) => [...prev, "hospitalization"]);
                 setDefaultHospitalization(hospitalization);
             }
+            if (hospitalization === null) {
+                const hospitalization = await api.hospitalization.draftGet(id);
+                if (hospitalization !== null) {
+                    setDefaultHospitalization(hospitalization);
+                }
+            }
         }
     };
 

@@ -1,6 +1,6 @@
 import { Button, Form } from "@heroui/react";
 import { motion } from "framer-motion";
-import { FC, FormEvent, useRef } from "react";
+import { FC, FormEvent } from "react";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router";
 
@@ -28,7 +28,6 @@ export const AddFollowUp: FC<AddFollowUpProps> = ({
 }) => {
     const { t } = useTranslation();
     const { id } = useParams();
-    const ref = useRef<HTMLFormElement>(null);
 
     const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -69,7 +68,6 @@ export const AddFollowUp: FC<AddFollowUpProps> = ({
             <Form
                 className="space-y-4 flex-wrap flex-row gap-[5%]"
                 onSubmit={onSubmit}
-                ref={ref}
                 id={defaultValue === undefined ? "followup-form" : undefined}
             >
                 {AddHospitalizationConfig.map((item, index) => {

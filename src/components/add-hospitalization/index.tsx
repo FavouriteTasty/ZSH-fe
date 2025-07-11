@@ -1,6 +1,6 @@
 import { Button, Form } from "@heroui/react";
 import { motion } from "framer-motion";
-import { FC, FormEvent } from "react";
+import { FC, FormEvent, useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router";
 
@@ -10,11 +10,12 @@ import { AddHospitalizationConfig } from "./config";
 import { AvatarUploader } from "../add-profile/components/upload-avatar";
 
 import { api } from "@/api";
+import { AutoSaveInterval } from "@/config";
 import { HospitalizationNumberKeys } from "@/types/keys";
 import { Hospitalization } from "@/types/table";
 import { logger } from "@/utils/alert";
 import { bmi } from "@/utils/cal";
-import { transformData } from "@/utils/table";
+import { FetchFormData, transformData } from "@/utils/table";
 
 interface AddHospitalizationProps {
     setFinishedTab?: () => void;
@@ -27,6 +28,7 @@ export const AddHospitalization: FC<AddHospitalizationProps> = ({
 }) => {
     const { t } = useTranslation();
     const { id } = useParams();
+    const timeRef = useRef<NodeJS.Timeout>(null);
 
     const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -47,6 +49,35 @@ export const AddHospitalization: FC<AddHospitalizationProps> = ({
         setFinishedTab?.();
     };
 
+    const autoSave = async () => {
+        const data = FetchFormData("hospitalization-form") as Record<
+            string,
+            string
+        >;
+        const transformedData = transformData(
+            data,
+            HospitalizationNumberKeys,
+        ) as Hospitalization;
+        if (id === undefined) {
+            logger.danger(t("pleaseFillProfile"));
+            return;
+        }
+        await api.hospitalization.draftUpsert(transformedData, id);
+        logger.success(t("autoSave"));
+    };
+
+    useEffect(() => {
+        if (timeRef.current === null) {
+            timeRef.current = setInterval(() => {
+                autoSave();
+            }, AutoSaveInterval);
+        }
+        return () => {
+            if (timeRef.current !== null) clearInterval(timeRef.current);
+            timeRef.current = null;
+        };
+    }, []);
+
     return (
         <motion.div
             className="w-full p-2"
@@ -58,6 +89,7 @@ export const AddHospitalization: FC<AddHospitalizationProps> = ({
             <Form
                 className="space-y-4 flex-wrap flex-row gap-[5%]"
                 onSubmit={onSubmit}
+                id={"hospitalization-form"}
             >
                 {AddHospitalizationConfig.map((item, index) => {
                     if ("translateKey" in item) {

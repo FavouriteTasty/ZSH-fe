@@ -41,6 +41,7 @@
     "patientNotFound": "The patient with ID {{id}} does not exist",
     "submitSuccess": "{{form}} submitted successfully",
     "pleaseFillProfile": "Please fill in the profile first",
+    "autoSave": "Content has been automatically saved",
     "tableColumn": {
         "id": "id",
         "name": "name",
