@@ -1,6 +1,6 @@
 import { Button, Form } from "@heroui/react";
 import { motion } from "framer-motion";
-import { FC, FormEvent } from "react";
+import { FC, FormEvent, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router";
 
@@ -14,7 +14,8 @@ import { api } from "@/api";
 import { FollowupNumberKeys } from "@/types/keys";
 import { Followup } from "@/types/table";
 import { logger } from "@/utils/alert";
-import { transformData } from "@/utils/table";
+import { bmi } from "@/utils/cal";
+import { FetchFormData, transformData } from "@/utils/table";
 
 interface AddFollowUpProps {
     setFinishedTab?: () => void;
@@ -27,17 +28,34 @@ export const AddFollowUp: FC<AddFollowUpProps> = ({
 }) => {
     const { t } = useTranslation();
     const { id } = useParams();
+    const ref = useRef<HTMLFormElement>(null);
 
     const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const data = Object.fromEntries(new FormData(e.currentTarget));
-        const transformedData = transformData(data, FollowupNumberKeys);
+        const transformedData = transformData(
+            data,
+            FollowupNumberKeys,
+        ) as Followup;
+        transformedData.bmi = bmi(
+            transformedData.weight as number,
+            transformedData.height as number,
+        );
         if (id === undefined) {
             logger.danger(t("pleaseFillProfile"));
             return;
         }
-        await api.followup.upsert(transformedData as Followup, id);
+        await api.followup.upsert(transformedData, id);
         setFinishedTab?.();
+    };
+
+    const autoSave = () => {
+        const data = FetchFormData("followup-form") as Record<string, string>;
+        const transformedData = transformData(
+            data,
+            FollowupNumberKeys,
+        ) as Followup;
+        console.log(transformedData);
     };
 
     return (
@@ -51,6 +69,8 @@ export const AddFollowUp: FC<AddFollowUpProps> = ({
             <Form
                 className="space-y-4 flex-wrap flex-row gap-[5%]"
                 onSubmit={onSubmit}
+                ref={ref}
+                id={defaultValue === undefined ? "followup-form" : undefined}
             >
                 {AddHospitalizationConfig.map((item, index) => {
                     if ("translateKey" in item) {
@@ -70,6 +90,7 @@ export const AddFollowUp: FC<AddFollowUpProps> = ({
                                         item.objectKey as keyof Followup
                                     ] ?? item.defaultValue
                                 }
+                                onBlur={autoSave}
                             />
                         );
                     }
@@ -96,6 +117,7 @@ export const AddFollowUp: FC<AddFollowUpProps> = ({
                                         item.objectKey as keyof Followup
                                     ] ?? item.defaultValue
                                 }
+                                onBlur={autoSave}
                             />
                         );
                     }

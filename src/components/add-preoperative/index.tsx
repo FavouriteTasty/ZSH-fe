@@ -14,6 +14,7 @@ import { api } from "@/api";
 import { PreoperativeExaminationForStentRemovalNumberKeys } from "@/types/keys";
 import { PreoperativeExaminationForStentRemoval } from "@/types/table";
 import { logger } from "@/utils/alert";
+import { bmi } from "@/utils/cal";
 import { transformData } from "@/utils/table";
 
 interface AddPreoperativeProps {
@@ -34,16 +35,16 @@ export const AddPreoperative: FC<AddPreoperativeProps> = ({
         const transformedData = transformData(
             data,
             PreoperativeExaminationForStentRemovalNumberKeys,
+        ) as PreoperativeExaminationForStentRemoval;
+        transformedData.bmi = bmi(
+            transformedData.weight as number,
+            transformedData.height as number,
         );
         if (id === undefined) {
             logger.danger(t("pleaseFillProfile"));
             return;
         }
-        await api.preoperative.upsert(
-            transformedData as PreoperativeExaminationForStentRemoval,
-            id,
-        );
-        console.log(data);
+        await api.preoperative.upsert(transformedData, id);
         setFinishedTab?.();
     };
 

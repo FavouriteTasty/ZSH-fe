@@ -15,19 +15,28 @@ import {
     DropdownItem,
     Pagination,
 } from "@heroui/react";
-import { ChangeEvent, useCallback, useMemo, useState, type FC } from "react";
+import {
+    ChangeEvent,
+    useCallback,
+    useEffect,
+    useMemo,
+    useState,
+    type FC,
+} from "react";
 import { useTranslation } from "react-i18next";
+import { useLocation } from "react-router";
 
 import { useTableRenderer } from "./hooks/useTableRender";
 
+import { api } from "@/api";
+import { tablePatientToPatient } from "@/api/type";
 import { ChevronDownIcon, PlusIcon, SearchIcon } from "@/assets";
 import { userColumns } from "@/types/keys";
-import { User as DataType, User } from "@/types/table";
+import { Patient } from "@/types/table";
 import { capitalize } from "@/utils/string";
+import { SortDescriptor2SortOrder } from "@/utils/table";
 
 const columns = userColumns;
-
-const patients: User[] = [];
 
 const INITIAL_VISIBLE_COLUMNS = [
     "name",
@@ -44,16 +53,40 @@ export const HomeTable: FC = () => {
         new Set(INITIAL_VISIBLE_COLUMNS),
     );
     const [rowsPerPage, setRowsPerPage] = useState(7);
-    const [sortDescriptor, setSortDescriptor] = useState<SortDescriptor>({
-        column: "age",
-        direction: "ascending",
-    });
-    const { t, i18n } = useTranslation();
+    const [sortDescriptor, setSortDescriptor] = useState<
+        SortDescriptor | undefined
+    >(undefined);
+    const [patients, setPatients] = useState<Patient[]>([]);
 
-    const [page, setPage] = useState(1);
+    const { t, i18n } = useTranslation();
+    const location = useLocation();
+    const queryParams = new URLSearchParams(location.search);
+    const currentPage = Number(queryParams.get("page") ?? "1");
+
+    const [page, setPage] = useState(currentPage);
+    const [pages, setPages] = useState(1);
+    const [totalPatients, setTotalPatients] = useState<number>(0);
     const renderCell = useTableRenderer(t, i18n.language);
 
     const hasSearchFilter = Boolean(filterValue);
+
+    const load = async () => {
+        const raws = await api.table.list({
+            page,
+            limit: rowsPerPage,
+            sortBy: sortDescriptor?.column as string,
+            sortOrder: SortDescriptor2SortOrder(sortDescriptor),
+        });
+        console.log(raws);
+        setPatients(raws.data.map((i) => tablePatientToPatient(i)));
+        setPage(raws.pagination.page);
+        setPages(raws.pagination.totalPages);
+        setTotalPatients(raws.pagination.total);
+    };
+
+    useEffect(() => {
+        load();
+    }, [page, sortDescriptor, rowsPerPage]);
 
     const headerColumns = useMemo(() => {
         if (visibleColumns === "all") return columns;
@@ -62,37 +95,6 @@ export const HomeTable: FC = () => {
             Array.from(visibleColumns).includes(column.uid),
         );
     }, [visibleColumns]);
-
-    const filteredItems = useMemo(() => {
-        let filteredUsers = [...patients];
-
-        if (hasSearchFilter) {
-            filteredUsers = filteredUsers.filter((user) =>
-                user.name.toLowerCase().includes(filterValue.toLowerCase()),
-            );
-        }
-
-        return filteredUsers;
-    }, [patients, filterValue]);
-
-    const pages = Math.ceil(filteredItems.length / rowsPerPage) || 1;
-
-    const items = useMemo(() => {
-        const start = (page - 1) * rowsPerPage;
-        const end = start + rowsPerPage;
-
-        return filteredItems.slice(start, end);
-    }, [page, filteredItems, rowsPerPage]);
-
-    const sortedItems = useMemo(() => {
-        return [...items].sort((a: DataType, b: DataType) => {
-            const first = a[sortDescriptor.column as keyof DataType] as number;
-            const second = b[sortDescriptor.column as keyof DataType] as number;
-            const cmp = first < second ? -1 : first > second ? 1 : 0;
-
-            return sortDescriptor.direction === "descending" ? -cmp : cmp;
-        });
-    }, [sortDescriptor, items]);
 
     const onNextPage = useCallback(() => {
         if (page < pages) {
@@ -219,7 +221,7 @@ export const HomeTable: FC = () => {
                 </div>
                 <div className="flex justify-between items-center">
                     <span className="text-default-400 text-small">
-                        {t("totalPatients", { count: patients.length })}
+                        {t("totalPatients", { count: totalPatients })}
                     </span>
                     <label className="flex items-center text-default-400 text-small">
                         {t("rowsPerPage")}
@@ -278,7 +280,7 @@ export const HomeTable: FC = () => {
                 </div>
             </div>
         );
-    }, [items.length, page, pages, hasSearchFilter, i18n.language]);
+    }, [patients.length, page, pages, hasSearchFilter, i18n.language]);
 
     return (
         <Table
@@ -306,7 +308,7 @@ export const HomeTable: FC = () => {
                     </TableColumn>
                 )}
             </TableHeader>
-            <TableBody emptyContent={t("noPatientsFound")} items={sortedItems}>
+            <TableBody emptyContent={t("noPatientsFound")} items={patients}>
                 {(item) => (
                     <TableRow key={item.id}>
                         {(columnKey) => (

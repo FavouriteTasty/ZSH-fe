@@ -1,3 +1,6 @@
+import { SortDescriptor } from "@heroui/react";
+
+import { SortOrder } from "@/api/type";
 import { MedicalHistory } from "@/types/table";
 
 export type ColumnName<T extends string> = `${Uppercase<T>}`;
@@ -47,4 +50,20 @@ export const transformData = (
         },
         {} as Record<string, unknown>,
     );
+};
+
+export const SortDescriptor2SortOrder = (
+    sd: SortDescriptor | undefined,
+): SortOrder | undefined => {
+    if (sd === undefined) return undefined;
+    if (sd.direction === "ascending") return "asc" as const;
+    else return "desc" as const;
+};
+
+export const FetchFormData = (id: string) => {
+    const form = document.getElementById(id);
+    if (form === null) return undefined;
+    const fd = new FormData(form as HTMLFormElement);
+    const obj = Object.fromEntries(fd.entries());
+    return obj;
 };

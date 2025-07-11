@@ -14,12 +14,6 @@ importers:
       '@internationalized/date':
         specifier: ^3.8.2
         version: 3.8.2
-      '@tailwindcss/postcss':
-        specifier: ^4.0.7
-        version: 4.0.16
-      '@tailwindcss/vite':
-        specifier: ^4.0.16
-        version: 4.0.16(vite@6.2.3(@types/node@20.17.27)(jiti@2.4.2)(lightningcss@1.29.2)(terser@5.43.1))
       axios:
         specifier: ^1.7.9
         version: 1.8.4
@@ -35,12 +29,6 @@ importers:
       immer:
         specifier: ^10.1.1
         version: 10.1.1
-      postcss:
-        specifier: ^8.5.2
-        version: 8.5.3
-      postcss-loader:
-        specifier: ^8.1.1
-        version: 8.1.1(postcss@8.5.3)(typescript@5.7.3)
       react:
         specifier: ^19.0.0
         version: 19.0.0
@@ -53,9 +41,6 @@ importers:
       react-router:
         specifier: ^7.6.2
         version: 7.6.2(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
-      styled-components:
-        specifier: ^6.1.15
-        version: 6.1.16(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       tailwind-merge:
         specifier: ^3.3.1
         version: 3.3.1
@@ -75,6 +60,12 @@ importers:
       '@faker-js/faker':
         specifier: ^9.8.0
         version: 9.8.0
+      '@tailwindcss/postcss':
+        specifier: ^4.0.7
+        version: 4.0.16
+      '@tailwindcss/vite':
+        specifier: ^4.0.16
+        version: 4.0.16(vite@6.2.3(@types/node@20.17.27)(jiti@2.4.2)(lightningcss@1.29.2)(terser@5.43.1))
       '@types/node':
         specifier: ^20.11.16
         version: 20.17.27
@@ -111,12 +102,21 @@ importers:
       globals:
         specifier: ^15.15.0
         version: 15.15.0
+      postcss:
+        specifier: ^8.5.2
+        version: 8.5.3
+      postcss-loader:
+        specifier: ^8.1.1
+        version: 8.1.1(postcss@8.5.3)(typescript@5.7.3)
       prettier:
         specifier: ^3.4.2
         version: 3.5.3
       rollup-plugin-visualizer:
         specifier: ^6.0.3
         version: 6.0.3(rollup@4.37.0)
+      styled-components:
+        specifier: ^6.1.15
+        version: 6.1.16(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       terser:
         specifier: ^5.43.1
         version: 5.43.1

@@ -1,4 +1,5 @@
 import instance from "./axios";
+import { SortOrder, TableListResponse } from "./type";
 
 import {
     Hospitalization,
@@ -8,6 +9,7 @@ import {
     StentRemoval,
     UserProfile,
     Followup,
+    Patient,
 } from "@/types/table";
 
 const profile = {
@@ -58,6 +60,26 @@ const followup = {
         instance.get(`/followup/get/${id}`),
 };
 
+const table = {
+    get: (id: string): Promise<Patient> => instance.get(`/table/get/${id}`),
+    list: (param: {
+        page: number;
+        limit: number;
+        sortBy?: string;
+        sortOrder?: SortOrder;
+        search?: string;
+        status?: string;
+    }): Promise<TableListResponse> =>
+        instance.post(`/table/get`, {
+            page: param.page,
+            limit: param.limit,
+            sortBy: param.sortBy ?? null,
+            sortOrder: param.sortOrder ?? null,
+            search: param.search ?? null,
+            status: param.status ?? null,
+        }),
+};
+
 export const api = {
     profile,
     history,
@@ -66,4 +88,5 @@ export const api = {
     preoperative,
     stentRemoval,
     followup,
+    table,
 };

@@ -288,19 +288,21 @@ export const AddPage: FC = () => {
                         <CardBody>
                             <AddHospitalization
                                 setFinishedTab={() => {
-                                    if (!finishedTab.includes("history")) {
+                                    if (
+                                        !finishedTab.includes("hospitalization")
+                                    ) {
                                         setFinishedTab((prev) => [
                                             ...prev,
-                                            "history",
+                                            "hospitalization",
                                         ]);
                                     }
-                                    setSelected("hospitalization");
+                                    setSelected("stentPlacement");
                                     logger.success(
                                         t("submitSuccess", {
-                                            form: t("history"),
+                                            form: t("hospitalization"),
                                         }),
                                     );
-                                    handleHistory();
+                                    handleHospitalization();
                                 }}
                                 defaultValue={defaultHospitalization}
                             />

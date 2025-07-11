@@ -141,6 +141,7 @@ export type Hospitalization = HospitalizationBasic &
     HospitalizationHormone &
     HospitalizationBloodLipids &
     HospitalizationBodyComposition &
+    Hospitalization5E5Q5LScale &
     HospitalizationOther;
 
 export type StentPlacement = {
@@ -176,10 +177,15 @@ export type FollowupExtra = {
 
 export type Followup = FollowupExtra & Hospitalization;
 
-export type User = UserProfile & MedicalHistory;
+export type Patient = UserProfile &
+    MedicalHistory &
+    Hospitalization &
+    StentPlacement & { latestBMI?: number };
+// PreoperativeExaminationForStentRemoval &
+// StentRemoval & { followups: Followup[] };
 
 export type TableActions = {
     actions: never;
 };
 
-export type TableKeys = User & TableActions;
+export type TableKeys = Patient & TableActions;

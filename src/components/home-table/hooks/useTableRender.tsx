@@ -12,7 +12,7 @@ import { TFunction } from "i18next";
 import { Key, useMemo } from "react";
 
 import { VerticalDotsIcon } from "@/assets";
-import { User as DataType } from "@/types/table";
+import { Patient as DataType } from "@/types/table";
 import { sexColorMap } from "@/types/table-style";
 
 export const useTableRenderer = (t: TFunction, language: string) => {

@@ -21,6 +21,7 @@ export interface FormItemProps {
     endContent?: ReactNode;
     isRequired?: boolean;
     defaultValue?: string | number;
+    onBlur?: () => void;
 }
 
 export const FormItem: FC<FormItemProps> = (props) => {
@@ -31,6 +32,7 @@ export const FormItem: FC<FormItemProps> = (props) => {
         endContent,
         isRequired = true,
         defaultValue,
+        onBlur,
     } = props;
     const { t } = useTranslation();
     if (type === "text") {
@@ -48,6 +50,7 @@ export const FormItem: FC<FormItemProps> = (props) => {
                 endContent={endContent}
                 defaultValue={defaultValue as string}
                 type={type}
+                onBlur={onBlur}
             />
         );
     }
@@ -66,6 +69,7 @@ export const FormItem: FC<FormItemProps> = (props) => {
                 name={objectKey}
                 placeholder={t("pleaseEnter") + t(`tableColumn.${objectKey}`)}
                 endContent={endContent}
+                onBlur={onBlur}
                 defaultValue={defaultValue as number}
             />
         );
@@ -87,6 +91,7 @@ export const FormItem: FC<FormItemProps> = (props) => {
                         : string2calenderDate(defaultValue as string)
                 }
                 name={objectKey}
+                onBlur={onBlur}
             />
         );
     }
@@ -109,6 +114,7 @@ export const FormItem: FC<FormItemProps> = (props) => {
                 name={objectKey}
                 placeholder={t("pleaseEnter") + t(`tableColumn.${objectKey}`)}
                 endContent={endContent}
+                onBlur={onBlur}
             />
         );
     }
@@ -128,6 +134,7 @@ export const FormItem: FC<FormItemProps> = (props) => {
                     ? undefined
                     : [defaultValue as string]
             }
+            onBlur={onBlur}
         >
             {pairs.map((pair) => {
                 return (

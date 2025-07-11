@@ -278,7 +278,17 @@ export const FollowupNumberKeys: string[] = [...HospitalizationNumberKeys];
 export const tableActionsKeys: (keyof TableActions)[] = ["actions"] as const;
 
 export const userColumns = generateColumns<TableKeys>(
-    [...UserProfileKeys, ...MedicalHistoryKeys, ...tableActionsKeys],
+    [
+        ...UserProfileKeys,
+        ...MedicalHistoryKeys,
+        ...HospitalizationKeys,
+        "latestBMI",
+        ...tableActionsKeys,
+        // ...StentPlacementKeys,
+        // ...PreoperativeExaminationForStentRemovalKeys,
+        // ...StentRemovalKeys,
+        // "followups",
+    ],
     ["id", "name", "age", "birth"],
     ["avatar"],
 );

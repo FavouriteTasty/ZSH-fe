@@ -13,6 +13,7 @@ import { api } from "@/api";
 import { HospitalizationNumberKeys } from "@/types/keys";
 import { Hospitalization } from "@/types/table";
 import { logger } from "@/utils/alert";
+import { bmi } from "@/utils/cal";
 import { transformData } from "@/utils/table";
 
 interface AddHospitalizationProps {
@@ -30,15 +31,19 @@ export const AddHospitalization: FC<AddHospitalizationProps> = ({
     const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const data = Object.fromEntries(new FormData(e.currentTarget));
-        const transformedData = transformData(data, HospitalizationNumberKeys);
+        const transformedData = transformData(
+            data,
+            HospitalizationNumberKeys,
+        ) as Hospitalization;
+        transformedData.bmi = bmi(
+            transformedData.weight as number,
+            transformedData.height as number,
+        );
         if (id === undefined) {
             logger.danger(t("pleaseFillProfile"));
             return;
         }
-        await api.hospitalization.upsert(
-            transformedData as Hospitalization,
-            id,
-        );
+        await api.hospitalization.upsert(transformedData, id);
         setFinishedTab?.();
     };
 
