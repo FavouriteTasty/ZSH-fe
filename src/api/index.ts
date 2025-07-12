@@ -41,6 +41,10 @@ const stentPlacement = {
         instance.post("/stentPlacement/upsert", { data, id }),
     get: (id: string): Promise<StentPlacement | null> =>
         instance.get(`/stentPlacement/get/${id}`),
+    draftGet: (id: string): Promise<StentPlacement | null> =>
+        instance.get(`/stentPlacement/draftGet/${id}`),
+    draftUpsert: (data: StentPlacement, id: string): Promise<void> =>
+        instance.post("/stentPlacement/draftUpsert", { data, id }),
 };
 
 const preoperative = {

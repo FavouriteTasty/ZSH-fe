@@ -55,6 +55,8 @@ export const AddPage: FC = () => {
     const [defaultStentPlacement, setDefaultStentPlacement] = useState<
         StentPlacement | undefined
     >(undefined);
+    const [draftStentPlacement, setDraftStentPlacement] =
+        useState<boolean>(false);
     const [defaultStentRemoval, setDefaultStentRemoval] = useState<
         StentRemoval | undefined
     >(undefined);
@@ -116,6 +118,14 @@ export const AddPage: FC = () => {
             if (placement !== null && !finishedTab.includes("stentPlacement")) {
                 setFinishedTab((prev) => [...prev, "stentPlacement"]);
                 setDefaultStentPlacement(placement);
+                setDraftStentPlacement(false);
+            }
+            if (placement === null) {
+                const placement = await api.stentPlacement.draftGet(id);
+                if (placement !== null) {
+                    setDefaultStentPlacement(placement);
+                    setDraftStentPlacement(true);
+                }
             }
         }
     };
@@ -329,12 +339,14 @@ export const AddPage: FC = () => {
                                 "flex items-center gap-1",
                                 finishedTab.includes("stentPlacement") &&
                                     "text-green-600",
+                                draftStentPlacement && "text-yellow-500",
                             )}
                         >
                             {t("stentPlacement")}
                             {finishedTab.includes("stentPlacement") && (
                                 <CompleteIcon />
                             )}
+                            {draftStentPlacement && <InfoIcon />}
                         </div>
                     }
                 >
