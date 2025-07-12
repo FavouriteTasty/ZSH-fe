@@ -4,6 +4,7 @@ import AddIcon from "./icon-add.svg?react";
 import { CameraIcon } from "./icon-camera";
 import CompleteIcon from "./icon-complete.svg?react";
 import DeleteIcon from "./icon-delete.svg?react";
+import InfoIcon from "./icon-info.svg?react";
 import InternationalIcon from "./icon-international.svg?react";
 
 export type IconSvgProps = SVGProps<SVGSVGElement> & {
@@ -123,4 +124,11 @@ export const ChevronDownIcon = ({
     );
 };
 
-export { InternationalIcon, CameraIcon, CompleteIcon, AddIcon, DeleteIcon };
+export {
+    InternationalIcon,
+    CameraIcon,
+    CompleteIcon,
+    AddIcon,
+    DeleteIcon,
+    InfoIcon,
+};

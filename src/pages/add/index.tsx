@@ -6,7 +6,7 @@ import { useNavigate, useParams } from "react-router";
 import { twMerge } from "tailwind-merge";
 
 import { api } from "@/api";
-import { CompleteIcon } from "@/assets";
+import { CompleteIcon, InfoIcon } from "@/assets";
 import { AddFollowUp } from "@/components/add-followup";
 import { AddHistory } from "@/components/add-history";
 import { AddHospitalization } from "@/components/add-hospitalization";
@@ -50,6 +50,8 @@ export const AddPage: FC = () => {
     const [defaultHospitalization, setDefaultHospitalization] = useState<
         Hospitalization | undefined
     >(undefined);
+    const [draftHospitalization, setDraftHospitalization] =
+        useState<boolean>(false);
     const [defaultStentPlacement, setDefaultStentPlacement] = useState<
         StentPlacement | undefined
     >(undefined);
@@ -96,11 +98,13 @@ export const AddPage: FC = () => {
             ) {
                 setFinishedTab((prev) => [...prev, "hospitalization"]);
                 setDefaultHospitalization(hospitalization);
+                setDraftHospitalization(false);
             }
             if (hospitalization === null) {
                 const hospitalization = await api.hospitalization.draftGet(id);
                 if (hospitalization !== null) {
                     setDefaultHospitalization(hospitalization);
+                    setDraftHospitalization(true);
                 }
             }
         }
@@ -281,12 +285,14 @@ export const AddPage: FC = () => {
                                 "flex items-center gap-1",
                                 finishedTab.includes("hospitalization") &&
                                     "text-green-600",
+                                draftHospitalization && "text-yellow-500",
                             )}
                         >
                             {t("hospitalization")}
                             {finishedTab.includes("hospitalization") && (
                                 <CompleteIcon />
                             )}
+                            {draftHospitalization && <InfoIcon />}
                         </div>
                     }
                 >
