@@ -59,9 +59,9 @@ export function tablePatientToPatient(tp: TablePatient): Patient {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-expect-error
     return {
-        ...rest,
         ...hospitalization,
         ...stentPlacement,
+        ...rest,
         latestBMI: latest?.bmi,
     };
 }
