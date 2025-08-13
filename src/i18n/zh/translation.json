@@ -170,6 +170,9 @@
 
         "latestBMI": "最新BMI",
 
-        "actions": "操作"
+        "actions": "操作",
+        "view": "详情",
+        "edit": "编辑",
+        "delete": "删除"
     }
 }

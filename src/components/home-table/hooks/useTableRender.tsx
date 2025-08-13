@@ -10,12 +10,23 @@ import {
 } from "@heroui/react";
 import { TFunction } from "i18next";
 import { Key, useMemo } from "react";
+import { useNavigate } from "react-router";
 
 import { VerticalDotsIcon } from "@/assets";
 import { Patient as DataType } from "@/types/table";
 import { sexColorMap } from "@/types/table-style";
 
 export const useTableRenderer = (t: TFunction, language: string) => {
+    const navigate = useNavigate();
+
+    const navigateToView = (id: string) => {
+        navigate(`/view/${id}`);
+    };
+
+    const navigateToEdit = (id: string) => {
+        navigate(`/add/${id}`);
+    };
+
     const renderCell = useMemo(() => {
         return (user: DataType, columnKey: Key) => {
             const cellValue = user[columnKey as keyof DataType];
@@ -70,10 +81,27 @@ export const useTableRenderer = (t: TFunction, language: string) => {
                                     </Button>
                                 </DropdownTrigger>
                                 <DropdownMenu>
-                                    <DropdownItem key="view">View</DropdownItem>
-                                    <DropdownItem key="edit">Edit</DropdownItem>
-                                    <DropdownItem key="delete">
-                                        Delete
+                                    <DropdownItem
+                                        key="view"
+                                        onClick={() => {
+                                            navigateToView(user.id);
+                                        }}
+                                    >
+                                        {t("tableColumn.view")}
+                                    </DropdownItem>
+                                    <DropdownItem
+                                        key="edit"
+                                        onClick={() => {
+                                            navigateToEdit(user.id);
+                                        }}
+                                    >
+                                        {t("tableColumn.edit")}
+                                    </DropdownItem>
+                                    <DropdownItem
+                                        className="text-red-600"
+                                        key="delete"
+                                    >
+                                        {t("tableColumn.delete")}
                                     </DropdownItem>
                                 </DropdownMenu>
                             </Dropdown>

@@ -171,6 +171,8 @@
 
         "latestBMI": "latest BMI",
         
-        "actions": "actions"
+        "actions": "actions",
+        "view": "View",
+        "edit": "Delete"
     }
 }
