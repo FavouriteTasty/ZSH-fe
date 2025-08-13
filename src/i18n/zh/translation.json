@@ -42,6 +42,7 @@
     "submitSuccess": "{{form}} 提交成功",
     "pleaseFillProfile": "请先填写个人资料",
     "autoSave": "内容已自动保存",
+    "noData": "暂无数据",
     "tableColumn": {
         "id": "身份证",
         "name": "姓名",

@@ -42,6 +42,7 @@
     "submitSuccess": "{{form}} submitted successfully",
     "pleaseFillProfile": "Please fill in the profile first",
     "autoSave": "Content has been automatically saved",
+    "noData": "No data",
     "tableColumn": {
         "id": "id",
         "name": "name",
