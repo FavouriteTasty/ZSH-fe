@@ -1,6 +1,7 @@
 import instance from "./axios";
 import { SortOrder, TableListResponse } from "./type";
 
+import { GenerateResponse } from "@/types/invite-add";
 import {
     Hospitalization,
     MedicalHistory,
@@ -88,6 +89,14 @@ const table = {
         }),
 };
 
+const inviteAdd = {
+    generate: (id: string, name: string): Promise<GenerateResponse> =>
+        instance.post("/inviteAdd/generate", {
+            id,
+            name,
+        }),
+};
+
 export const api = {
     profile,
     history,
@@ -97,4 +106,5 @@ export const api = {
     stentRemoval,
     followup,
     table,
+    inviteAdd,
 };

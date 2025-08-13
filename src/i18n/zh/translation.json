@@ -13,7 +13,7 @@
     "male": "男性",
     "female": "女性",
     "married": "已婚",
-    "unmarried": "未婚", 
+    "unmarried": "未婚",
     "han": "汉族",
     "china": "中国",
     "columns": "显示列",
@@ -70,7 +70,6 @@
         "menstrualHistory": "月经史",
         "maritalHistory": "婚育史",
         "familyHistory": "家族史",
-
         "basic": "基本信息",
         "admissionTime": "采集时间",
         "bodyTemperature": "体温",
@@ -147,7 +146,6 @@
         "eqVas": "EQ-VAS",
         "patientFrontPhoto": "患者正面照片",
         "patientSidePhoto": "患者侧面照片",
-
         "operationTime": "手术时间",
         "stentManufacturers": "支架厂商",
         "dateOfSurgery": "手术日期",
@@ -159,17 +157,30 @@
         "fastingDuration": "禁食时长",
         "discomfortComplaint": "不适主诉",
         "dischargeTime": "出院时间",
-
         "sweetsIntake": "甜食摄入",
         "emotionalEatingFrequency": "情绪化饮食次数",
         "foodServings": "食物分量",
         "physicalActivityStatus": "体育活动状况",
         "foodComposition": "食物组成",
-
         "improvementOfPreviousDiseases": "既往疾病改善情况",
-
         "latestBMI": "最新BMI",
-
         "actions": "操作"
+    },
+    "inviteAdd": {
+        "title": "邀请填写",
+        "patientInfo": "患者信息",
+        "patientName": "患者姓名",
+        "patientID": "患者身份证号",
+        "patientNameErrorMsg": "请输入有效的患者姓名",
+        "patientIDErrorMsg": "请输入有效的患者身份证号",
+        "patientNamePlaceholder": "请输入患者姓名",
+        "patientIDPlaceholder": "请输入患者身份证号",
+        "submit": "生成链接",
+        "reset": "重置",
+        "close":"关闭",
+        "shareLink":"分享链接",
+        "copyLink":"复制链接"
+
+
     }
 }
