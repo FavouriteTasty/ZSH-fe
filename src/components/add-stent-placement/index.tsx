@@ -17,12 +17,16 @@ import { FetchFormData, transformData } from "@/utils/table";
 
 interface AddStentPlacementProps {
     setFinishedTab?: () => void;
+    load?: () => Promise<void>;
     defaultValue?: StentPlacement;
+    isDraft?: boolean;
 }
 
 export const AddStentPlacement: FC<AddStentPlacementProps> = ({
     setFinishedTab,
+    load,
     defaultValue,
+    isDraft = false,
 }) => {
     const { t } = useTranslation();
     const { id } = useParams();
@@ -37,6 +41,7 @@ export const AddStentPlacement: FC<AddStentPlacementProps> = ({
         const data = Object.fromEntries(new FormData(e.currentTarget));
         const transformedData = transformData(data, StentPlacementNumberKeys);
         await api.stentPlacement.upsert(transformedData as StentPlacement, id);
+        await load?.();
         setFinishedTab?.();
     };
 
@@ -54,11 +59,12 @@ export const AddStentPlacement: FC<AddStentPlacementProps> = ({
             return;
         }
         await api.stentPlacement.draftUpsert(transformedData, id);
+        await load?.();
         logger.success(t("autoSave"));
     };
 
     useEffect(() => {
-        if (timeRef.current === null) {
+        if (timeRef.current === null && isDraft) {
             timeRef.current = setInterval(() => {
                 autoSave();
             }, AutoSaveInterval);
@@ -67,7 +73,7 @@ export const AddStentPlacement: FC<AddStentPlacementProps> = ({
             if (timeRef.current !== null) clearInterval(timeRef.current);
             timeRef.current = null;
         };
-    }, []);
+    }, [isDraft]);
 
     return (
         <motion.div

@@ -51,18 +51,20 @@ export const AddPage: FC = () => {
         Hospitalization | undefined
     >(undefined);
     const [draftHospitalization, setDraftHospitalization] =
-        useState<boolean>(false);
+        useState<boolean>(true);
     const [defaultStentPlacement, setDefaultStentPlacement] = useState<
         StentPlacement | undefined
     >(undefined);
     const [draftStentPlacement, setDraftStentPlacement] =
-        useState<boolean>(false);
+        useState<boolean>(true);
     const [defaultStentRemoval, setDefaultStentRemoval] = useState<
         StentRemoval | undefined
     >(undefined);
     const [defaultPreoperative, setDefaultPreoperative] = useState<
         PreoperativeExaminationForStentRemoval | undefined
     >(undefined);
+    const [draftPreoperative, setDraftPreoperative] = useState<boolean>(true);
+
     const [followups, setFollowups] = useState<Followup[]>([]);
 
     const navigate = useNavigate();
@@ -142,6 +144,14 @@ export const AddPage: FC = () => {
                     "preoperativeExaminationForStentRemoval",
                 ]);
                 setDefaultPreoperative(pre);
+                setDraftPreoperative(false);
+            }
+            if (pre === null) {
+                const pre = await api.preoperative.draftGet(id);
+                if (pre !== null) {
+                    setDefaultPreoperative(pre);
+                    setDraftPreoperative(true);
+                }
             }
         }
     };
@@ -324,9 +334,10 @@ export const AddPage: FC = () => {
                                             form: t("hospitalization"),
                                         }),
                                     );
-                                    handleHospitalization();
                                 }}
+                                load={handleHospitalization}
                                 defaultValue={defaultHospitalization}
+                                isDraft={draftHospitalization}
                             />
                         </CardBody>
                     </Card>
@@ -370,9 +381,10 @@ export const AddPage: FC = () => {
                                             form: t("stentPlacement"),
                                         }),
                                     );
-                                    handleStentPlacement();
                                 }}
+                                load={handleStentPlacement}
                                 defaultValue={defaultStentPlacement}
+                                isDraft={draftStentPlacement}
                             />
                         </CardBody>
                     </Card>
@@ -386,12 +398,14 @@ export const AddPage: FC = () => {
                                 finishedTab.includes(
                                     "preoperativeExaminationForStentRemoval",
                                 ) && "text-green-600",
+                                draftPreoperative && "text-yellow-500",
                             )}
                         >
                             {t("preoperativeExaminationForStentRemoval")}
                             {finishedTab.includes(
                                 "preoperativeExaminationForStentRemoval",
                             ) && <CompleteIcon />}
+                            {draftPreoperative && <InfoIcon />}
                         </div>
                     }
                 >
@@ -417,9 +431,10 @@ export const AddPage: FC = () => {
                                             ),
                                         }),
                                     );
-                                    handlePreoperative();
                                 }}
+                                load={handlePreoperative}
                                 defaultValue={defaultPreoperative}
+                                isDraft={draftPreoperative}
                             />
                         </CardBody>
                     </Card>
