@@ -1,4 +1,10 @@
 export interface GenerateResponse {
-    code: number;
-    message: string;
+    id: string;
+    name: string;
+    link: string;
+}
+
+export interface ProfileResponse {
+    id: string;
+    name: string;
 }

@@ -38,6 +38,7 @@ export const FormItem: FC<FormItemProps> = (props) => {
     } = props;
     const { t } = useTranslation();
     if (type === "text") {
+        console.log("一个text input", objectKey, isDisabled, defaultValue);
         return (
             <Input
                 className="w-[45%] max-w-[384px]"

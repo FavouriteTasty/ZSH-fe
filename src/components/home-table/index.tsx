@@ -292,7 +292,7 @@ export const HomeTable: FC = () => {
     }, [patients.length, page, pages, hasSearchFilter, i18n.language]);
 
     // Invite User To Add
-    const [isOpen, setIsOpen] = useState(true);
+    const [isOpen, setIsOpen] = useState(false);
 
     return (
         <>

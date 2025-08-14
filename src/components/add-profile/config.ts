@@ -40,3 +40,15 @@ export const InviteAddProfileConfig: (FormItemProps | DividerWithTileProps)[] =
             ? { ...item, isDisabled: true }
             : item,
     );
+export function makeInviteAddProfileConfig(id: string, name: string) {
+    return AddProfileConfig.map((item) =>
+        "objectKey" in item &&
+        (item.objectKey === "id" || item.objectKey === "name")
+            ? {
+                  ...item,
+                  isDisabled: true,
+                  defaultValue: item.objectKey === "id" ? id : name,
+              }
+            : item,
+    );
+}

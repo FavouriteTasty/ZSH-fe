@@ -1,5 +1,6 @@
 {
     "title": "胃转流支架随访数据库",
+    "loading":"加载中 ...",
     "login": {
         "title": "登陆",
         "username": "用户名",
@@ -179,7 +180,8 @@
         "reset": "重置",
         "close":"关闭",
         "shareLink":"分享链接",
-        "copyLink":"复制链接"
+        "copyLink":"复制链接",
+        "invalidLink":"链接无效或过时"
 
 
     }

@@ -8,6 +8,7 @@
         "passwordError": "Please enter a valid password",
         "submit": "Submit"
     },
+    "loading":"Loading ...",
     "logout": "Log Out",
     "language": "Language",
     "male": "male",
@@ -179,6 +180,7 @@
         "reset":"Reset",
         "close":"Close",
         "shareLink":"Share Link",
-        "copyLink":"Cope Link"
+        "copyLink":"Cope Link",
+        "invalidLink":"The link is invalid"
     }
 }

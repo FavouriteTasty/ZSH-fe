@@ -11,6 +11,7 @@ import {
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 
+import { api } from "@/api";
 import { GenerateResponse } from "@/types/invite-add";
 interface PatientData {
     patientName: string;
@@ -25,7 +26,9 @@ export default function InviteAddAlert({
     onClose,
 }: InviteAddAlertProps) {
     const { t } = useTranslation();
-    const [genRes, setGenRes] = useState<GenerateResponse | null>(null);
+    const [genRes, setGenRes] = useState<
+        GenerateResponse | { code: number; message: string } | null
+    >(null);
     return (
         <Modal
             isOpen={isOpen}
@@ -47,23 +50,33 @@ export default function InviteAddAlert({
                                 onReset={() => {
                                     setGenRes(null);
                                 }}
-                                onSubmit={(e) => {
+                                onSubmit={async (e) => {
                                     e.preventDefault();
                                     const data = Object.fromEntries(
                                         new FormData(e.currentTarget),
                                     ) as unknown as PatientData;
                                     console.log(data);
-                                    const mockRes: GenerateResponse =
-                                        Math.random() > 0.5
-                                            ? {
-                                                  code: 200,
-                                                  message: `https://example.com/invite/${data.patientID}`,
-                                              }
-                                            : {
-                                                  code: 100,
-                                                  message: `生成失败`,
-                                              };
-                                    setGenRes(mockRes);
+                                    // const mockRes: GenerateResponse =
+                                    //     Math.random() > 0.5
+                                    //         ? {
+                                    //               code: 200,
+                                    //               message: `https://example.com/invite/${data.patientID}`,
+                                    //           }
+                                    //         : {
+                                    //               code: 100,
+                                    //               message: `生成失败`,
+                                    //           };
+                                    // setGenRes(mockRes);
+
+                                    const res:
+                                        | GenerateResponse
+                                        | { code: number; message: string } =
+                                        await api.inviteAdd.generate(
+                                            data.patientID,
+                                            data.patientName,
+                                        );
+                                    console.log("res", res);
+                                    setGenRes(res);
                                 }}
                             >
                                 <Input
@@ -101,9 +114,9 @@ export default function InviteAddAlert({
                                         <Snippet
                                             symbol=""
                                             color={
-                                                genRes.code === 200
-                                                    ? "success"
-                                                    : "danger"
+                                                "message" in genRes
+                                                    ? "danger"
+                                                    : "success"
                                             }
                                             className="w-full"
                                             tooltipProps={{
@@ -111,7 +124,9 @@ export default function InviteAddAlert({
                                                     t("inviteAdd.copyLink"),
                                             }}
                                         >
-                                            {genRes.message}
+                                            {"message" in genRes
+                                                ? genRes.message
+                                                : `${window.location.hostname}:5173/invite-add/${genRes.link}`}
                                         </Snippet>
                                     </div>
                                 )}
