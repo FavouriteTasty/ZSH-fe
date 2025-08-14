@@ -21,6 +21,7 @@ export interface FormItemProps {
     endContent?: ReactNode;
     isRequired?: boolean;
     defaultValue?: string | number;
+    isDisabled?: boolean;
     onBlur?: () => void;
 }
 
@@ -32,6 +33,7 @@ export const FormItem: FC<FormItemProps> = (props) => {
         endContent,
         isRequired = true,
         defaultValue,
+        isDisabled = false,
         onBlur,
     } = props;
     const { t } = useTranslation();
@@ -51,6 +53,7 @@ export const FormItem: FC<FormItemProps> = (props) => {
                 defaultValue={defaultValue as string}
                 type={type}
                 onBlur={onBlur}
+                isDisabled={isDisabled}
             />
         );
     }
@@ -71,6 +74,7 @@ export const FormItem: FC<FormItemProps> = (props) => {
                 endContent={endContent}
                 onBlur={onBlur}
                 defaultValue={defaultValue as number}
+                isDisabled={isDisabled}
             />
         );
     }
@@ -92,6 +96,7 @@ export const FormItem: FC<FormItemProps> = (props) => {
                 }
                 name={objectKey}
                 onBlur={onBlur}
+                isDisabled={isDisabled}
             />
         );
     }
@@ -115,6 +120,7 @@ export const FormItem: FC<FormItemProps> = (props) => {
                 placeholder={t("pleaseEnter") + t(`tableColumn.${objectKey}`)}
                 endContent={endContent}
                 onBlur={onBlur}
+                isDisabled={isDisabled}
             />
         );
     }
@@ -135,6 +141,7 @@ export const FormItem: FC<FormItemProps> = (props) => {
                     : [defaultValue as string]
             }
             onBlur={onBlur}
+            isDisabled={isDisabled}
         >
             {pairs.map((pair) => {
                 return (

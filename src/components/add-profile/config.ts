@@ -32,3 +32,11 @@ export const AddProfileConfig: (FormItemProps | DividerWithTileProps)[] = [
     { type: "text", objectKey: "relation" },
     { type: "text", objectKey: "contactPhone" },
 ];
+
+export const InviteAddProfileConfig: (FormItemProps | DividerWithTileProps)[] =
+    AddProfileConfig.map((item) =>
+        "objectKey" in item &&
+        (item.objectKey === "id" || item.objectKey === "name")
+            ? { ...item, isDisabled: true }
+            : item,
+    );
