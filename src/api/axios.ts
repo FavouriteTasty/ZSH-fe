@@ -1,6 +1,7 @@
 import axios from "axios";
 
-import { $UI } from "@/store/ui";
+import { $User } from "@/store/user";
+import { logger } from "@/utils/alert";
 
 const instance = axios.create({
     baseURL: "/api",
@@ -9,7 +10,39 @@ const instance = axios.create({
 
 instance.defaults.headers.get["Content-Type"] = "application/json";
 instance.defaults.headers.get.Accept = "*/*";
-instance.defaults.headers.common.Authorization = `Bearer ${localStorage.getItem("token")}`;
+instance.interceptors.request.use((config) => {
+    const at = $User.get().accessToken;
+    if (at) config.headers.Authorization = `Bearer ${at}`;
+    return config;
+});
+
+let refreshing = false;
+instance.interceptors.response.use(undefined, async (error) => {
+    const original = error.config;
+    const refreshToken = $User.get().refreshToken;
+    if (error.response?.status === 401 && !original._retry && refreshToken) {
+        original._retry = true;
+        if (!refreshing) {
+            refreshing = true;
+            try {
+                const res = await instance.post("/auth/refresh", null, {
+                    headers: {
+                        "X-Refresh-Token": `Bearer ${refreshToken}`,
+                    },
+                });
+                $User.update("refresh token", (draft) => {
+                    draft.accessToken = res.data.accessToken;
+                    draft.refreshToken = res.data.refreshToken;
+                });
+            } finally {
+                refreshing = false;
+            }
+        }
+        original.headers.Authorization = `Bearer ${$User.get().accessToken}`;
+        return instance(original);
+    }
+    return Promise.reject(error);
+});
 
 // 请求拦截器
 instance.interceptors.request.use(
@@ -30,8 +63,9 @@ instance.interceptors.response.use(
         return res.data;
     },
     async (err) => {
+        logger.danger(err.response.data.message ?? err.response.data);
         if (err.response.status === 401 || err.response.status === 422) {
-            $UI.update("unauthorized", (draft) => {
+            $User.update("unauthorized", (draft) => {
                 draft.login = false;
             });
             localStorage.setItem("token", "");

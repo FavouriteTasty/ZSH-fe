@@ -1,8 +1,12 @@
-import { Button, Image, Input } from "@heroui/react";
+import { Button, Checkbox, Image, Input } from "@heroui/react";
 import { motion } from "framer-motion";
-import { FC, useEffect, useState } from "react";
+import { FC, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
+
+import { api } from "@/api";
+import { $User } from "@/store/user";
+import { logger } from "@/utils/alert";
 
 export const Login: FC = () => {
     const { t } = useTranslation();
@@ -10,14 +14,34 @@ export const Login: FC = () => {
     const [password, setPassword] = useState("");
     const [disabled, setDisabled] = useState<boolean>(true);
     const [loading, setLoading] = useState<boolean>(false);
+    const selected = useRef<boolean>(true);
+    const login = $User.use((state) => state.login);
+
     const navigate = useNavigate();
+
+    useEffect(() => {
+        if (login) {
+            navigate("/home");
+        }
+    }, [login]);
 
     const handleSubmit = async () => {
         setLoading(true);
-        setTimeout(() => {
-            setLoading(false);
+        try {
+            const res = await api.login.login({ username, password });
+            logger.success(t("LoginSuccess"));
+            $User.update("login", (draft) => {
+                draft.login = true;
+                draft.accessToken = res.accessToken;
+                draft.refreshToken = res.refreshToken;
+            });
+            localStorage.setItem("accessToken", res.accessToken);
+            localStorage.setItem("refreshToken", res.refreshToken);
             navigate("/home");
-        }, 1000);
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        } catch (err) {
+            setLoading(false);
+        }
     };
 
     useEffect(() => {
@@ -58,6 +82,13 @@ export const Login: FC = () => {
                     }}
                     type="password"
                 />
+                <Checkbox
+                    defaultSelected
+                    className="my-2"
+                    onChange={() => (selected.current = !selected.current)}
+                >
+                    {t("NoLoginRequired", { num: 30 })}
+                </Checkbox>
                 <Button
                     className="w-full bg-black text-white font-medium mb-[200px]"
                     onPress={handleSubmit}

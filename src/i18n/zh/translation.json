@@ -186,5 +186,7 @@
         "shareLink":"分享链接",
         "copyLink":"复制链接",
         "invalidLink":"链接无效或过时"
-    }
+    },
+    "NoLoginRequired": "{{num}}天内免登录",
+    "LoginSuccess": "登录成功"
 }

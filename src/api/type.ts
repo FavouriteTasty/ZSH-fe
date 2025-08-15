@@ -65,3 +65,15 @@ export function tablePatientToPatient(tp: TablePatient): Patient {
         latestBMI: latest?.bmi,
     };
 }
+
+export const UserType: {
+    VIEW: "VIEW";
+    NORMAL: "NORMAL";
+    ADMIN: "ADMIN";
+} = {
+    VIEW: "VIEW",
+    NORMAL: "NORMAL",
+    ADMIN: "ADMIN",
+};
+
+export type UserType = (typeof UserType)[keyof typeof UserType];

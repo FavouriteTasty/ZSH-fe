@@ -1,5 +1,5 @@
 import instance from "./axios";
-import { SortOrder, TableListResponse } from "./type";
+import { SortOrder, TableListResponse, UserType } from "./type";
 
 import { GenerateResponse, ProfileResponse } from "@/types/invite-add";
 import {
@@ -110,6 +110,17 @@ const inviteAdd = {
         instance.get(`/invite/get/${uuid}`),
 };
 
+const login = {
+    login: (data: {
+        username: string;
+        password: string;
+    }): Promise<{
+        accessToken: string;
+        refreshToken: string;
+        user: { id: string; role: UserType };
+    }> => instance.post("/auth/login", { data }),
+};
+
 export const api = {
     profile,
     history,
@@ -120,4 +131,5 @@ export const api = {
     followup,
     table,
     inviteAdd,
+    login,
 };

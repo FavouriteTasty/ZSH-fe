@@ -15,12 +15,21 @@ import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
 
 import { InternationalIcon } from "@/assets";
+import { $User } from "@/store/user";
 
 export const Header: FC = () => {
     const { t, i18n } = useTranslation();
     const navigate = useNavigate();
-
+    const login = $User.use((state) => state.login);
     const handleLogout = () => {
+        localStorage.removeItem("accessToken");
+        localStorage.removeItem("refreshToken");
+        $User.update("logout", (draft) => {
+            draft.login = false;
+            draft.accessToken = undefined;
+            draft.refreshToken = undefined;
+        });
+
         navigate("/login");
     };
 
@@ -65,15 +74,17 @@ export const Header: FC = () => {
                         </DropdownMenu>
                     </Dropdown>
                 </NavbarItem>
-                <NavbarItem>
-                    <Button
-                        color="primary"
-                        variant="flat"
-                        onPress={handleLogout}
-                    >
-                        {t("logout")}
-                    </Button>
-                </NavbarItem>
+                {login && (
+                    <NavbarItem>
+                        <Button
+                            color="primary"
+                            variant="flat"
+                            onPress={handleLogout}
+                        >
+                            {t("logout")}
+                        </Button>
+                    </NavbarItem>
+                )}
             </NavbarContent>
         </Navbar>
     );

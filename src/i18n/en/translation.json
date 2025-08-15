@@ -186,5 +186,7 @@
         "shareLink":"Share Link",
         "copyLink":"Cope Link",
         "invalidLink":"The link is invalid"
-    }
+    },
+    "NoLoginRequired": "No login required for {{num}} days",
+    "LoginSuccess": "Login success"
 }
