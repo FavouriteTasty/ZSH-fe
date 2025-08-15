@@ -19,12 +19,16 @@ import { FetchFormData, transformData } from "@/utils/table";
 
 interface AddHospitalizationProps {
     setFinishedTab?: () => void;
+    load?: () => Promise<void>;
     defaultValue?: Hospitalization;
+    isDraft?: boolean;
 }
 
 export const AddHospitalization: FC<AddHospitalizationProps> = ({
     setFinishedTab,
+    load,
     defaultValue,
+    isDraft = false,
 }) => {
     const { t } = useTranslation();
     const { id } = useParams();
@@ -46,6 +50,7 @@ export const AddHospitalization: FC<AddHospitalizationProps> = ({
             return;
         }
         await api.hospitalization.upsert(transformedData, id);
+        await load?.();
         setFinishedTab?.();
     };
 
@@ -63,11 +68,14 @@ export const AddHospitalization: FC<AddHospitalizationProps> = ({
             return;
         }
         await api.hospitalization.draftUpsert(transformedData, id);
+        await load?.();
         logger.success(t("autoSave"));
     };
 
     useEffect(() => {
-        if (timeRef.current === null) {
+        console.log("timeref", isDraft);
+
+        if (timeRef.current === null && isDraft) {
             timeRef.current = setInterval(() => {
                 autoSave();
             }, AutoSaveInterval);
@@ -76,7 +84,7 @@ export const AddHospitalization: FC<AddHospitalizationProps> = ({
             if (timeRef.current !== null) clearInterval(timeRef.current);
             timeRef.current = null;
         };
-    }, []);
+    }, [isDraft]);
 
     return (
         <motion.div

@@ -43,6 +43,7 @@
     "submitSuccess": "{{form}} submitted successfully",
     "pleaseFillProfile": "Please fill in the profile first",
     "autoSave": "Content has been automatically saved",
+    "noData": "No data",
     "tableColumn": {
         "id": "id",
         "name": "name",
@@ -165,7 +166,10 @@
         "foodComposition": "food composition",
         "improvementOfPreviousDiseases": "improvement of previous diseases",
         "latestBMI": "latest BMI",
-        "actions": "actions"
+
+        "actions": "actions",
+        "view": "View",
+        "edit": "Delete"
     },
     "inviteAdd": {
         "title": "Invite to Add",

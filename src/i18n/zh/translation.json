@@ -43,6 +43,7 @@
     "submitSuccess": "{{form}} 提交成功",
     "pleaseFillProfile": "请先填写个人资料",
     "autoSave": "内容已自动保存",
+    "noData": "暂无数据",
     "tableColumn": {
         "id": "身份证",
         "name": "姓名",
@@ -165,7 +166,10 @@
         "foodComposition": "食物组成",
         "improvementOfPreviousDiseases": "既往疾病改善情况",
         "latestBMI": "最新BMI",
-        "actions": "操作"
+        "actions": "操作",
+        "view": "详情",
+        "edit": "编辑",
+        "delete": "删除"
     },
     "inviteAdd": {
         "title": "邀请填写",
@@ -182,7 +186,5 @@
         "shareLink":"分享链接",
         "copyLink":"复制链接",
         "invalidLink":"链接无效或过时"
-
-
     }
 }

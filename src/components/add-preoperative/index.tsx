@@ -1,6 +1,6 @@
 import { Button, Form } from "@heroui/react";
 import { motion } from "framer-motion";
-import { FC, FormEvent } from "react";
+import { FC, FormEvent, useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router";
 
@@ -11,23 +11,29 @@ import { FormItem } from "../form-item";
 import { AddPreoperativeConfig } from "./config";
 
 import { api } from "@/api";
+import { AutoSaveInterval } from "@/config";
 import { PreoperativeExaminationForStentRemovalNumberKeys } from "@/types/keys";
 import { PreoperativeExaminationForStentRemoval } from "@/types/table";
 import { logger } from "@/utils/alert";
 import { bmi } from "@/utils/cal";
-import { transformData } from "@/utils/table";
+import { FetchFormData, transformData } from "@/utils/table";
 
 interface AddPreoperativeProps {
     setFinishedTab?: () => void;
+    load?: () => Promise<void>;
     defaultValue?: PreoperativeExaminationForStentRemoval;
+    isDraft?: boolean;
 }
 
 export const AddPreoperative: FC<AddPreoperativeProps> = ({
     setFinishedTab,
+    load,
     defaultValue,
+    isDraft = false,
 }) => {
     const { t } = useTranslation();
     const { id } = useParams();
+    const timeRef = useRef<NodeJS.Timeout>(null);
 
     const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -45,8 +51,39 @@ export const AddPreoperative: FC<AddPreoperativeProps> = ({
             return;
         }
         await api.preoperative.upsert(transformedData, id);
+        await load?.();
         setFinishedTab?.();
     };
+
+    const autoSave = async () => {
+        const data = FetchFormData("preoperative-form") as Record<
+            string,
+            string
+        >;
+        const transformedData = transformData(
+            data,
+            PreoperativeExaminationForStentRemovalNumberKeys,
+        ) as PreoperativeExaminationForStentRemoval;
+        if (id === undefined) {
+            logger.danger(t("pleaseFillProfile"));
+            return;
+        }
+        await api.preoperative.draftUpsert(transformedData, id);
+        await load?.();
+        logger.success(t("autoSave"));
+    };
+
+    useEffect(() => {
+        if (timeRef.current === null && isDraft) {
+            timeRef.current = setInterval(() => {
+                autoSave();
+            }, AutoSaveInterval);
+        }
+        return () => {
+            if (timeRef.current !== null) clearInterval(timeRef.current);
+            timeRef.current = null;
+        };
+    }, [isDraft]);
 
     return (
         <motion.div
@@ -59,6 +96,7 @@ export const AddPreoperative: FC<AddPreoperativeProps> = ({
             <Form
                 className="space-y-4 flex-wrap flex-row gap-[5%]"
                 onSubmit={onSubmit}
+                id="preoperative-form"
             >
                 {AddHospitalizationConfig.map((item, index) => {
                     if ("translateKey" in item) {
