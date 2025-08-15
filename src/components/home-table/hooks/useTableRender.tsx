@@ -12,9 +12,11 @@ import { TFunction } from "i18next";
 import { Key, useMemo } from "react";
 import { useNavigate } from "react-router";
 
+import { api } from "@/api";
 import { VerticalDotsIcon } from "@/assets";
 import { Patient as DataType } from "@/types/table";
 import { sexColorMap } from "@/types/table-style";
+import { logger } from "@/utils/alert";
 
 export const useTableRenderer = (t: TFunction, language: string) => {
     const navigate = useNavigate();
@@ -100,6 +102,14 @@ export const useTableRenderer = (t: TFunction, language: string) => {
                                     <DropdownItem
                                         className="text-red-600"
                                         key="delete"
+                                        onClick={() => {
+                                            api.profile
+                                                .delete(user.id)
+                                                .then(() => {
+                                                    logger.success("删除成功");
+                                                    navigate(0);
+                                                });
+                                        }}
                                     >
                                         {t("tableColumn.delete")}
                                     </DropdownItem>

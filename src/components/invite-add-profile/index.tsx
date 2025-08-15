@@ -1,8 +1,7 @@
 import { Button, Form } from "@heroui/react";
 import { motion } from "framer-motion";
-import { FC, FormEvent, useEffect, useState } from "react";
+import { FC, FormEvent } from "react";
 import { useTranslation } from "react-i18next";
-import { useNavigate, useParams } from "react-router";
 
 import { DividerWithTile } from "../divider";
 import { FormItem } from "../form-item";

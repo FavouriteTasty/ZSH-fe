@@ -1,12 +1,4 @@
-import {
-    Button,
-    Card,
-    CardBody,
-    CircularProgress,
-    Input,
-    Tab,
-    Tabs,
-} from "@heroui/react";
+import { Card, CardBody, CircularProgress, Tab, Tabs } from "@heroui/react";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -137,6 +129,7 @@ export default function InviteAddPage() {
                                         }),
                                     );
                                     handleProfile();
+                                    navigate(0);
                                 }}
                                 defaultValue={defaultUserProfile}
                                 id={curUserProfile.id}
@@ -178,8 +171,11 @@ export default function InviteAddPage() {
                                             form: t("history"),
                                         }),
                                     );
+                                    handleHistory();
+                                    navigate(0);
                                 }}
                                 defaultValue={defaultMedicalHistory}
+                                inviteId={curUserProfile.id}
                             />
                         </CardBody>
                     </Card>

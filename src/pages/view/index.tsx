@@ -61,6 +61,8 @@ export const View = () => {
     return (
         <div className="w-full px-9">
             <Introduction userProfile={userProfile} className="px-2 mb-4" />
+            {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
+            {/* @ts-expect-error */}
             <Accordion variant="shadow">
                 <AccordionItem
                     key="view-accordion-history"

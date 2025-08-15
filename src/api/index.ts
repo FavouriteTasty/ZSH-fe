@@ -17,6 +17,7 @@ const profile = {
     upsert: (data: UserProfile) => instance.post("/profile/upsert", { data }),
     get: (id: string): Promise<UserProfile> =>
         instance.get(`/profile/get/${id}`),
+    delete: (id: string) => instance.delete(`/profile/delete/${id}`),
 };
 
 const history = {

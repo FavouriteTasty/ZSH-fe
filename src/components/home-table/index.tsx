@@ -15,7 +15,6 @@ import {
     DropdownItem,
     Pagination,
 } from "@heroui/react";
-import { tr } from "framer-motion/client";
 import {
     ChangeEvent,
     useCallback,
