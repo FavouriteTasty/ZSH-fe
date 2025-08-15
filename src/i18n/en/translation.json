@@ -8,12 +8,13 @@
         "passwordError": "Please enter a valid password",
         "submit": "Submit"
     },
+    "loading":"Loading ...",
     "logout": "Log Out",
     "language": "Language",
     "male": "male",
     "female": "female",
     "married": "married",
-    "unmarried": "unmarried", 
+    "unmarried": "unmarried",
     "han": "Han Chinese",
     "china": "China",
     "columns": "Columns",
@@ -60,7 +61,6 @@
         "relation": "relation",
         "contactPhone": "contact phone",
         "avatar": "avatar",
-
         "pastHistory": "past history",
         "surgeryHistory": "surgery history",
         "allergicHistory": "allergic history",
@@ -72,7 +72,6 @@
         "menstrualHistory": "menstrual history",
         "maritalHistory": "marital history",
         "familyHistory": "family history",
-
         "basic": "basic",
         "admissionTime": "admission time",
         "bodyTemperature": "body temperature",
@@ -149,7 +148,6 @@
         "eqVas": "EQ-VAS",
         "patientFrontPhoto": "patient front photo",
         "patientSidePhoto": "patient side photo",
-        
         "operationTime": "operation time",
         "stentManufacturers": "stent manufacturers",
         "dateOfSurgery": "date of surgery",
@@ -161,19 +159,32 @@
         "fastingDuration": "fasting duration",
         "discomfortComplaint": "discomfort complaint",
         "dischargeTime": "discharge time",
-        
         "sweetsIntake": "sweets intake",
         "emotionalEatingFrequency": "emotional eating frequency",
         "foodServings": "food servings",
         "physicalActivityStatus": "physical activity status",
         "foodComposition": "food composition",
-
         "improvementOfPreviousDiseases": "improvement of previous diseases",
-
         "latestBMI": "latest BMI",
-        
+
         "actions": "actions",
         "view": "View",
         "edit": "Delete"
+    },
+    "inviteAdd": {
+        "title": "Invite to Add",
+        "patientInfo":"Patient Information",
+        "patientName": "Patient Name",
+        "patientID": "Patient ID",
+        "patientNameErrorMsg": "Please enter a valid patient name",
+        "patientIDErrorMsg": "Please enter a valid patient ID" ,
+        "patientNamePlaceholder": "Enter patient name",
+        "patientIDPlaceholder": "Enter patient ID",
+        "submit":"Generate Link",
+        "reset":"Reset",
+        "close":"Close",
+        "shareLink":"Share Link",
+        "copyLink":"Cope Link",
+        "invalidLink":"The link is invalid"
     }
 }

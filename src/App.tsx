@@ -2,6 +2,7 @@ import { Navigate, Route, Routes } from "react-router";
 
 import { AddPage } from "./pages/add";
 import { Home } from "./pages/home";
+import InviteAddPage from "./pages/inviteadd";
 import { Layout } from "./pages/layout";
 import { Login } from "./pages/login";
 import "@/i18n/config";
@@ -18,6 +19,7 @@ function App() {
                 <Route path="add" element={<AddPage />} />
                 <Route path="view/:id" element={<View />} />
                 <Route path="add/:id" element={<AddPage />} />
+                <Route path="invite-add/:uuid" element={<InviteAddPage />} />
             </Route>
         </Routes>
     );

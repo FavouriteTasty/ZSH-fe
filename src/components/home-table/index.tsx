@@ -15,6 +15,7 @@ import {
     DropdownItem,
     Pagination,
 } from "@heroui/react";
+import { tr } from "framer-motion/client";
 import {
     ChangeEvent,
     useCallback,
@@ -26,6 +27,7 @@ import {
 import { useTranslation } from "react-i18next";
 import { useLocation } from "react-router";
 
+import InviteAddAlert from "../invite-add-alert";
 import { useTableRenderer } from "./hooks/useTableRender";
 
 import { api } from "@/api";
@@ -217,6 +219,13 @@ export const HomeTable: FC = () => {
                         >
                             {t("addNew")}
                         </Button>
+                        <Button
+                            color="primary"
+                            endContent={<PlusIcon />}
+                            onPress={() => setIsOpen(true)}
+                        >
+                            {t("inviteAdd.title")}
+                        </Button>
                     </div>
                 </div>
                 <div className="flex justify-between items-center">
@@ -282,41 +291,54 @@ export const HomeTable: FC = () => {
         );
     }, [patients.length, page, pages, hasSearchFilter, i18n.language]);
 
+    // Invite User To Add
+    const [isOpen, setIsOpen] = useState(false);
+
     return (
-        <Table
-            isHeaderSticky
-            aria-label="Example table with custom cells, pagination and sorting"
-            bottomContent={bottomContent}
-            bottomContentPlacement="outside"
-            classNames={{
-                wrapper: "max-h-[100%]",
-            }}
-            sortDescriptor={sortDescriptor}
-            topContent={topContent}
-            topContentPlacement="outside"
-            onSortChange={setSortDescriptor}
-            key={`home-table-${i18n.language}`}
-        >
-            <TableHeader columns={headerColumns}>
-                {(column) => (
-                    <TableColumn
-                        key={column.uid}
-                        align={column.uid === "actions" ? "center" : "start"}
-                        allowsSorting={column.sortable}
-                    >
-                        {capitalize(t(`tableColumn.${column.uid}`))}
-                    </TableColumn>
-                )}
-            </TableHeader>
-            <TableBody emptyContent={t("noPatientsFound")} items={patients}>
-                {(item) => (
-                    <TableRow key={item.id}>
-                        {(columnKey) => (
-                            <TableCell>{renderCell(item, columnKey)}</TableCell>
-                        )}
-                    </TableRow>
-                )}
-            </TableBody>
-        </Table>
+        <>
+            <Table
+                isHeaderSticky
+                aria-label="Example table with custom cells, pagination and sorting"
+                bottomContent={bottomContent}
+                bottomContentPlacement="outside"
+                classNames={{
+                    wrapper: "max-h-[100%]",
+                }}
+                sortDescriptor={sortDescriptor}
+                topContent={topContent}
+                topContentPlacement="outside"
+                onSortChange={setSortDescriptor}
+                key={`home-table-${i18n.language}`}
+            >
+                <TableHeader columns={headerColumns}>
+                    {(column) => (
+                        <TableColumn
+                            key={column.uid}
+                            align={
+                                column.uid === "actions" ? "center" : "start"
+                            }
+                            allowsSorting={column.sortable}
+                        >
+                            {capitalize(t(`tableColumn.${column.uid}`))}
+                        </TableColumn>
+                    )}
+                </TableHeader>
+                <TableBody emptyContent={t("noPatientsFound")} items={patients}>
+                    {(item) => (
+                        <TableRow key={item.id}>
+                            {(columnKey) => (
+                                <TableCell>
+                                    {renderCell(item, columnKey)}
+                                </TableCell>
+                            )}
+                        </TableRow>
+                    )}
+                </TableBody>
+            </Table>
+            <InviteAddAlert
+                isOpen={isOpen}
+                onClose={() => setIsOpen(false)}
+            ></InviteAddAlert>
+        </>
     );
 };
