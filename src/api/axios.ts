@@ -20,6 +20,7 @@ let refreshing = false;
 instance.interceptors.response.use(undefined, async (error) => {
     const original = error.config;
     const refreshToken = $User.get().refreshToken;
+    let at = undefined;
     if (error.response?.status === 401 && !original._retry && refreshToken) {
         original._retry = true;
         if (!refreshing) {
@@ -34,13 +35,31 @@ instance.interceptors.response.use(undefined, async (error) => {
                     draft.accessToken = res.data.accessToken;
                     draft.refreshToken = res.data.refreshToken;
                 });
+                at = res.data.accessToken;
+                localStorage.setItem("accessToken", res.data.accessToken);
+                localStorage.setItem("refreshToken", res.data.refreshToken);
             } finally {
                 refreshing = false;
             }
         }
-        original.headers.Authorization = `Bearer ${$User.get().accessToken}`;
+        if (at === undefined) {
+            $User.update("expire", (draft) => {
+                draft.accessToken = undefined;
+                draft.refreshToken = undefined;
+                draft.login = false;
+            });
+            return Promise.reject(error);
+        }
+        original.headers.Authorization = `Bearer ${at}`;
+
         return instance(original);
     }
+    $User.update("expire", (draft) => {
+        draft.accessToken = undefined;
+        draft.refreshToken = undefined;
+        draft.login = false;
+    });
+
     return Promise.reject(error);
 });
 

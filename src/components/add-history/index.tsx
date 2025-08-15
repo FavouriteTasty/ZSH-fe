@@ -14,10 +14,11 @@ import { capitalizeUpper } from "@/utils/string";
 interface AddHistoryProps {
     setFinishedTab?: () => void;
     defaultValue?: MedicalHistory;
+    inviteId?: string;
 }
 
 export const AddHistory: FC<AddHistoryProps> = (props) => {
-    const { setFinishedTab, defaultValue } = props;
+    const { setFinishedTab, defaultValue, inviteId } = props;
     const { t } = useTranslation();
     const { id } = useParams();
     const [medicalHistory, setMedicalHistory] = useState<MedicalHistory>(
@@ -37,11 +38,11 @@ export const AddHistory: FC<AddHistoryProps> = (props) => {
     );
 
     const onSubmit = async () => {
-        if (id === undefined) {
+        if (id === undefined && inviteId === undefined) {
             logger.danger(t("pleaseFillProfile"));
             return;
         }
-        await api.history.upsert(medicalHistory, id);
+        await api.history.upsert(medicalHistory, (id ?? inviteId)!);
         setFinishedTab?.();
     };
 

@@ -28,15 +28,15 @@ export const InviteAddProfile: FC<InviteAddProfileProps> = ({
     name,
 }) => {
     const { t } = useTranslation();
-    const navigate = useNavigate();
 
     const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const data = Object.fromEntries(new FormData(e.currentTarget));
+        data.id = id;
+        data.name = name;
         const transformedData = transformData(data, UserProfileNumberKeys);
         await api.profile.upsert(transformedData as unknown as UserProfile);
-        navigate(`/add/${transformedData.id}`);
-        setFinishedTab?.();
+        setFinishedTab();
     };
 
     return (

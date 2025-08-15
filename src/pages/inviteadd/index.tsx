@@ -10,7 +10,7 @@ import {
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { twMerge } from "tailwind-merge";
 
 import { TabType } from "../add";
@@ -21,6 +21,7 @@ import { AddHistory } from "@/components/add-history";
 import { InviteAddProfile } from "@/components/invite-add-profile";
 import { MedicalHistory, UserProfile } from "@/types/table";
 import { logger } from "@/utils/alert";
+import { isEmptyMedicalHistory } from "@/utils/table";
 
 export default function InviteAddPage() {
     const [finishedTab, setFinishedTab] = useState<TabType[]>([]);
@@ -33,12 +34,39 @@ export default function InviteAddPage() {
         MedicalHistory | undefined
     >(undefined);
 
+    const navigate = useNavigate();
     // 获取用户id和name
     const { uuid } = useParams();
     const [curUserProfile, setCurUserProfile] = useState<{
         id: string;
         name: string;
     }>({ id: "", name: "" });
+    const id = curUserProfile.id;
+
+    const handleProfile = async () => {
+        if (id !== undefined && id !== "") {
+            const profile = await api.profile.get(id);
+            if (!finishedTab.includes("profile")) {
+                setFinishedTab((prev) => [...prev, "profile"]);
+            }
+            setDefaultUserProfile(profile);
+            navigate(0);
+        }
+    };
+
+    const handleHistory = async () => {
+        if (id !== undefined && id !== "") {
+            const history = await api.history.get(id);
+            if (
+                !isEmptyMedicalHistory(history) &&
+                !finishedTab.includes("history")
+            ) {
+                setFinishedTab((prev) => [...prev, "history"]);
+            }
+            setDefaultMedicalHistory(history);
+            navigate(0);
+        }
+    };
 
     useEffect(() => {
         const fetch = async (uuid: string) => {
@@ -108,6 +136,7 @@ export default function InviteAddPage() {
                                             form: t("profile"),
                                         }),
                                     );
+                                    handleProfile();
                                 }}
                                 defaultValue={defaultUserProfile}
                                 id={curUserProfile.id}

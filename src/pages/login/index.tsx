@@ -15,15 +15,8 @@ export const Login: FC = () => {
     const [disabled, setDisabled] = useState<boolean>(true);
     const [loading, setLoading] = useState<boolean>(false);
     const selected = useRef<boolean>(true);
-    const login = $User.use((state) => state.login);
 
     const navigate = useNavigate();
-
-    useEffect(() => {
-        if (login) {
-            navigate("/home");
-        }
-    }, [login]);
 
     const handleSubmit = async () => {
         setLoading(true);
