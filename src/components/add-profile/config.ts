@@ -13,7 +13,7 @@ export const AddProfileConfig: (FormItemProps | DividerWithTileProps)[] = [
         ],
     },
     { type: "text", objectKey: "ethnicity", defaultValue: "汉族" },
-    { type: "number", objectKey: "age" },
+    // { type: "number", objectKey: "age" },
     { type: "date", objectKey: "birth" },
     { type: "text", objectKey: "country", defaultValue: "中国" },
     { type: "text", objectKey: "job" },

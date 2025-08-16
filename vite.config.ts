@@ -12,7 +12,7 @@ export default defineConfig({
         tailwindcss(),
         svgr(),
         visualizer({
-            open: true,
+            open: false,
             gzipSize: true,
             brotliSize: true,
         }),
@@ -35,45 +35,54 @@ export default defineConfig({
         rollupOptions: {
             output: {
                 manualChunks: (id) => {
-                    if (
-                        id.includes("node_modules/react/index.js") ||
-                        id.includes("node_modules/react/jsx-runtime")
-                    ) {
-                        return "react-core";
+                    if (!id.includes("node_modules")) return;
+
+                    // 1) 把 React 的所有入口聚到同一包（含 cjs / jsx-runtime / jsx-dev-runtime）
+                    if (/[\\/]node_modules[\\/]react[\\/]/.test(id)) {
+                        return "react";
                     }
-                    if (id.includes("node_modules/react-dom/")) {
+
+                    // 2) react-dom 及其 scheduler 放一起，避免被拆散
+                    if (
+                        /[\\/]node_modules[\\/]react-dom[\\/]/.test(id) ||
+                        /[\\/]node_modules[\\/]scheduler[\\/]/.test(id)
+                    ) {
                         return "react-dom";
                     }
+
+                    // 3) 其它库再分
                     if (
-                        id.includes("react-i18next") ||
-                        id.includes("i18next")
+                        /[\\/]node_modules[\\/](react-i18next|i18next)[\\/]/.test(
+                            id,
+                        )
                     ) {
                         return "i18n";
                     }
                     if (
-                        id.includes("react-textarea-autosize") ||
-                        (id.includes("react-") &&
-                            id.includes("node_modules") &&
-                            !id.includes("react-dom") &&
-                            !id.includes("react-i18next"))
-                    ) {
-                        return "react-extensions";
-                    }
-                    if (
-                        id.includes("@react-aria") ||
-                        id.includes("@react-stately")
+                        /[\\/]node_modules[\\/](@react-aria|@react-stately)[\\/]/.test(
+                            id,
+                        )
                     ) {
                         return "react-aria";
                     }
-                    if (id.includes("@heroui") || id.includes("heroui")) {
+                    if (
+                        /[\\/]node_modules[\\/](@heroui|heroui)[\\/]/.test(id)
+                    ) {
                         return "heroui";
                     }
-                    if (id.includes("zustand")) {
+                    if (
+                        /[\\/]node_modules[\\/]react-textarea-autosize[\\/]/.test(
+                            id,
+                        )
+                    ) {
+                        return "react-extensions";
+                    }
+                    if (/[\\/]node_modules[\\/]zustand[\\/]/.test(id)) {
                         return "zustand";
                     }
-                    if (id.includes("node_modules")) {
-                        return "vendor";
-                    }
+
+                    // 兜底
+                    return "vendor";
                 },
             },
         },

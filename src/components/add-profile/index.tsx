@@ -12,6 +12,7 @@ import { DividerWithTile } from "../divider";
 import { api } from "@/api";
 import { UserProfileNumberKeys } from "@/types/keys";
 import { UserProfile } from "@/types/table";
+import { calculateAge } from "@/utils/cal";
 import { transformData } from "@/utils/table";
 
 interface AddProfileProps {
@@ -29,7 +30,11 @@ export const AddProfile: FC<AddProfileProps> = ({
     const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const data = Object.fromEntries(new FormData(e.currentTarget));
-        const transformedData = transformData(data, UserProfileNumberKeys);
+        const transformedData = transformData(
+            data,
+            UserProfileNumberKeys,
+        ) as UserProfile;
+        transformedData.age = calculateAge(transformedData.birth);
         await api.profile.upsert(transformedData as unknown as UserProfile);
         navigate(`/add/${transformedData.id}`);
         setFinishedTab?.();
