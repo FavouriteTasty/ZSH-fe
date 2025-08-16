@@ -11,6 +11,7 @@ import { makeInviteAddProfileConfig } from "../add-profile/config";
 import { api } from "@/api";
 import { UserProfileNumberKeys } from "@/types/keys";
 import { UserProfile } from "@/types/table";
+import { calculateAge } from "@/utils/cal";
 import { transformData } from "@/utils/table";
 
 interface InviteAddProfileProps {
@@ -33,7 +34,13 @@ export const InviteAddProfile: FC<InviteAddProfileProps> = ({
         const data = Object.fromEntries(new FormData(e.currentTarget));
         data.id = id;
         data.name = name;
-        const transformedData = transformData(data, UserProfileNumberKeys);
+        const transformedData = transformData(
+            data,
+            UserProfileNumberKeys,
+        ) as UserProfile;
+        if (transformedData.birth) {
+            transformedData.age = calculateAge(transformedData.birth);
+        }
         await api.profile.upsert(transformedData as unknown as UserProfile);
         setFinishedTab();
     };
