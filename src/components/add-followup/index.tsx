@@ -15,7 +15,7 @@ import { FollowupNumberKeys } from "@/types/keys";
 import { Followup } from "@/types/table";
 import { logger } from "@/utils/alert";
 import { bmi } from "@/utils/cal";
-import { FetchFormData, transformData } from "@/utils/table";
+import { transformData } from "@/utils/table";
 
 interface AddFollowUpProps {
     setFinishedTab?: () => void;
@@ -48,14 +48,14 @@ export const AddFollowUp: FC<AddFollowUpProps> = ({
         setFinishedTab?.();
     };
 
-    const autoSave = () => {
-        const data = FetchFormData("followup-form") as Record<string, string>;
-        const transformedData = transformData(
-            data,
-            FollowupNumberKeys,
-        ) as Followup;
-        console.log(transformedData);
-    };
+    // const autoSave = () => {
+    //     const data = FetchFormData("followup-form") as Record<string, string>;
+    //     const transformedData = transformData(
+    //         data,
+    //         FollowupNumberKeys,
+    //     ) as Followup;
+    //     console.log(transformedData);
+    // };
 
     return (
         <motion.div
@@ -88,14 +88,25 @@ export const AddFollowUp: FC<AddFollowUpProps> = ({
                                         item.objectKey as keyof Followup
                                     ] ?? item.defaultValue
                                 }
-                                onBlur={autoSave}
                             />
                         );
                     }
                 })}
 
                 <AvatarUploader translateKey="tableColumn.patientFrontPhoto" />
+                <FormItem
+                    defaultValue={defaultValue?.patientFrontPhoto}
+                    type="text"
+                    objectKey="patientFrontPhoto"
+                    isRequired={false}
+                />
                 <AvatarUploader translateKey="tableColumn.patientSidePhoto" />
+                <FormItem
+                    defaultValue={defaultValue?.patientSidePhoto}
+                    type="text"
+                    objectKey="patientSidePhoto"
+                    isRequired={false}
+                />
 
                 {AddFollowUpConfig.map((item, index) => {
                     if ("translateKey" in item) {
@@ -115,7 +126,6 @@ export const AddFollowUp: FC<AddFollowUpProps> = ({
                                         item.objectKey as keyof Followup
                                     ] ?? item.defaultValue
                                 }
-                                onBlur={autoSave}
                             />
                         );
                     }

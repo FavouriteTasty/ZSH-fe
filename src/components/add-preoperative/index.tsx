@@ -122,7 +122,19 @@ export const AddPreoperative: FC<AddPreoperativeProps> = ({
                 })}
 
                 <AvatarUploader translateKey="tableColumn.patientFrontPhoto" />
+                <FormItem
+                    defaultValue={defaultValue?.patientFrontPhoto}
+                    type="text"
+                    objectKey="patientFrontPhoto"
+                    isRequired={false}
+                />
                 <AvatarUploader translateKey="tableColumn.patientSidePhoto" />
+                <FormItem
+                    defaultValue={defaultValue?.patientSidePhoto}
+                    type="text"
+                    objectKey="patientSidePhoto"
+                    isRequired={false}
+                />
 
                 {AddPreoperativeConfig.map((item, index) => {
                     if ("translateKey" in item) {

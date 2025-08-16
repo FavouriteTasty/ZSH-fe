@@ -38,7 +38,6 @@ export const FormItem: FC<FormItemProps> = (props) => {
     } = props;
     const { t } = useTranslation();
     if (type === "text") {
-        console.log("一个text input", objectKey, isDisabled, defaultValue);
         return (
             <Input
                 className="w-[45%] max-w-[384px]"
@@ -103,7 +102,29 @@ export const FormItem: FC<FormItemProps> = (props) => {
     }
 
     if (type === "avatar") {
-        return <AvatarUploader translateKey={`tableColumn.${objectKey}`} />;
+        return (
+            <>
+                <AvatarUploader translateKey={`tableColumn.${objectKey}`} />
+                <Input
+                    className="w-[45%] max-w-[384px]"
+                    isRequired={isRequired}
+                    errorMessage={
+                        t("pleaseEnterValid") + t(`tableColumn.${objectKey}`)
+                    }
+                    label={capitalize(t(`tableColumn.${objectKey}`), false)}
+                    labelPlacement="outside"
+                    name={objectKey}
+                    placeholder={
+                        t("pleaseEnter") + t(`tableColumn.${objectKey}`)
+                    }
+                    endContent={endContent}
+                    defaultValue={defaultValue as string}
+                    type={type}
+                    onBlur={onBlur}
+                    isDisabled={isDisabled}
+                />
+            </>
+        );
     }
 
     if (type === "textarea") {
