@@ -12,11 +12,22 @@ export const AddProfileConfig: (FormItemProps | DividerWithTileProps)[] = [
             { key: "female", value: "female" },
         ],
     },
-    { type: "text", objectKey: "ethnicity", defaultValue: "汉族" },
+    {
+        type: "text",
+        objectKey: "ethnicity",
+        defaultValue: "汉族",
+        isRequired: false,
+    },
     // { type: "number", objectKey: "age" },
-    { type: "date", objectKey: "birth" },
-    { type: "text", objectKey: "country", defaultValue: "中国" },
-    { type: "text", objectKey: "job" },
+    { type: "date", objectKey: "birth", isRequired: false },
+
+    {
+        type: "text",
+        objectKey: "country",
+        defaultValue: "中国",
+        isRequired: false,
+    },
+    { type: "text", objectKey: "job", isRequired: false },
     {
         type: "select",
         objectKey: "maritalStatus",
@@ -24,13 +35,14 @@ export const AddProfileConfig: (FormItemProps | DividerWithTileProps)[] = [
             { key: "unmarried", value: "unmarried" },
             { key: "married", value: "married" },
         ],
+        isRequired: false,
     },
-    { type: "text", objectKey: "nativePlace" },
-    { type: "text", objectKey: "address" },
-    { type: "text", objectKey: "phone" },
-    { type: "text", objectKey: "contact" },
-    { type: "text", objectKey: "relation" },
-    { type: "text", objectKey: "contactPhone" },
+    { type: "text", objectKey: "nativePlace", isRequired: false },
+    { type: "text", objectKey: "address", isRequired: false },
+    { type: "text", objectKey: "phone", isRequired: false },
+    { type: "text", objectKey: "contact", isRequired: false },
+    { type: "text", objectKey: "relation", isRequired: false },
+    { type: "text", objectKey: "contactPhone", isRequired: false },
 ];
 
 export const InviteAddProfileConfig: (FormItemProps | DividerWithTileProps)[] =

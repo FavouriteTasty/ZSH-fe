@@ -34,7 +34,9 @@ export const AddProfile: FC<AddProfileProps> = ({
             data,
             UserProfileNumberKeys,
         ) as UserProfile;
-        transformedData.age = calculateAge(transformedData.birth);
+        if (!transformedData.birth) {
+            transformedData.age = calculateAge(transformedData.birth);
+        }
         await api.profile.upsert(transformedData as unknown as UserProfile);
         navigate(`/add/${transformedData.id}`);
         setFinishedTab?.();
