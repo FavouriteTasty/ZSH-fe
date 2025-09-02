@@ -6,7 +6,14 @@ import { AvatarUploader } from "../add-profile/components/upload-avatar";
 import { capitalize } from "@/utils/string";
 
 export interface ViewItemProps {
-    type: "text" | "select" | "number" | "date" | "avatar" | "textarea";
+    type:
+        | "text"
+        | "select"
+        | "number"
+        | "date"
+        | "avatar"
+        | "textarea"
+        | "autocomplete";
     objectKey: string;
     endContent?: ReactNode;
     value: string | number;
@@ -21,7 +28,8 @@ export const ViewItem: FC<ViewItemProps> = (props) => {
         type === "text" ||
         type === "number" ||
         type === "date" ||
-        type === "textarea"
+        type === "textarea" ||
+        type === "autocomplete"
     ) {
         return (
             <div className={className}>
