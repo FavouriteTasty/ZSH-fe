@@ -1,4 +1,6 @@
 import {
+    Autocomplete,
+    AutocompleteItem,
     DatePicker,
     Input,
     NumberInput,
@@ -15,13 +17,21 @@ import { string2calenderDate } from "@/utils/date";
 import { capitalize } from "@/utils/string";
 
 export interface FormItemProps {
-    type: "text" | "select" | "number" | "date" | "avatar" | "textarea";
+    type:
+        | "text"
+        | "select"
+        | "number"
+        | "date"
+        | "avatar"
+        | "textarea"
+        | "autocomplete";
     objectKey: string;
     pairs?: { key: string; value: string }[];
     endContent?: ReactNode;
     isRequired?: boolean;
     defaultValue?: string | number;
     isDisabled?: boolean;
+    autoCompleteItems?: { key: string; label: string }[];
     onBlur?: () => void;
 }
 
@@ -34,6 +44,7 @@ export const FormItem: FC<FormItemProps> = (props) => {
         isRequired = true,
         defaultValue,
         isDisabled = false,
+        autoCompleteItems,
         onBlur,
     } = props;
     const { t } = useTranslation();
@@ -144,6 +155,31 @@ export const FormItem: FC<FormItemProps> = (props) => {
                 onBlur={onBlur}
                 isDisabled={isDisabled}
             />
+        );
+    }
+
+    if (type === "autocomplete") {
+        return (
+            <Autocomplete
+                isRequired={isRequired}
+                allowsCustomValue
+                className="max-w-xs"
+                labelPlacement="outside"
+                label={capitalize(t(`tableColumn.${objectKey}`), false)}
+                defaultSelectedKey={defaultValue as string}
+                errorMessage={
+                    t("pleaseEnterValid") + t(`tableColumn.${objectKey}`)
+                }
+                defaultItems={autoCompleteItems}
+                placeholder={t("pleaseEnter") + t(`tableColumn.${objectKey}`)}
+                name={objectKey}
+            >
+                {(item) => (
+                    <AutocompleteItem key={item.key}>
+                        {item.label}
+                    </AutocompleteItem>
+                )}
+            </Autocomplete>
         );
     }
 

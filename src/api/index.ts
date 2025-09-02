@@ -122,6 +122,11 @@ const login = {
     }> => instance.post("/auth/login", { data }),
 };
 
+const excel = {
+    period: (): Promise<{ periodList: string[] }> =>
+        instance.get("/excel/period"),
+};
+
 export const api = {
     profile,
     history,
@@ -133,4 +138,5 @@ export const api = {
     table,
     inviteAdd,
     login,
+    excel,
 };

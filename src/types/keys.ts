@@ -266,6 +266,7 @@ export const StentRemovalNumberKeys: string[] = StentPlacementNumberKeys;
 
 export const FollowUpExtraKeys: (keyof FollowupExtra)[] = [
     "improvementOfPreviousDiseases",
+    "period",
 ] as const;
 
 export const FollowupKeys = [

@@ -175,7 +175,8 @@
 
         "actions": "actions",
         "view": "View",
-        "edit": "Delete"
+        "edit": "Delete",
+        "period": "Follow up period"
     },
     "inviteAdd": {
         "title": "Invite to Add",
@@ -194,5 +195,6 @@
         "invalidLink":"The link is invalid"
     },
     "NoLoginRequired": "No login required for {{num}} days",
-    "LoginSuccess": "Login success"
+    "LoginSuccess": "Login success",
+    "SelectExportPeriod": "Select Export Period"
 }

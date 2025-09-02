@@ -1,13 +1,13 @@
 import { Button, Form } from "@heroui/react";
 import { motion } from "framer-motion";
-import { FC, FormEvent } from "react";
+import { FC, FormEvent, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router";
 
 import { AddHospitalizationConfig } from "../add-hospitalization/config";
 import { AvatarUploader } from "../add-profile/components/upload-avatar";
-import { DividerWithTile } from "../divider";
-import { FormItem } from "../form-item";
+import { DividerWithTile, DividerWithTileProps } from "../divider";
+import { FormItem, FormItemProps } from "../form-item";
 import { AddFollowUpConfig } from "./config";
 
 import { api } from "@/api";
@@ -28,6 +28,28 @@ export const AddFollowUp: FC<AddFollowUpProps> = ({
 }) => {
     const { t } = useTranslation();
     const { id } = useParams();
+    const [periodList, setPeriodList] = useState<string[]>([]);
+    const config: (FormItemProps | DividerWithTileProps)[] = [
+        AddHospitalizationConfig[0],
+        {
+            type: "autocomplete",
+            objectKey: "period",
+            autoCompleteItems: periodList.map((item) => ({
+                key: item,
+                label: item,
+            })),
+        },
+        ...AddHospitalizationConfig.slice(1),
+    ];
+
+    const load = async () => {
+        const res = await api.excel.period();
+        setPeriodList(res.periodList);
+    };
+
+    useEffect(() => {
+        load();
+    }, []);
 
     const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -44,6 +66,7 @@ export const AddFollowUp: FC<AddFollowUpProps> = ({
             logger.danger(t("pleaseFillProfile"));
             return;
         }
+
         await api.followup.upsert(transformedData, id);
         setFinishedTab?.();
     };
@@ -70,7 +93,7 @@ export const AddFollowUp: FC<AddFollowUpProps> = ({
                 onSubmit={onSubmit}
                 id={defaultValue === undefined ? "followup-form" : undefined}
             >
-                {AddHospitalizationConfig.map((item, index) => {
+                {config.map((item, index) => {
                     if ("translateKey" in item) {
                         return (
                             <DividerWithTile
