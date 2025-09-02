@@ -12,6 +12,8 @@ import {
     Followup,
     Patient,
 } from "@/types/table";
+import { logger } from "@/utils/alert";
+import { getFilenameFromContentDisposition } from "@/utils/string";
 
 const profile = {
     upsert: (data: UserProfile) => instance.post("/profile/upsert", { data }),
@@ -125,6 +127,46 @@ const login = {
 const excel = {
     period: (): Promise<{ periodList: string[] }> =>
         instance.get("/excel/period"),
+    download: async (periods: string[]): Promise<void> => {
+        try {
+            const response = await instance.post(
+                "/excel",
+                {
+                    data: periods,
+                },
+                { responseType: "blob" },
+            );
+            console.log("response", response);
+
+            const contentDisposition = response.headers["content-disposition"];
+            let filename = "download.xlsx";
+            if (contentDisposition) {
+                filename =
+                    getFilenameFromContentDisposition(contentDisposition) ??
+                    "download.xlsx";
+            }
+
+            const blob = new Blob([response.data], {
+                type: response.headers["content-type"],
+            });
+
+            const url = window.URL.createObjectURL(blob);
+
+            const link = document.createElement("a");
+            link.href = url;
+            link.setAttribute("download", filename);
+            link.style.display = "none";
+
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+
+            window.URL.revokeObjectURL(url);
+        } catch (error) {
+            console.error("下载 Excel 文件时出错:", error);
+            logger.danger(`文件下载失败：${error}`);
+        }
+    },
 };
 
 export const api = {

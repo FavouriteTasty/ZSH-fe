@@ -20,9 +20,14 @@ export const ExportExcel: FC<{ isOpen: boolean; onClose: () => void }> = (
     const { t } = useTranslation();
     const [periodList, setPeriodList] = useState<string[]>([]);
     const selectedPeriods = useRef<string[]>([]);
+    const [loading, setLoading] = useState(false);
 
     const handleExportExcel = async (onClose: () => void) => {
         console.log("导出Excel", onClose, selectedPeriods.current);
+        setLoading(true);
+        await api.excel.download(selectedPeriods.current);
+        setLoading(false);
+        onClose();
     };
 
     const load = async () => {
@@ -69,6 +74,7 @@ export const ExportExcel: FC<{ isOpen: boolean; onClose: () => void }> = (
                                 color="danger"
                                 variant="light"
                                 onPress={onClose}
+                                isLoading={loading}
                             >
                                 {t("close")}
                             </Button>
@@ -77,6 +83,7 @@ export const ExportExcel: FC<{ isOpen: boolean; onClose: () => void }> = (
                                 onPress={() => {
                                     handleExportExcel(onClose);
                                 }}
+                                isLoading={loading}
                             >
                                 {t("confirm")}
                             </Button>
