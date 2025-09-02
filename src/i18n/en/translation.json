@@ -19,6 +19,12 @@
     "china": "China",
     "columns": "Columns",
     "addNew": "Add New",
+    "exportExcel": "Export Excel",
+    "exportExcelConfirm": "Are you sure you want to export Excel?",
+    "exportExcelSuccess": "Export success",
+    "close": "Close",
+    "confirm": "Confirm",
+
     "rowsPerPage": "Rows per page:",
     "totalPatients": "Total {{count}} patients",
     "tableSearchPlaceholder": "Search by name...",

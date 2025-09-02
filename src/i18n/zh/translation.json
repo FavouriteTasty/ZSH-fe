@@ -19,6 +19,13 @@
     "china": "中国",
     "columns": "显示列",
     "addNew": "新增",
+    "exportExcel": "导出Excel",
+    "exportExcelConfirm": "确认导出Excel吗？",
+    "exportExcelSuccess": "导出成功",
+    "close": "关闭",
+    "confirm": "确认",
+
+
     "rowsPerPage": "每页行数:",
     "totalPatients": "共 {{count}} 位患者",
     "tableSearchPlaceholder": "按名称搜索...",

@@ -27,11 +27,12 @@ import { useTranslation } from "react-i18next";
 import { useLocation } from "react-router";
 
 import InviteAddAlert from "../invite-add-alert";
+import { ExportExcel } from "./components/export-excel";
 import { useTableRenderer } from "./hooks/useTableRender";
 
 import { api } from "@/api";
 import { tablePatientToPatient } from "@/api/type";
-import { ChevronDownIcon, PlusIcon, SearchIcon } from "@/assets";
+import { ChevronDownIcon, ExportIcon, PlusIcon, SearchIcon } from "@/assets";
 import { userColumns } from "@/types/keys";
 import { Patient } from "@/types/table";
 import { capitalize } from "@/utils/string";
@@ -210,6 +211,16 @@ export const HomeTable: FC = () => {
                             </DropdownMenu>
                         </Dropdown>
                         <Button
+                            color="success"
+                            className="text-white"
+                            endContent={<ExportIcon />}
+                            onPress={() => {
+                                setExportExcelOpen(true);
+                            }}
+                        >
+                            {t("exportExcel")}
+                        </Button>
+                        <Button
                             color="primary"
                             endContent={<PlusIcon />}
                             onPress={() => {
@@ -292,6 +303,7 @@ export const HomeTable: FC = () => {
 
     // Invite User To Add
     const [isOpen, setIsOpen] = useState(false);
+    const [exportExcelOpen, setExportExcelOpen] = useState(false);
 
     return (
         <>
@@ -338,6 +350,10 @@ export const HomeTable: FC = () => {
                 isOpen={isOpen}
                 onClose={() => setIsOpen(false)}
             ></InviteAddAlert>
+            <ExportExcel
+                isOpen={exportExcelOpen}
+                onClose={() => setExportExcelOpen(false)}
+            ></ExportExcel>
         </>
     );
 };

@@ -4,6 +4,7 @@ import AddIcon from "./icon-add.svg?react";
 import { CameraIcon } from "./icon-camera";
 import CompleteIcon from "./icon-complete.svg?react";
 import DeleteIcon from "./icon-delete.svg?react";
+import ExportIcon from "./icon-export.svg?react";
 import InfoIcon from "./icon-info.svg?react";
 import InternationalIcon from "./icon-international.svg?react";
 
@@ -131,4 +132,5 @@ export {
     AddIcon,
     DeleteIcon,
     InfoIcon,
+    ExportIcon,
 };
