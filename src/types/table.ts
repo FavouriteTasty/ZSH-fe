@@ -130,7 +130,9 @@ export type Hospitalization5E5Q5LScale = {
 
 export type HospitalizationOther = {
     patientFrontPhoto: string;
+    patientFrontPhotoThumbnail: string;
     patientSidePhoto: string;
+    patientSidePhotoThumbnail: string;
 };
 
 export type Hospitalization = HospitalizationBasic &

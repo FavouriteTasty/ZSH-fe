@@ -5,7 +5,6 @@ import { useTranslation } from "react-i18next";
 import { useParams } from "react-router";
 
 import { AddHospitalizationConfig } from "../add-hospitalization/config";
-import { AvatarUploader } from "../add-profile/components/upload-avatar";
 import { DividerWithTile } from "../divider";
 import { FormItem } from "../form-item";
 import { AddPreoperativeConfig } from "./config";
@@ -120,21 +119,6 @@ export const AddPreoperative: FC<AddPreoperativeProps> = ({
                         );
                     }
                 })}
-
-                <AvatarUploader translateKey="tableColumn.patientFrontPhoto" />
-                <FormItem
-                    defaultValue={defaultValue?.patientFrontPhoto}
-                    type="text"
-                    objectKey="patientFrontPhoto"
-                    isRequired={false}
-                />
-                <AvatarUploader translateKey="tableColumn.patientSidePhoto" />
-                <FormItem
-                    defaultValue={defaultValue?.patientSidePhoto}
-                    type="text"
-                    objectKey="patientSidePhoto"
-                    isRequired={false}
-                />
 
                 {AddPreoperativeConfig.map((item, index) => {
                     if ("translateKey" in item) {

@@ -1,5 +1,5 @@
 import { Avatar } from "@heroui/react";
-import { ChangeEvent, FC, useRef, useState } from "react";
+import { ChangeEvent, FC, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { twMerge } from "tailwind-merge";
 
@@ -43,6 +43,10 @@ export const AvatarUploader: FC<AvatarUploaderProps> = ({
             console.error("Resize error:", err);
         }
     };
+
+    useEffect(() => {
+        setBase64String(defaultValue);
+    }, [defaultValue]);
 
     return (
         <div className="w-full h-full flex items-center">

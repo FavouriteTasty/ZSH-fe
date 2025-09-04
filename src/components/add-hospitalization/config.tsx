@@ -344,4 +344,22 @@ export const AddHospitalizationConfig: (
         type: "number",
         objectKey: "eqVas",
     },
+    {
+        type: "avatar",
+        objectKey: "patientFrontPhotoThumbnail",
+    },
+    {
+        type: "text",
+        objectKey: "patientFrontPhoto",
+        isRequired: false,
+    },
+    {
+        type: "avatar",
+        objectKey: "patientSidePhotoThumbnail",
+    },
+    {
+        type: "text",
+        objectKey: "patientSidePhoto",
+        isRequired: false,
+    },
 ];

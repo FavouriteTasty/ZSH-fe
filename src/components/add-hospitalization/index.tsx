@@ -7,7 +7,6 @@ import { useParams } from "react-router";
 import { DividerWithTile } from "../divider";
 import { FormItem } from "../form-item";
 import { AddHospitalizationConfig } from "./config";
-import { AvatarUploader } from "../add-profile/components/upload-avatar";
 
 import { api } from "@/api";
 import { AutoSaveInterval } from "@/config";
@@ -122,20 +121,6 @@ export const AddHospitalization: FC<AddHospitalizationProps> = ({
                     }
                 })}
 
-                <AvatarUploader translateKey="tableColumn.patientFrontPhoto" />
-                <FormItem
-                    defaultValue={defaultValue?.patientFrontPhoto}
-                    type="text"
-                    objectKey="patientFrontPhoto"
-                    isRequired={false}
-                />
-                <AvatarUploader translateKey="tableColumn.patientSidePhoto" />
-                <FormItem
-                    defaultValue={defaultValue?.patientSidePhoto}
-                    type="text"
-                    objectKey="patientSidePhoto"
-                    isRequired={false}
-                />
                 <div className="w-full flex justify-end">
                     <Button type="submit" variant="flat" color="primary">
                         {t("submit")}

@@ -5,7 +5,6 @@ import { useTranslation } from "react-i18next";
 import { useParams } from "react-router";
 
 import { AddHospitalizationConfig } from "../add-hospitalization/config";
-import { AvatarUploader } from "../add-profile/components/upload-avatar";
 import { DividerWithTile, DividerWithTileProps } from "../divider";
 import { FormItem, FormItemProps } from "../form-item";
 import { AddFollowUpConfig } from "./config";
@@ -115,21 +114,6 @@ export const AddFollowUp: FC<AddFollowUpProps> = ({
                         );
                     }
                 })}
-
-                <AvatarUploader translateKey="tableColumn.patientFrontPhoto" />
-                <FormItem
-                    defaultValue={defaultValue?.patientFrontPhoto}
-                    type="text"
-                    objectKey="patientFrontPhoto"
-                    isRequired={false}
-                />
-                <AvatarUploader translateKey="tableColumn.patientSidePhoto" />
-                <FormItem
-                    defaultValue={defaultValue?.patientSidePhoto}
-                    type="text"
-                    objectKey="patientSidePhoto"
-                    isRequired={false}
-                />
 
                 {AddFollowUpConfig.map((item, index) => {
                     if ("translateKey" in item) {

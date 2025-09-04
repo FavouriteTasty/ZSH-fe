@@ -187,7 +187,9 @@ export const Hospitalization5E5Q5LScaleNumberKeys: string[] =
 
 export const HospitalizationOtherKeys: (keyof HospitalizationOther)[] = [
     "patientFrontPhoto",
+    "patientFrontPhotoThumbnail",
     "patientSidePhoto",
+    "patientSidePhotoThumbnail",
 ] as const;
 
 export const HospitalizationKeys = [

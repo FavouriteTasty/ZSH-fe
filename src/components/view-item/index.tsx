@@ -37,8 +37,11 @@ export const ViewItem: FC<ViewItemProps> = (props) => {
                     {capitalize(t(`tableColumn.${objectKey}`), false)}
                 </div>
                 <div className="text-base font-medium">
-                    {capitalize(value.toString(), false)}
-                    {endContent}
+                    {capitalize(
+                        value === null ? t("noData") + " " : value.toString(),
+                        false,
+                    )}
+                    {value !== null && endContent}
                 </div>
             </div>
         );
