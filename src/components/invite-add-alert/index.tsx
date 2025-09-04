@@ -126,7 +126,7 @@ export default function InviteAddAlert({
                                         >
                                             {"message" in genRes
                                                 ? genRes.message
-                                                : `${window.location.hostname}:5173/invite-add/${genRes.link}`}
+                                                : `${window.location.hostname}/invite-add/${genRes.link}`}
                                         </Snippet>
                                     </div>
                                 )}
