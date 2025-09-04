@@ -98,7 +98,7 @@ export const View = () => {
                 {followups.map((followup) => (
                     <AccordionItem
                         key={`view-accordion-followup-${followup.admissionTime}`}
-                        title={`${t("followup")} ${followup.admissionTime}`}
+                        title={`${t("followup")} ${followup.period} ${followup.admissionTime}`}
                     >
                         <Followup hollowup={followup} />
                     </AccordionItem>
