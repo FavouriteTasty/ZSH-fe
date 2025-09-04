@@ -162,6 +162,7 @@
         "surgeryLocation": "surgery location",
         "descriptionOfSurgery": "description of surgery",
         "intraoperativePictures": "intraoperative pictures",
+        "intraoperativePicturesThumbnail": "intraoperative pictures thumbnail",
         "fastingDuration": "fasting duration",
         "discomfortComplaint": "discomfort complaint",
         "dischargeTime": "discharge time",
@@ -176,7 +177,9 @@
         "actions": "actions",
         "view": "View",
         "edit": "Delete",
-        "period": "Follow up period"
+        "period": "Follow up period",
+
+        "thumbnail": " Thumbnail"
     },
     "inviteAdd": {
         "title": "Invite to Add",

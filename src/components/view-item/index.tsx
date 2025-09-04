@@ -46,12 +46,21 @@ export const ViewItem: FC<ViewItemProps> = (props) => {
 
     if (type === "avatar") {
         return (
-            <AvatarUploader
-                translateKey={`tableColumn.${objectKey}`}
-                readonly
-                hideLabel
-                autoSize
-            />
+            <div className={className}>
+                <div className="text-xs text-gray-700">
+                    {capitalize(t(`tableColumn.${objectKey}`), false)}
+                </div>
+
+                <div className="w-1/3">
+                    <AvatarUploader
+                        translateKey={`tableColumn.${objectKey}`}
+                        readonly
+                        hideLabel
+                        autoSize
+                        defaultValue={value as string}
+                    />
+                </div>
+            </div>
         );
     }
     return <div></div>;

@@ -115,24 +115,10 @@ export const FormItem: FC<FormItemProps> = (props) => {
     if (type === "avatar") {
         return (
             <>
-                <AvatarUploader translateKey={`tableColumn.${objectKey}`} />
-                <Input
-                    className="w-[45%] max-w-[384px]"
-                    isRequired={isRequired}
-                    errorMessage={
-                        t("pleaseEnterValid") + t(`tableColumn.${objectKey}`)
-                    }
-                    label={capitalize(t(`tableColumn.${objectKey}`), false)}
-                    labelPlacement="outside"
-                    name={objectKey}
-                    placeholder={
-                        t("pleaseEnter") + t(`tableColumn.${objectKey}`)
-                    }
-                    endContent={endContent}
+                <AvatarUploader
+                    name={`${objectKey}`}
+                    translateKey={`tableColumn.${objectKey}`}
                     defaultValue={defaultValue as string}
-                    type={type}
-                    onBlur={onBlur}
-                    isDisabled={isDisabled}
                 />
             </>
         );

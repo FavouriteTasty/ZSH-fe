@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import { twMerge } from "tailwind-merge";
 
 import { CameraIcon } from "@/assets";
+import { resizeImageToBase64 } from "@/utils/image";
 import { capitalizeUpper } from "@/utils/string";
 
 export interface AvatarUploaderProps {
@@ -12,6 +13,8 @@ export interface AvatarUploaderProps {
     readonly?: boolean;
     hideLabel?: boolean;
     autoSize?: boolean;
+    name?: string;
+    defaultValue?: string;
 }
 
 export const AvatarUploader: FC<AvatarUploaderProps> = ({
@@ -20,27 +23,25 @@ export const AvatarUploader: FC<AvatarUploaderProps> = ({
     isRequired = false,
     hideLabel = false,
     autoSize = false,
+    name,
+    defaultValue = null,
 }) => {
     const { t } = useTranslation();
-    const [base64String, setBase64String] = useState<string | null>(null);
+    const [base64String, setBase64String] = useState<string | null>(
+        defaultValue,
+    );
     const inputRef = useRef<HTMLInputElement>(null);
 
-    const handleFileSelect = (e: ChangeEvent<HTMLInputElement>) => {
+    const handleFileSelect = async (e: ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
         if (!file) return;
 
-        const reader = new FileReader();
-
-        reader.onload = (event) => {
-            const result = event.target?.result as string;
-            setBase64String(result);
-        };
-
-        reader.onerror = (error) => {
-            console.error("Error reading file:", error);
-        };
-
-        reader.readAsDataURL(file);
+        try {
+            const resizedBase64 = await resizeImageToBase64(file, 10 * 1024);
+            setBase64String(resizedBase64);
+        } catch (err) {
+            console.error("Resize error:", err);
+        }
     };
 
     return (
@@ -48,6 +49,7 @@ export const AvatarUploader: FC<AvatarUploaderProps> = ({
             {!hideLabel && (
                 <div className="mr-4 text-sm">
                     {capitalizeUpper(t(translateKey ?? "tableColumn.avatar"))}
+
                     {isRequired && (
                         <span className="ml-0.5 text-red-500">*</span>
                     )}
@@ -82,6 +84,15 @@ export const AvatarUploader: FC<AvatarUploaderProps> = ({
                 style={{ display: "none" }}
                 ref={inputRef}
             />
+            {base64String && (
+                <input
+                    type="string"
+                    style={{ display: "none" }}
+                    name={name}
+                    value={base64String}
+                    readOnly
+                />
+            )}
         </div>
     );
 };

@@ -224,6 +224,7 @@ export const StentPlacementKeys: (keyof StentPlacement)[] = [
     "surgeryLocation",
     "descriptionOfSurgery",
     "intraoperativePictures",
+    "intraoperativePicturesThumbnail",
     "fastingDuration",
     "discomfortComplaint",
     "dischargeTime",

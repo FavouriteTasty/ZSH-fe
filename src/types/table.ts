@@ -153,6 +153,7 @@ export type StentPlacement = {
     surgeryLocation: string;
     descriptionOfSurgery: string;
     intraoperativePictures: string;
+    intraoperativePicturesThumbnail: string;
     fastingDuration: number;
     discomfortComplaint: string;
     dischargeTime: string;

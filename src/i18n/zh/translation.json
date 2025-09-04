@@ -163,6 +163,7 @@
         "surgeryLocation": "手术地点",
         "descriptionOfSurgery": "手术描述",
         "intraoperativePictures": "术中图片",
+        "intraoperativePicturesThumbnail": "术中图片缩略图",
         "fastingDuration": "禁食时长",
         "discomfortComplaint": "不适主诉",
         "dischargeTime": "出院时间",
@@ -177,7 +178,9 @@
         "view": "详情",
         "edit": "编辑",
         "delete": "删除",
-        "period": "随访周期"
+        "period": "随访周期",
+
+        "thumbnail": "缩略图"
     },
     "inviteAdd": {
         "title": "邀请填写",
