@@ -41,7 +41,8 @@ export type HospitalizationBasic = {
     bodyTemperature: number;
     heartRate: number;
     breathe: number;
-    bloodPressure: number;
+    bloodPressureDiastolic: number;
+    bloodPressureSystolic: number;
     height: number;
     weight: number;
     bmi: number;
