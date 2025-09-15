@@ -244,13 +244,12 @@ export const AddPage: FC = () => {
                                             "profile",
                                         ]);
                                     }
-                                    setSelected("history");
                                     logger.success(
                                         t("submitSuccess", {
                                             form: t("profile"),
                                         }),
                                     );
-                                    handleProfile();
+                                    window.location.reload();
                                 }}
                                 defaultValue={defaultUserProfile}
                             />
@@ -284,13 +283,12 @@ export const AddPage: FC = () => {
                                             "history",
                                         ]);
                                     }
-                                    setSelected("hospitalization");
                                     logger.success(
                                         t("submitSuccess", {
                                             form: t("history"),
                                         }),
                                     );
-                                    handleHistory();
+                                    window.location.reload();
                                 }}
                                 defaultValue={defaultMedicalHistory}
                             />
@@ -328,12 +326,12 @@ export const AddPage: FC = () => {
                                             "hospitalization",
                                         ]);
                                     }
-                                    setSelected("stentPlacement");
                                     logger.success(
                                         t("submitSuccess", {
                                             form: t("hospitalization"),
                                         }),
                                     );
+                                    window.location.reload();
                                 }}
                                 load={handleHospitalization}
                                 defaultValue={defaultHospitalization}
@@ -373,14 +371,12 @@ export const AddPage: FC = () => {
                                             "stentPlacement",
                                         ]);
                                     }
-                                    setSelected(
-                                        "preoperativeExaminationForStentRemoval",
-                                    );
                                     logger.success(
                                         t("submitSuccess", {
                                             form: t("stentPlacement"),
                                         }),
                                     );
+                                    window.location.reload();
                                 }}
                                 load={handleStentPlacement}
                                 defaultValue={defaultStentPlacement}
@@ -423,7 +419,6 @@ export const AddPage: FC = () => {
                                             "preoperativeExaminationForStentRemoval",
                                         ]);
                                     }
-                                    setSelected("stentRemoval");
                                     logger.success(
                                         t("submitSuccess", {
                                             form: t(
@@ -431,6 +426,7 @@ export const AddPage: FC = () => {
                                             ),
                                         }),
                                     );
+                                    window.location.reload();
                                 }}
                                 load={handlePreoperative}
                                 defaultValue={defaultPreoperative}
@@ -466,13 +462,12 @@ export const AddPage: FC = () => {
                                             "stentRemoval",
                                         ]);
                                     }
-                                    setSelected("followup");
                                     logger.success(
                                         t("submitSuccess", {
                                             form: t("stentRemoval"),
                                         }),
                                     );
-                                    handleStentRemoval();
+                                    window.location.reload();
                                 }}
                                 defaultValue={defaultStentRemoval}
                             />
@@ -502,13 +497,12 @@ export const AddPage: FC = () => {
                             <CardBody>
                                 <AddFollowUp
                                     setFinishedTab={() => {
-                                        setSelected("followup");
                                         logger.success(
                                             t("submitSuccess", {
                                                 form: t("followup"),
                                             }),
                                         );
-                                        handleFollowup();
+                                        window.location.reload();
                                     }}
                                     defaultValue={followup}
                                 />
@@ -537,13 +531,12 @@ export const AddPage: FC = () => {
                         <CardBody>
                             <AddFollowUp
                                 setFinishedTab={() => {
-                                    setSelected("followup");
                                     logger.success(
                                         t("submitSuccess", {
                                             form: t("followup"),
                                         }),
                                     );
-                                    handleFollowup();
+                                    window.location.reload();
                                 }}
                             />
                         </CardBody>
