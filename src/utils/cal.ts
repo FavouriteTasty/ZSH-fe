@@ -1,4 +1,5 @@
-export const bmi = (weight: number, height: number) => weight / height / height;
+export const bmi = (weight: number, height: number) =>
+    (10000 * weight) / height / height;
 
 export function calculateAge(birthDateString: string): number {
     const today = new Date();
